@@ -1,4 +1,11 @@
-# Information on the CORE dataset
+# Information on the datasets
+
+Content:
+* [CORE](core)
+* [FTD](ftd)
+* [GINCO](ginco)
+
+## CORE
 
 When preparing the dataset, we:
 * discarded instances with no texts (17)
@@ -6,7 +13,7 @@ When preparing the dataset, we:
 
 The dataset has 48,420 texts with 459 different main and sub-category label combinations. Regarding main labels, it has 35 different combinations and 297 different sub-category combinations.
 
-## CORE-main
+### CORE-main
 
 CORE-main is the CORE dataset, annotated with main categories only (9 categories). For these experiments, we discarded all text that are annotated with more than 1 main category (5686 texts).
 
@@ -36,7 +43,7 @@ CORE-main is the CORE dataset, annotated with main categories only (9 categories
 
 Total number of texts: 42734, distributed in train split (25640 texts), test and dev split (8547 each), stratified according to the label.
 
-## CORE-sub
+### CORE-sub
 
 CORE-sub is the CORE dataset, annotated with subcategories only. For the experiments, we:
 * discarded all texts that are annotated with multiple subcategories (3622)
@@ -97,3 +104,103 @@ The dataset contains 39,866 instances, annotated with 47 different labels.
 Categories (marked with a *) with less than 10 instances were discarded.
 
 The final dataset contains 39,849 texts, annotated with 44 labels. It was split into train (23,909), test and dev split (7970 each), stratified based on the labels.
+
+## FTD
+
+The dataset is available here: https://github.com/ssharoff/genre-keras/blob/master/en.csv
+
+To simplify experiments, we will perform single-label classification. The original dataset allows multiple-label annotation using a scale from 0 to 2 for each label. To simplify experiments, we will regard texts annotated with 2 at a certain category as belonging to this label.
+
+The distribution of the labels:
+
+| Labels         | Count | % (of single labels)|
+|--------------------|-------------|--------------|
+| **single labels**      | **1547**        |      |
+| A1 (argumentative) | 297         | 19,20%       |
+| A11 (personal)     | 79          | 5,11%        |
+| A12 (promotion)    | 259         | 16,74%       |
+| A14 (academic)     | 81          | 5,24%        |
+| A16 (information)  | 168         | 10,86%       |
+| A17 (review)       | 70          | 4,52%        |
+| A22 (non-text)     | 125         | 8,08%        |
+| A4 (fiction)       | 94          | 6,08%        |
+| A7 (instruction)   | 165         | 10,67%       |
+| A8 (news)          | 136         | 8,79%        |
+| A9 (legal)         | 73          | 4,72%        |
+| **multiple labels**    | **139**         |      |
+| **Grand Total**        | **1686**        |              |
+
+Although the FTD article mentions 12 principal categories and 6 optional, it seems that the final FTD dataset is annotated only with 11 categories, out of which one is an "unsuitable" category.
+
+For the experiments, we removed:
+* unsuitable texts, marked as "non-text" (125)
+* texts, annotated with multiple labels (139)
+* duplicated texts (7)
+
+The final number of instances, used for the experiments: 1415.
+
+Dataset that is used for the ML experiments is split into the train-dev-test split according to the label distribution.
+
+|        | train              | test               | dev                |
+|:-------|:-------------------|:-------------------|:-------------------|
+| count (texts) | 849                | 283                | 283                |
+
+
+The splits are located in the *data* folder.
+
+Dataset with all texts and labels: *extension-to-the-FTD/data/FTD-dataset-with-all-information.txt*
+
+Text length:
+
+|       |    length |
+|:------|----------:|
+| mean  |   1445.29 |
+| std   |   4987.81 |
+| min   |     31    |
+| 25%   |    224    |
+| 50%   |    495    |
+| 75%   |   1147    |
+| max   | 146922    |
+
+There are 215 texts that are longer than 2000 words, 71 of them are longer than 5000 words and 10 of them are longer than 20,000 words. The analysis shows that the corpus contains very big parts of literary works (e.g., __id__47-FictBalzacH_Goriot_Ia_EN.txt - 22.3k words) and very long UN documents (e.g., __id__214-un - 35.6k words).
+
+## GINCO
+
+We will use paragraphs of texts that are marked as "keep". As labels, we used the primary_level_2 label as in previous experiments.
+
+Text length:
+
+|       |   text_length |
+|:------|--------------:|
+| count |      1002     |
+| mean  |       362.159 |
+| std   |       483.747 |
+| min   |        12     |
+| 25%   |        98     |
+| 50%   |       208     |
+| 75%   |       418.75  |
+| max   |      4364     |
+
+|                            |   Count |   Percentage |
+|:---------------------------|--------:|-------------:|
+| Information/Explanation    |     130 |   0.129741   |
+| News/Reporting             |     115 |   0.11477    |
+| Promotion of a Product     |     115 |   0.11477    |
+| Opinion/Argumentation      |     114 |   0.113772   |
+| List of Summaries/Excerpts |     106 |   0.105788   |
+| Opinionated News           |      89 |   0.0888224  |
+| Forum                      |      52 |   0.0518962  |
+| Other                      |      42 |   0.0419162  |
+| Instruction                |      38 |   0.0379242  |
+| Promotion of Services      |      32 |   0.0319361  |
+| Invitation                 |      32 |   0.0319361  |
+| Promotion                  |      30 |   0.0299401  |
+| Review                     |      17 |   0.0169661  |
+| Announcement               |      17 |   0.0169661  |
+| Legal/Regulation           |      17 |   0.0169661  |
+| Correspondence             |      16 |   0.0159681  |
+| Call                       |      11 |   0.010978   |
+| Research Article           |       9 |   0.00898204 |
+| Interview                  |       8 |   0.00798403 |
+| Recipe                     |       6 |   0.00598802 |
+| Prose                      |       6 |   0.00598802 |
