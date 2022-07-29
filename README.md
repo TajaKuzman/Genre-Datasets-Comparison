@@ -107,3 +107,10 @@ The results on dev file: Macro f1: 0.759, Micro f1: 0.749
 The results on test file: Macro f1: 0.74, Micro f1: 0.739
 
 ![Confusion matrix for training and testing on FTD](results/Confusion-matrix-FTD-classifier-predictions-on-test.png)
+
+After the model was created, I applied it to the entire GINCO and CORE datasets and added FTD predictions to them, so that we will be able to analyze how the labels overlap.
+
+The datasets with FTD predictions:
+- FTD dev and test split: *results/testing-FTD-model-on-dev-sheet-with-predictions.csv, **results/FTD-classifier-predictions-on-test-sheet-with-predictions.csv*; 
+- the GINCO dataset with FTD predictions (I applied predictions to the Slovene and English (MT) text): *GINCO-and_MT-GINCO-mapped-GINCORE-FTD-on-en-and-sl-text.csv*
+- the CORE dataset with FTD predictions: *CORE-all-information-FTD-predicted.csv*
