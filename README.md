@@ -73,3 +73,14 @@ We will use the following datasets:
 * F-GINCORE: FTD + GINCO + CORE (joint schema)
 * X-GENRE: F-GINCORE + X-CORE (multilingual CORE datasets)
 * (EN-GINCO: English corpus, annotated with GINCO labels)
+
+### Hyperparameter search
+
+#### FTD
+I used the wandb library to search for the optimal values for the number of epochs ([10, 20, 30, 50, 70, 90]), learning rate ({"min": 1e-5, "max": 4e-4}) and train_batch size ([8, 16, 32]). It was shown that learning rate has the highest importance on the model performance while the train_batch_size has the lowest. I used the Bayesian search.
+
+The optimal values revealed to be: `"learning_rate": 0.000126, "num_train_epochs":50, "train_batch_size": 8`.
+
+Other two choices: `"learning_rate": 0.000091, "num_train_epochs": 30,"train_batch_size": 16`
+
+`"learning_rate": 0.000023, "num_train_epochs": 20, "train_batch_size": "value": 8`
