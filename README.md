@@ -77,10 +77,33 @@ We will use the following datasets:
 ### Hyperparameter search
 
 #### FTD
-I used the wandb library to search for the optimal values for the number of epochs ([10, 20, 30, 50, 70, 90]), learning rate ({"min": 1e-5, "max": 4e-4}) and train_batch size ([8, 16, 32]). It was shown that learning rate has the highest importance on the model performance while the train_batch_size has the lowest. I used the Bayesian search.
+I used the wandb library to evaluate the optimal number of epochs by performing evaluation during training. By analysing the training and evaluation loss, I opted for the epoch number = 10.
+The hyperparameters that I used:
 
-The optimal values revealed to be: `"learning_rate": 0.000126, "num_train_epochs":50, "train_batch_size": 8`.
+```
+            "overwrite_output_dir": True,
+            "num_train_epochs": 10,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            # Use these parameters if you want to evaluate during training
+            #"evaluate_during_training": True,
+            #"evaluate_during_training_steps": steps_per_epoch*10,
+            #"evaluate_during_training_verbose": True,
+            #"use_cached_eval_features": True,
+            #'reprocess_input_data': True,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'FTD-learning-manual-hyperparameter-search',
+            "silent": True,
+```
 
-Other two choices: `"learning_rate": 0.000091, "num_train_epochs": 30,"train_batch_size": 16`
+The trained model was saved to the Wandb repository and can be accessed for testing (see code *2.2-FTD-classifier-testing.ipynb*).
 
-`"learning_rate": 0.000023, "num_train_epochs": 20, "train_batch_size": "value": 8`
+The results on dev file: Macro f1: 0.759, Micro f1: 0.749
+
+The results on test file: Macro f1: 0.74, Micro f1: 0.739
+
+![Confusion matrix for training and testing on FTD](results/Confusion-matrix-testing-on-saved-FTD-classifier-test.png)
