@@ -1,0 +1,34 @@
+{
+    "os": "Linux-4.15.0-135-generic-x86_64-with-glibc2.27",
+    "python": "3.9.7",
+    "heartbeatAt": "2022-07-29T13:11:47.483858",
+    "startedAt": "2022-07-29T13:11:46.339440",
+    "docker": null,
+    "gpu": "Tesla V100-SXM2-32GB",
+    "gpu_count": 1,
+    "cpu_count": 8,
+    "cuda": "11.0.228",
+    "args": [
+        "--ip=127.0.0.1",
+        "--stdin=9024",
+        "--control=9022",
+        "--hb=9021",
+        "--Session.signature_scheme=\"hmac-sha256\"",
+        "--Session.key=b\"fd3369b9-fc04-42ce-976d-a6a1282a718a\"",
+        "--shell=9023",
+        "--transport=\"tcp\"",
+        "--iopub=9025",
+        "--f=/home/tajak/.local/share/jupyter/runtime/kernel-v2-1599YidxnAnpmKwb.json"
+    ],
+    "state": "running",
+    "program": "<python with no main file>",
+    "git": {
+        "remote": "https://github.com/TajaKuzman/Genre-Datasets-Comparison.git",
+        "commit": "19ae60720f0592ae60ac49e8d4bfc5c0ea87d2b8"
+    },
+    "email": "taja.kuzman@ijs.si",
+    "root": "/home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison",
+    "host": "kt-gpu-vm-1TB",
+    "username": "tajak",
+    "executable": "/home/tajak/anaconda3/bin/python"
+}

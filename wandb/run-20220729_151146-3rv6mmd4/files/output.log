@@ -1,0 +1,5 @@
+
+[34m[1mwandb[39m[22m: Downloading large artifact FTD-classifier:latest, 1081.90MB. 8 files... Done. 0:0:0
+/home/tajak/anaconda3/lib/python3.9/site-packages/simpletransformers/classification/classification_model.py:459: UserWarning: use_multiprocessing automatically disabled as xlmroberta fails when using multiprocessing for feature conversion.
+  warnings.warn(
+/home/tajak/anaconda3/lib/python3.9/site-packages/simpletransformers/classification/classification_model.py:459: UserWarning: use_multiprocessing automatically disabled as xlmroberta fails when using multiprocessing for feature conversion.
