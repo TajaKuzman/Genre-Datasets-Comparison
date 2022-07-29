@@ -6,3 +6,12 @@ Data-Preparation/data/CORE-main-train.csv
 Data-Preparation/data/CORE-sub-dev.csv
 Data-Preparation/data/CORE-sub-test.csv
 Data-Preparation/data/CORE-sub-train.csv
+artifacts/FTD-classifier:v1/config.json
+.gitignore
+artifacts/FTD-classifier:v1/pytorch_model.bin
+artifacts/FTD-classifier:v1/model_args.json
+artifacts/FTD-classifier:v1/sentencepiece.bpe.model
+artifacts/FTD-classifier:v1/special_tokens_map.json
+artifacts/FTD-classifier:v1/tokenizer_config.json
+artifacts/FTD-classifier:v1/tokenizer.json
+artifacts/FTD-classifier:v1/training_args.bin

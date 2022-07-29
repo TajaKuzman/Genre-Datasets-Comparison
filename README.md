@@ -74,7 +74,7 @@ We will use the following datasets:
 * X-GENRE: F-GINCORE + X-CORE (multilingual CORE datasets)
 * (EN-GINCO: English corpus, annotated with GINCO labels)
 
-### Hyperparameter search
+### Experiments
 
 #### FTD
 I used the wandb library to evaluate the optimal number of epochs by performing evaluation during training. By analysing the training and evaluation loss, I opted for the epoch number = 10.
@@ -106,4 +106,4 @@ The results on dev file: Macro f1: 0.759, Micro f1: 0.749
 
 The results on test file: Macro f1: 0.74, Micro f1: 0.739
 
-![Confusion matrix for training and testing on FTD](results/Confusion-matrix-testing-on-saved-FTD-classifier-test.png)
+![Confusion matrix for training and testing on FTD](results/Confusion-matrix-FTD-classifier-predictions-on-test.png)

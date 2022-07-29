@@ -1,0 +1,71 @@
+
+
+[34m[1mwandb[39m[22m: Downloading large artifact FTD-classifier:latest, 1081.90MB. 8 files... Done. 0:0:0
+/home/tajak/anaconda3/lib/python3.9/site-packages/simpletransformers/classification/classification_model.py:459: UserWarning: use_multiprocessing automatically disabled as xlmroberta fails when using multiprocessing for feature conversion.
+  warnings.warn(
+{0: 'A1 (argumentative)', 1: 'A11 (personal)', 2: 'A12 (promotion)', 3: 'A14 (academic)', 4: 'A16 (information)', 5: 'A17 (review)', 6: 'A4 (fiction)', 7: 'A7 (instruction)', 8: 'A8 (news)', 9: 'A9 (legal)'}
+/tmp/ipykernel_2213/3333348925.py:18: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred"] = y_pred
+/home/tajak/anaconda3/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1495: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(
+Macro f1: 0.2, Micro f1: 0.667
+/tmp/ipykernel_2213/377686746.py:18: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred"] = y_pred
+/home/tajak/anaconda3/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1495: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(
+/tmp/ipykernel_2213/377686746.py:26: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_true_mapped"] = y_true_mapped
+/tmp/ipykernel_2213/377686746.py:28: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred_mapped"] = y_pred_mapped
+Macro f1: 0.2, Micro f1: 0.667
+/tmp/ipykernel_2213/377686746.py:18: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred"] = y_pred
+/home/tajak/anaconda3/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1495: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(
+/tmp/ipykernel_2213/377686746.py:26: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_true_mapped"] = y_true_mapped
+/tmp/ipykernel_2213/377686746.py:28: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred_mapped"] = y_pred_mapped
+Macro f1: 0.2, Micro f1: 0.667
+/tmp/ipykernel_2213/2869368594.py:18: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred"] = y_pred
+/home/tajak/anaconda3/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1495: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(
+/tmp/ipykernel_2213/2869368594.py:26: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_true_mapped"] = y_true_mapped
+/tmp/ipykernel_2213/2869368594.py:28: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  test_df["y_pred_mapped"] = y_pred_mapped
+Macro f1: 0.2, Micro f1: 0.667
+Macro f1: 0.759, Micro f1: 0.749
+Testing finished.
+Macro f1: 0.74, Micro f1: 0.739
