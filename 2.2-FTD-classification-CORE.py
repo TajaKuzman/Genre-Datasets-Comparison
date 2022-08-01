@@ -136,8 +136,7 @@ def predict_FTD(df, new_file_name):
 
     # Save the new dataframe which contains the y_pred values as well
     df.to_csv(f"{new_file_name}", sep="\t")
-
-    return df
+    #return df
 # %%
 # Import data about CORE
 core_df = pd.read_csv("Data-Preparation/data/CORE-all-information.csv", sep="\t", index_col=0)

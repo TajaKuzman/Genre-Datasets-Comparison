@@ -428,3 +428,26 @@
 2022-07-29 15:46:04,264 DEBUG   SenderThread:31479 [sender.py:send_request():249] send_request: stop_status
 2022-07-29 15:46:19,496 DEBUG   HandlerThread:31479 [handler.py:handle_request():141] handle_request: stop_status
 2022-07-29 15:46:19,496 DEBUG   SenderThread:31479 [sender.py:send_request():249] send_request: stop_status
+2022-07-29 15:46:34,709 DEBUG   HandlerThread:31479 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-29 15:46:34,709 DEBUG   SenderThread:31479 [sender.py:send_request():249] send_request: stop_status
+2022-07-29 15:46:46,355 WARNING MainThread:31479 [internal.py:is_dead():387] Internal process exiting, parent pid 31354 disappeared
+2022-07-29 15:46:46,355 ERROR   MainThread:31479 [internal.py:wandb_internal():151] Internal process shutdown.
+2022-07-29 15:46:46,728 INFO    HandlerThread:31479 [handler.py:finish():778] shutting down handler
+2022-07-29 15:46:46,919 INFO    SenderThread:31479 [sender.py:finish():1078] shutting down sender
+2022-07-29 15:46:46,919 INFO    SenderThread:31479 [dir_watcher.py:finish():283] shutting down directory watcher
+2022-07-29 15:46:47,126 INFO    WriterThread:31479 [datastore.py:close():281] close: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/run-3rv6mmd4.wandb
+2022-07-29 15:46:47,802 INFO    SenderThread:31479 [dir_watcher.py:finish():313] scan: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files
+2022-07-29 15:46:47,802 INFO    SenderThread:31479 [dir_watcher.py:finish():327] scan save: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/wandb-metadata.json wandb-metadata.json
+2022-07-29 15:46:47,802 INFO    SenderThread:31479 [dir_watcher.py:finish():327] scan save: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/requirements.txt requirements.txt
+2022-07-29 15:46:47,802 INFO    SenderThread:31479 [dir_watcher.py:finish():327] scan save: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/conda-environment.yaml conda-environment.yaml
+2022-07-29 15:46:47,803 INFO    SenderThread:31479 [dir_watcher.py:finish():327] scan save: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/wandb-summary.json wandb-summary.json
+2022-07-29 15:46:47,803 INFO    SenderThread:31479 [dir_watcher.py:finish():327] scan save: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/config.yaml config.yaml
+2022-07-29 15:46:47,803 INFO    SenderThread:31479 [dir_watcher.py:finish():327] scan save: /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/output.log output.log
+2022-07-29 15:46:47,803 INFO    SenderThread:31479 [file_pusher.py:finish():145] shutting down file pusher
+2022-07-29 15:46:47,804 INFO    SenderThread:31479 [file_pusher.py:join():150] waiting for file pusher
+2022-07-29 15:46:48,778 INFO    Thread-28 :31479 [upload_job.py:push():137] Uploaded file /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/requirements.txt
+2022-07-29 15:46:48,798 INFO    Thread-29 :31479 [upload_job.py:push():137] Uploaded file /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/conda-environment.yaml
+2022-07-29 15:46:48,820 INFO    Thread-31 :31479 [upload_job.py:push():137] Uploaded file /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/config.yaml
+2022-07-29 15:46:48,822 INFO    Thread-30 :31479 [upload_job.py:push():137] Uploaded file /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/wandb-summary.json
+2022-07-29 15:46:49,005 INFO    Thread-32 :31479 [upload_job.py:push():137] Uploaded file /home/tajak/Genre-Datasets-Comparison/Genre-Datasets-Comparison/wandb/run-20220729_151146-3rv6mmd4/files/output.log
+2022-07-29 15:46:49,680 INFO    MainThread:31479 [internal.py:handle_exit():82] Internal process exited
