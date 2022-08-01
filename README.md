@@ -103,5 +103,5 @@ After the model was created, I applied it to the entire GINCO and CORE datasets 
 
 The datasets with FTD predictions:
 - FTD dev and test split: *results/testing-FTD-model-on-dev-sheet-with-predictions.csv, **results/FTD-classifier-predictions-on-test-sheet-with-predictions.csv*; 
-- the GINCO dataset with FTD predictions (I applied predictions to the Slovene and English (MT) text): *final_data/GINCO-MT-GINCO-keeptext-file-with-all-information.csv*
+- the GINCO dataset with FTD predictions (I applied predictions to the Slovene and English (MT) text): *final_data/GINCO-MT-GINCO-keeptext-split-file-with-all-information.csv*
 - the CORE dataset with FTD predictions: *final_data/CORE-all-information-FTD-predicted.csv*

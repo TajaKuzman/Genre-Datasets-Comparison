@@ -48,8 +48,7 @@ Total number of texts: 42734, distributed in train split (25640 texts), test and
 CORE-sub is the CORE dataset, annotated with subcategories only. For the experiments, we:
 * discarded all texts that are annotated with multiple subcategories (3622)
 * discarded all texts that are not annotated with any subcategory (4932)
-
-The dataset contains 39,866 instances, annotated with 47 different labels.
+* discarded instances belonging to categories with less than 10 instances (17)
 
 | subcategories                     | count | percentage |
 |-----------------------------------|-------|------------|
@@ -166,7 +165,7 @@ There are 215 texts that are longer than 2000 words, 71 of them are longer than 
 
 ## GINCO
 
-We will use paragraphs of texts that are marked as "keep". As labels, we used the primary_level_2 label as in previous experiments.
+We will use paragraphs of texts that are marked as "keep". As labels, we used the primary_level_1 labels (the original set without downcasting).
 
 Text length:
 
@@ -181,26 +180,35 @@ Text length:
 | 75%   |       418.75  |
 | max   |      4364     |
 
+Like in experiments with CORE, we discarded instances of categories with less than 10 instances (marked with a * in the table below).
+
 |                            |   Count |   Percentage |
 |:---------------------------|--------:|-------------:|
-| Information/Explanation    |     130 |   0.129741   |
-| News/Reporting             |     115 |   0.11477    |
-| Promotion of a Product     |     115 |   0.11477    |
-| Opinion/Argumentation      |     114 |   0.113772   |
-| List of Summaries/Excerpts |     106 |   0.105788   |
-| Opinionated News           |      89 |   0.0888224  |
-| Forum                      |      52 |   0.0518962  |
-| Other                      |      42 |   0.0419162  |
-| Instruction                |      38 |   0.0379242  |
-| Promotion of Services      |      32 |   0.0319361  |
-| Invitation                 |      32 |   0.0319361  |
-| Promotion                  |      30 |   0.0299401  |
-| Review                     |      17 |   0.0169661  |
-| Announcement               |      17 |   0.0169661  |
-| Legal/Regulation           |      17 |   0.0169661  |
-| Correspondence             |      16 |   0.0159681  |
-| Call                       |      11 |   0.010978   |
-| Research Article           |       9 |   0.00898204 |
-| Interview                  |       8 |   0.00798403 |
-| Recipe                     |       6 |   0.00598802 |
-| Prose                      |       6 |   0.00598802 |
+| Information/Explanation    |     130 |  0.129741    |
+| News/Reporting             |     115 |  0.11477     |
+| Promotion of a Product     |     115 |  0.11477     |
+| Opinion/Argumentation      |     114 |  0.113772    |
+| List of Summaries/Excerpts |     106 |  0.105788    |
+| Opinionated News           |      89 |  0.0888224   |
+| Forum                      |      52 |  0.0518962   |
+| Instruction                |      38 |  0.0379242   |
+| Other                      |      34 |  0.0339321   |
+| Invitation                 |      32 |  0.0319361   |
+| Promotion of Services      |      32 |  0.0319361   |
+| Promotion                  |      30 |  0.0299401   |
+| Legal/Regulation           |      17 |  0.0169661   |
+| Announcement               |      17 |  0.0169661   |
+| Review                     |      17 |  0.0169661   |
+| Correspondence             |      16 |  0.0159681   |
+| Call                       |      11 |  0.010978    |
+| Research Article*           |       9 |  0.00898204  |
+| Interview*                  |       8 |  0.00798403  |
+| Recipe*                     |       6 |  0.00598802  |
+| Prose*                      |       6 |  0.00598802  |
+| Lyrical*                    |       4 |  0.00399202  |
+| FAQ*                        |       3 |  0.00299401  |
+| Script/Drama*               |       1 |  0.000998004 |
+
+The final dataset has 965 texts with 17 different labels. A stratified split was performed in a 60:20:20 manner into a train (579), dev and test spli (each 193). The splits are saved as *data/GINCO-full-set-{train, test, dev}.csv*
+
+The spreadsheet with information on the splits is saved as *final_data/GINCO-MT-GINCO-keeptext-split-file-with-all-information.csv*.
