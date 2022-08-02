@@ -16,3 +16,10 @@ artifacts/FTD-classifier:v1/tokenizer_config.json
 artifacts/FTD-classifier:v1/tokenizer.json
 artifacts/FTD-classifier:v1/training_args.bin
 wandb/
+data-splits/CORE-sub-train.csv
+data-splits/CORE-sub-test.csv
+data-splits/CORE-sub-dev.csv
+data-splits/CORE-main-train.csv
+data-splits/CORE-main-test.csv
+data-splits/CORE-main-dev.csv
+data-sheets-with-all-info/CORE-all-information.csv
