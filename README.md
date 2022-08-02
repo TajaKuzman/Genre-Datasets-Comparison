@@ -41,13 +41,16 @@ The joint schema (merging the FTD labels with the GINCORE labels is based on the
 As previous experiments have shown that there is little variance between the results, each experiment will be performed once. We will do the following experiments:
 
 1. Baseline experiments (in-dataset experiments) - training and testing on the splits from the same dataset:
+    * GINCO-full-set: the GINCO dataset with the full set of GINCO labels, except instances of labels that have less than 10 instances -> 17 labels
+    * GINCO-downcast: GINCO dataset a merged set of labels
     * CORE-main: main categories as labels
     * CORE-sub: subcategories as labels
 
     | Dataset | Micro F1 | Macro F1 |
     |---------|----------|----------|
     | FTD     | 0.739    | 0.74     |
-    | GINCO        |          |          |
+    | GINCO-full-set        |  0.591        | 0.466         |
+    | GINCO-downcast        |          |          |
     | MT-GINCO        |          |          |
     | CORE-main        |          |          |
     | CORE-sub        |          |          |
@@ -90,7 +93,7 @@ As previous experiments have shown that there is little variance between the res
 Content:
 * [Information on CORE](#information-on-core)
 * [Information on FTD](#information-on-ftd)
-* [Inforrmation on GINCO](#information-on-ginco)
+* [Information on GINCO](#information-on-ginco)
 
 ### Information on CORE
 
@@ -245,9 +248,9 @@ Text length:
 
 There are 215 texts that are longer than 2000 words, 71 of them are longer than 5000 words and 10 of them are longer than 20,000 words. The analysis shows that the corpus contains very big parts of literary works (e.g., __id__47-FictBalzacH_Goriot_Ia_EN.txt - 22.3k words) and very long UN documents (e.g., __id__214-un - 35.6k words).
 
-### Information on GINCO-full-set
+### Information on GINCO
 
-We will use paragraphs of texts that are marked as "keep". As labels, we used the primary_level_1 labels (the original set without downcasting).
+We will use paragraphs of texts that are marked as "keep".
 
 Text length:
 
@@ -262,7 +265,9 @@ Text length:
 | 75%   |       418.75  |
 | max   |      4364     |
 
-Like in experiments with CORE, we discarded instances of categories with less than 10 instances (marked with a * in the table below).
+#### GINCO-full-set
+
+As labels, we used the primary_level_1 labels (the original set without downcasting).Like in experiments with CORE, we discarded instances of categories with less than 10 instances (marked with a * in the table below).
 
 |                            |   Count |   Percentage |
 |:---------------------------|--------:|-------------:|
@@ -291,11 +296,36 @@ Like in experiments with CORE, we discarded instances of categories with less th
 | FAQ*                        |       3 |  0.00299401  |
 | Script/Drama*               |       1 |  0.000998004 |
 
-The final dataset has 965 texts with 17 different labels. A stratified split was performed in a 60:20:20 manner into a train (579), dev and test spli (each 193). The splits are saved as *data/GINCO-full-set-{train, test, dev}.csv*
+The final dataset has 965 texts with 17 different labels. A stratified split was performed in a 60:20:20 manner into a train (579), dev and test spli (each 193). The splits are saved as *data-splits/GINCO-full-set-{train, test, dev}.csv*
 
-The spreadsheet with information on the splits is saved as *final_data/GINCO-MT-GINCO-keeptext-split-file-with-all-information.csv*.
+The spreadsheet with information on the splits is saved as *data-sheets-with-all-info/GINCO-MT-GINCO-keeptext-with-all-information.csv*.
 
-### GINCO-downcasted-set
+#### GINCO-downcasted-set
+
+As the results of training the classifier on GINCO-full-set were not great, we will also experiment with a smaller set of labels.
+
+The categories were merged in the following way:
+```
+{"Script/Drama":"Other", "Lyrical":"Other","FAQ":"Other","Recipe":"Instruction", "Research Article":"Information/Explanation", "Review":"Opinion/Argumentation", "Promotion of Services":"Promotion", "Promotion of a Product":"Promotion", "Invitation":"Promotion", "Correspondence":"Other", "Prose":"Other", "Call":"Other", "Interview":"Other", "Opinionated News":"News/Reporting", "Announcement": "News/Reporting"}
+```
+
+The downcasted set (primary_level_4 in the sheet with all information) has 9 labels:
+
+|                            |   Count |   Percentage |
+|:---------------------------|--------:|-------------:|
+| News/Reporting             |     221 |    0.220559  |
+| Promotion                  |     209 |    0.208583  |
+| Information/Explanation    |     139 |    0.138723  |
+| Opinion/Argumentation      |     131 |    0.130739  |
+| List of Summaries/Excerpts |     106 |    0.105788  |
+| Other                      |      83 |    0.0828343 |
+| Forum                      |      52 |    0.0518962 |
+| Instruction                |      44 |    0.0439122 |
+| Legal/Regulation           |      17 |    0.0169661 |
+
+The final dataset has 1002 instances, split into 60:20:20 stratified split - into train (601 instances), dev (201 instances) and test (200 instances) files.
+
+The splits are saved as *data-splits/GINCO-downcast-{train, test, dev}.csv*
 
 ## Baseline experiments
 
@@ -387,6 +417,12 @@ model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
 
+The results on dev file: Macro f1: 0.539, Micro f1: 0.668
+
+The results on test file: Macro f1: 0.466, Micro f1: 0.591
+
+Confusion matrix on the test split:
+![Confusion matrix for the full set on the test split](figures/CM-GINCO-full-set-classifier-on-test.png)
 
 ## Comparison of labels based on cross-dataset prediction
 
