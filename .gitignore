@@ -15,3 +15,4 @@ artifacts/FTD-classifier:v1/special_tokens_map.json
 artifacts/FTD-classifier:v1/tokenizer_config.json
 artifacts/FTD-classifier:v1/tokenizer.json
 artifacts/FTD-classifier:v1/training_args.bin
+wandb/
