@@ -424,6 +424,31 @@ The results on test file: Macro f1: 0.466, Micro f1: 0.591
 Confusion matrix on the test split:
 ![Confusion matrix for the full set on the test split](figures/CM-GINCO-full-set-classifier-on-test.png)
 
+### GINCO-downcast
+
+I evaluated the model during training to search for the optimum epoch number. As can it be seen from the figure below, it was between 8 and 15 (the global steps needs to be divided by 75 to get the epoch number), since afterwards the eval_loss starts rising again.
+
+![Evaluation during training to find the optimum number of epochs](figures/GINCO-downcast-epoch-search.png)
+
+Then I trained the model for 8, 10, 15, 20, 25 and 30 epochs (results in *results/GINCO-Experiments-Results.json*), evaluating it on dev split and the results revealed that the optimum number of epochs is 15.
+
+Final hyperparameters:
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 15,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'GINCO-hyperparameter-search',
+            "silent": True,
+            }
+```
+
 ## Comparison of labels based on cross-dataset prediction
 
 ### FTD and GINCO
