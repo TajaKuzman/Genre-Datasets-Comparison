@@ -31,7 +31,6 @@ The joint schema (merging the FTD labels with the GINCORE labels is based on the
 ## Table of Contents
 * [Experiments overview](#experiments-overview)
 * [Information on the datasets](#information-on-the-datasets)
-* [Data preparation](#data-preparation)
 * [Baseline experiments](#baseline-experiments)
 * [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
 * [Training on a joint dataset](#training-on-the-joint-schema)
@@ -246,7 +245,7 @@ Text length:
 
 There are 215 texts that are longer than 2000 words, 71 of them are longer than 5000 words and 10 of them are longer than 20,000 words. The analysis shows that the corpus contains very big parts of literary works (e.g., __id__47-FictBalzacH_Goriot_Ia_EN.txt - 22.3k words) and very long UN documents (e.g., __id__214-un - 35.6k words).
 
-### Information on GINCO
+### Information on GINCO-full-set
 
 We will use paragraphs of texts that are marked as "keep". As labels, we used the primary_level_1 labels (the original set without downcasting).
 
@@ -296,18 +295,7 @@ The final dataset has 965 texts with 17 different labels. A stratified split was
 
 The spreadsheet with information on the splits is saved as *final_data/GINCO-MT-GINCO-keeptext-split-file-with-all-information.csv*.
 
-## Data Preparation
-
-We performed a stratified split of each dataset 60:20:20 according to the label distribution.
-
-We will use the following datasets:
-* GINCO, MT-GINCO
-* CORE-main: CORE, annotated with main categories
-* CORE-sub: CORE, annotated with subcategories
-* FTD
-* FTD-GINCORE: FTD + GINCO + CORE (joint schema)
-* X-GENRE: F-GINCORE + X-CORE (multilingual CORE datasets)
-* (EN-GINCO: English corpus, annotated with GINCO labels)
+### GINCO-downcasted-set
 
 ## Baseline experiments
 
@@ -340,6 +328,16 @@ The hyperparameters that I used:
 
 The trained model was saved to the Wandb repository and can be accessed for testing (see code *2.2-FTD-classifier-testing-and-applying-on-other-datasets.ipynb*).
 
+Load the FTD model from Wandb:
+```
+artifact = run.use_artifact('tajak/FTD-learning-manual-hyperparameter-search/FTD-classifier:v1', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
 The results on dev file: Macro f1: 0.759, Micro f1: 0.749
 
 The results on test file: Macro f1: 0.74, Micro f1: 0.739
@@ -352,6 +350,43 @@ The datasets with FTD predictions:
 - FTD dev and test split: *results/testing-FTD-model-on-dev-sheet-with-predictions.csv, **results/FTD-classifier-predictions-on-test-sheet-with-predictions.csv*; 
 - the GINCO dataset with FTD predictions: *data-sheets-with-all-info/GINCO-MT-GINCO-keeptext-split-file-with-all-information.csv*;
 - the CORE dataset with FTD predictions: *data-sheets-with-all-info/CORE-all-information.csv*
+
+### GINCO-full-set
+
+I evaluated the model during training to search for the optimum epoch number. As can it be seen from the figure below, it was between 12 and 20 (the global steps needs to be divided by 72 to get the epoch number), since afterwards the eval_loss starts rising again.
+
+![Evaluation during training to find the optimum number of epochs](figures/GINCO-full-set-epoch-number-search.png)
+
+Then I trained the model for 12, 15, 20 and 25 epochs (results in *results/GINCO-Experiments-Results.json*), evaluating it on dev split and the results revealed that the optimum number of epochs is 20.
+
+Final hyperparameters:
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 20,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'GINCO-hyperparameter-search',
+            "silent": True,
+            }
+
+```
+
+To load the GINCO-full-set model from Wandb:
+```
+artifact = run.use_artifact('tajak/GINCO-hyperparameter-search/GINCO-full-set-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
 
 ## Comparison of labels based on cross-dataset prediction
 
