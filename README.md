@@ -51,9 +51,11 @@ As previous experiments have shown that there is little variance between the res
     | FTD     | 0.739    | 0.74     |
     | GINCO-full-set        |  0.591        | 0.466         |
     | GINCO-downcast        |  0.73        |  0.715        |
-    | MT-GINCO        |          |          |
+    | MT-GINCO-downcast        |   0.72       |  0.723        |
     | CORE-main        |          |          |
     | CORE-sub        |          |          |
+
+From the results we can see that there is no big difference between the performance of GINCO-downcast (trained on Slovene text) and MT-GINCO-downcast (trained on English text - Slovene text, machine-translated to English).
 
     For more details, see [Baseline experiments](#baseline-experiments).
 
@@ -153,64 +155,54 @@ Total number of texts: 42734. For the experiments, I used 40% of the data: 17094
 
 #### CORE-sub
 
-CORE-sub is the CORE dataset, annotated with subcategories only. For the experiments, we:
+CORE-sub is the CORE dataset, annotated with subcategories only.
+
+For the experiments, I used roughly 40% of the data: 15,895 instances. Prior to that, I also:
 * discarded all texts that are annotated with multiple subcategories (3622)
 * discarded all texts that are not annotated with any subcategory (4932)
-* discarded instances belonging to categories with less than 10 instances (17)
+* discarded instances belonging to categories with less than 10 instances in the subset (15,895 instances): Other Narrative, Other Lyrical, Other How-to, "Other Informational Persuasion", "Advertisement", "Prayer", "Other Spoken", "Other Forum", "Other Opinion", "TV/Movie Script"
 
-| subcategories                     | count | percentage |
-|-----------------------------------|-------|------------|
-| News Report/Blog                  | 10503 | 26.3458    |
-| Opinion Blog                      | 4135  | 10.3722    |
-| Description of a   Thing          | 3508  | 8.79948    |
-| Sports Report                     | 2820  | 7.0737     |
-| Personal Blog                     | 2769  | 6.94577    |
-| Discussion Forum                  | 1950  | 4.89139    |
-| Reviews                           | 1803  | 4.52265    |
-| Information Blog                  | 1526  | 3.82782    |
-| How-to                            | 1318  | 3.30608    |
-| Description with   Intent to Sell | 1093  | 2.74168    |
-| Question/Answer   Forum           | 1052  | 2.63884    |
-| Advice                            | 933   | 2.34034    |
-| Research Article                  | 822   | 2.06191    |
-| Description of a   Person         | 764   | 1.91642    |
-| Religious   Blogs/Sermons         | 697   | 1.74836    |
-| Song Lyrics                       | 543   | 1.36206    |
-| Encyclopedia   Article            | 522   | 1.30939    |
-| Interview                         | 468   | 1.17393    |
-| Historical Article                | 422   | 1.05855    |
-| Travel Blog                       | 283   | 0.709878   |
-| Short Story                       | 283   | 0.709878   |
-| FAQ about   Information           | 252   | 0.632118   |
-| Legal terms                       | 186   | 0.466563   |
-| Recipe                            | 171   | 0.428937   |
-| Other Information                 | 137   | 0.343651   |
-| Persuasive Article   or Essay     | 120   | 0.301008   |
-| Course Materials                  | 118   | 0.295992   |
-| Poem                              | 73    | 0.183113   |
-| Magazine Article                  | 72    | 0.180605   |
-| Editorial                         | 66    | 0.165555   |
-| Transcript of   Video/Audio       | 62    | 0.155521   |
-| Reader/Viewer   Responses         | 50    | 0.12542    |
-| FAQ about How-to                  | 47    | 0.117895   |
-| Letter to Editor                  | 43    | 0.107861   |
-| Formal Speech                     | 43    | 0.107861   |
-| Technical Report                  | 41    | 0.102845   |
-| Technical Support                 | 39    | 0.0978277  |
-| TV/Movie Script                   | 22    | 0.0551849  |
-| Other Opinion                     | 18    | 0.0451513  |
-| Other Forum                       | 18    | 0.0451513  |
-| Other Spoken                      | 17    | 0.0426429  |
-| Prayer                            | 16    | 0.0401345  |
-| Advertisement                     | 13    | 0.0326092  |
-| Other   Informational Persuasion  | 11    | 0.0275924  |
-| Other Narrative*                   | 9     | 0.0225756  |
-| Other Lyrical*                     | 6     | 0.0150504  |
-| Other How-to*                      | 2     | 0.00501681 |
+The data is split into 60:20:20 stratified split: train (9537 instance), test and dev split (3179 instances each). There are 37 labels. The distribution of the labels remained the same as in the entire dataset:
 
-Categories (marked with a *) with less than 10 instances were discarded.
-
-The final dataset contains 39,849 texts, annotated with 44 labels. It was split into train (23,909), test and dev split (7970 each), stratified based on the labels.
+|                                 |   Count |   Percentage |
+|:--------------------------------|--------:|-------------:|
+| News Report/Blog                |    4201 |    26.4297   |
+| Opinion Blog                    |    1654 |    10.4058   |
+| Description of a Thing          |    1403 |     8.82668  |
+| Sports Report                   |    1128 |     7.09657  |
+| Personal Blog                   |    1108 |     6.97075  |
+| Discussion Forum                |     780 |     4.9072   |
+| Reviews                         |     721 |     4.53602  |
+| Information Blog                |     611 |     3.84398  |
+| How-to                          |     527 |     3.31551  |
+| Description with Intent to Sell |     437 |     2.74929  |
+| Question/Answer Forum           |     421 |     2.64863  |
+| Advice                          |     373 |     2.34665  |
+| Research Article                |     329 |     2.06983  |
+| Description of a Person         |     306 |     1.92513  |
+| Religious Blogs/Sermons         |     279 |     1.75527  |
+| Song Lyrics                     |     217 |     1.36521  |
+| Encyclopedia Article            |     209 |     1.31488  |
+| Interview                       |     187 |     1.17647  |
+| Historical Article              |     169 |     1.06323  |
+| Travel Blog                     |     113 |     0.710915 |
+| Short Story                     |     113 |     0.710915 |
+| FAQ about Information           |     101 |     0.63542  |
+| Legal terms                     |      75 |     0.471846 |
+| Recipe                          |      69 |     0.434099 |
+| Other Information               |      55 |     0.346021 |
+| Persuasive Article or Essay     |      48 |     0.301982 |
+| Course Materials                |      47 |     0.29569  |
+| Magazine Article                |      29 |     0.182447 |
+| Poem                            |      29 |     0.182447 |
+| Editorial                       |      26 |     0.163573 |
+| Transcript of Video/Audio       |      25 |     0.157282 |
+| Reader/Viewer Responses         |      20 |     0.125826 |
+| FAQ about How-to                |      19 |     0.119534 |
+| Letter to Editor                |      17 |     0.106952 |
+| Formal Speech                   |      17 |     0.106952 |
+| Technical Report                |      16 |     0.100661 |
+| Technical Support               |      16 |     0.100661 |
 
 ### Information on FTD
 
@@ -484,15 +476,36 @@ The results on dev file: Macro f1: 0.741, Micro f1: 0.701
 
 The results on test file: Macro f1: 0.73, Micro f1: 0.715
 
+![](figures/CM-GINCO-downcast-on-test.png)
+
+As can be seen on the confusion matrix, the model is even able to capture List of Summaries :D
+
 ### MT-GINCO-downcast
 
 As the GINCO-downcast had good results, I also trained a model on MT-GINCO with downcast labels to be able to compare their performance and see if there is any difference between the Slovene classifier and MT classifier when applied on other datasets.
 
 I used the same hyperparameters and the instances are in the same splits as in GINCO-downcast experiments, the only difference is that the text is in English.
 
+To load the MT-GINCO-downcast model from Wandb:
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/GINCO-hyperparameter-search/MT-GINCO-downcast-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
+The results on dev file: Macro f1: 0.806, Micro f1: 0.781
+The results on test file: Macro f1: 0.723, Micro f1: 0.72
+
+![](figures/CM-MT-GINCO-downcast-on-test.png)
+
 ## Comparison of labels based on cross-dataset prediction
 
-### FTD and GINCO
+### FTD and GINCO / GINCO and FTD
 I applied the FTD classifier in separate prediction runs once to Slovene text and once to the text that was machine-translated to English. The code with comparison and results is here: *3.1-Compare-FTD-labels-on-GINCO.ipynb*
 
 Main conclusions:
@@ -534,6 +547,7 @@ The comparison of labels:
     - Other: predicted with various FTD labels, mostly 'A12 (promotion)': 0.44 (less Promotion on MT)
     - Script/Drama (1): not well predicted - as 'A16 (information)' - but there is only one instance.
 
+Then I applied GINCO-downcast and MT-GINCO downcast classifiers to the FTD dataset. Also in this direction (trained on Slovene/English data, predicted on English data), it seems that there is not a big difference between cross-lingual and monolingual prediction. The GINCO and MT-GINCO predictions differ only in case of 347 instances (29%).
 
 ### FTD and CORE-main categories
 
@@ -553,6 +567,9 @@ Comparison of main CORE labels and FTD labels:
 * 'Informational Persuasion': 'A12 (promotion)': 0.40, 'A1 (argumentative)': 0.185, 'A17 (review)': 0.258
 * 'Spoken': 'A1 (argumentative)': 0.30, 'A11 (personal)': 0.278, 'A17 (review)': 0.252
 
+### GINCO/MT-GINCO and CORE labels
+
+The analysis showed that the predictions of GINCO and MT-GINCO on CORE texts are mostly the same - the GINCO and MT-GINCO predictions differ only in case of 265 instances (18% of instances).
 
 ## Training on the joint schema
 
