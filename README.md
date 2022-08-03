@@ -50,7 +50,7 @@ As previous experiments have shown that there is little variance between the res
     |---------|----------|----------|
     | FTD     | 0.739    | 0.74     |
     | GINCO-full-set        |  0.591        | 0.466         |
-    | GINCO-downcast        |          |          |
+    | GINCO-downcast        |  0.73        |  0.715        |
     | MT-GINCO        |          |          |
     | CORE-main        |          |          |
     | CORE-sub        |          |          |
@@ -60,12 +60,14 @@ As previous experiments have shown that there is little variance between the res
 2. Applying prediction to other datasets:
     * predict FTD on Sl-GINCO and MT_GINCO
     * predict FTD on CORE
-    * predict MT-GINCO on FTD and CORE
-    * predict SL-GINCO on FTD and CORE
+    * predict MT-GINCO (downcast) on FTD and CORE
+    * predict SL-GINCO (downcast) on FTD and CORE
     * predict CORE-main on SL-GINCO, MT-GINCO and FTD
     * predict CORE-sub on SL-GINCO, MT-GINCO and FTD
 
     Comparison between the prediction of FTDs on Slovene and MT text shows that mostly there is not a big difference between prediction on Slovene or English text. Only in 23% instances, there is a difference between the FTD labels predicted on SL and MT text. This indicates that prediction of genre seems to be easily cross-lingual. However, it also depends on genres. On some labels, the predictions are worse on MT (Promotion labels), on some it is better (News: 0.24 more correctly predicted instances of News).
+
+    The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
 
     For more details, see [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
 
@@ -103,6 +105,10 @@ When preparing the dataset, we:
 
 The dataset has 48,420 texts with 459 different main and sub-category label combinations. Regarding main labels, it has 35 different combinations and 297 different sub-category combinations.
 
+Training and testing the model on such a big dataset takes a lot of time and computational sources. In addition to this, a recent article  *Register identification from the unrestricted open Web using the Corpus of Online Registers of English* (Veronika Laippala et al.) showed that the performance of the model does not improve much after being trained on 30% of the data (see figure below). Thus, I decided to use only 30% of the data for baseline experiments and prediction of labels to other datasets. This means that for each CORE-main and CORE-sub, I conducted a stratified split based on the labels and used 30% of the data which I further split into train, test and dev splits.
+
+![](figures/Performance-per-train-data-CORE.png)
+
 #### CORE-main
 
 CORE-main is the CORE dataset, annotated with main categories only (9 categories). For these experiments, we discarded all text that are annotated with more than 1 main category (5686 texts).
@@ -131,7 +137,19 @@ CORE-main is the CORE dataset, annotated with main categories only (9 categories
 | 75%   |       1152    |
 | max   |     118278    |
 
-Total number of texts: 42734, distributed in train split (25640 texts), test and dev split (8547 each), stratified according to the label.
+Total number of texts: 42734. For the experiments, I used 40% of the data: 17094 instances. The data is split into 60:20:20 stratified split: train (10256 instance), test and dev split (3419 instances each). The distribution of the labels remained the same:
+
+|                                       |   Count |   Percentage |
+|:--------------------------------------|--------:|-------------:|
+| Narrative                             |    7064 |     41.3244  |
+| Informational Description/Explanation |    3726 |     21.7971  |
+| Opinion                               |    3145 |     18.3983  |
+| Interactive Discussion                |    1309 |      7.65766 |
+| How-To/Instructional                  |     597 |      3.49245 |
+| Informational Persuasion              |     532 |      3.1122  |
+| Lyrical                               |     255 |      1.49175 |
+| Other                                 |     233 |      1.36305 |
+| Spoken                                |     233 |      1.36305 |
 
 #### CORE-sub
 
@@ -234,16 +252,17 @@ Dataset that is used for the ML experiments is split into the train-dev-test spl
 |:-------|:-------------------|:-------------------|:-------------------|
 | count (texts) | 849                | 283                | 283                |
 
-Text length:
+Text length (non-text instances and multiple labels included in the table below):
 
 |       |    length |
 |:------|----------:|
-| mean  |   1445.29 |
-| std   |   4987.81 |
+| count |   1678    |
+| mean  |   1468.09 |
+| std   |   4644.93 |
 | min   |     31    |
-| 25%   |    224    |
-| 50%   |    495    |
-| 75%   |   1147    |
+| 25%   |    244    |
+| 50%   |    564.5  |
+| 75%   |   1291.25 |
 | max   | 146922    |
 
 There are 215 texts that are longer than 2000 words, 71 of them are longer than 5000 words and 10 of them are longer than 20,000 words. The analysis shows that the corpus contains very big parts of literary works (e.g., __id__47-FictBalzacH_Goriot_Ia_EN.txt - 22.3k words) and very long UN documents (e.g., __id__214-un - 35.6k words).
@@ -449,6 +468,28 @@ Final hyperparameters:
             }
 ```
 
+To load the GINCO-downcast model from Wandb:
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/GINCO-hyperparameter-search/GINCO-downcast-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
+The results on dev file: Macro f1: 0.741, Micro f1: 0.701
+
+The results on test file: Macro f1: 0.73, Micro f1: 0.715
+
+### MT-GINCO-downcast
+
+As the GINCO-downcast had good results, I also trained a model on MT-GINCO with downcast labels to be able to compare their performance and see if there is any difference between the Slovene classifier and MT classifier when applied on other datasets.
+
+I used the same hyperparameters and the instances are in the same splits as in GINCO-downcast experiments, the only difference is that the text is in English.
+
 ## Comparison of labels based on cross-dataset prediction
 
 ### FTD and GINCO
@@ -481,7 +522,6 @@ The comparison of labels:
     - Opinion/Argumentation: 'A1 (argumentative) (0.39 - GINCO, 0.46 - MT-GINCO) + 'A11 (personal)' (0.14 - GINCO, 0.18 - MT-GINCO)
     - Opinionated News: 0.50-0.60 identified as 'A8 (news)', 20% as 'A1 (argumentative)' (on MT-GINCO)
 
-
 3. Some GINCO labels were predicted by a variety of FTD labels - there is no majority FTD label:
     - Announcement: the closest to 'A12 (promotion)': 0.47 on SL text; on MT text, the main labels are 'A12 (promotion)': 0.41 and 'A8 (news)': 0.41 
     - Call: on SL mostly connected to 'A12 (promotion)': 0.73; on MT text, it is divided between 'A1 (argumentative)', 'A12 (promotion)' and 'A9 (legal)' (0.27 each)
@@ -493,6 +533,25 @@ The comparison of labels:
     - Lyrical: 'A11 (personal)' or 'A4 (fiction)' (note: there are only 4 instances)
     - Other: predicted with various FTD labels, mostly 'A12 (promotion)': 0.44 (less Promotion on MT)
     - Script/Drama (1): not well predicted - as 'A16 (information)' - but there is only one instance.
+
+
+### FTD and CORE-main categories
+
+The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
+
+Comparison of main CORE labels and FTD labels:
+
+1. Well-connected:
+* 'How-To/Instructional': 'A7 (instruction)': 0.713 (percentage of instances of Interactive Discussion, identified as A1)
+
+2. Not well connected (no clear majority label/majority label does not seem to be appropriate):
+* 'Interactive Discussion': mostly 'A1 (argumentative)': 0.315 + 'A11 (personal)': 0.289,  'A7 (instruction)': 0.239
+* 'Narrative': 'A8 (news)': 0.48, 'A1 (argumentative)': 0.228
+* 'Opinion': 'A1 (argumentative)': 0.467, 'A17 (review)': 0.230
+* 'Informational Description/Explanation': A12 (promotion)': 0.228, 'A16 (information)': 0.21, 'A1 (argumentative)': 0.189
+* 'Lyrical': 'A11 (personal)': 0.577
+* 'Informational Persuasion': 'A12 (promotion)': 0.40, 'A1 (argumentative)': 0.185, 'A17 (review)': 0.258
+* 'Spoken': 'A1 (argumentative)': 0.30, 'A11 (personal)': 0.278, 'A17 (review)': 0.252
 
 
 ## Training on the joint schema

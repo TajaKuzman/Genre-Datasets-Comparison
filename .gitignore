@@ -25,3 +25,7 @@ data-splits/CORE-main-train.csv
 data-splits/CORE-main-test.csv
 data-splits/CORE-main-dev.csv
 data-sheets-with-all-info/CORE-all-information.csv
+data-splits/CORE-main-subset-dev.csv
+data-splits/CORE-main-subset-test.csv
+data-splits/CORE-main-subset-train.csv
+data-splits/CORE-sub-test-sample.csv
