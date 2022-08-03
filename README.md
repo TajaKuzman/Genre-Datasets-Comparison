@@ -67,9 +67,13 @@ From the results we can see that there is no big difference between the performa
     * predict CORE-main on SL-GINCO, MT-GINCO and FTD
     * predict CORE-sub on SL-GINCO, MT-GINCO and FTD
 
-    Comparison between the prediction of FTDs on Slovene and MT text shows that mostly there is not a big difference between prediction on Slovene or English text. Only in 23% instances, there is a difference between the FTD labels predicted on SL and MT text. This indicates that prediction of genre seems to be easily cross-lingual. However, it also depends on genres. On some labels, the predictions are worse on MT (Promotion labels), on some it is better (News: 0.24 more correctly predicted instances of News).
+    Comparison between the prediction of FTDs on Slovene and MT text shows that mostly there is not a big difference between prediction on Slovene or English text when the model is trained on English text. Only in 23% instances there is a difference between the FTD labels predicted on SL and MT text. This indicates that prediction of genre seems to be easily cross-lingual. However, it also depends on genres. On some labels, the predictions are worse on MT (Promotion labels), on some it is better (News: 0.24 more correctly predicted instances of News). Regarding the other direction (training on Slovene data, predicting on English), the situation is similar - the GINCO and MT-GINCO predictions on the CORE sample dataset differ only in case of 265 instances (18% of instances) and on the FTD they differ in case of 347 instances (29%).
 
     The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
+
+   FTD categories match much more with the CORE sub categories than with the main categories. 19 CORE subcategories match very well with FTD categories. Some categories, such as  'Description with Intent to Sell' or 'News Report/Blog' match worse, but they were still predominantly predicted with appropriate FTD category. Around 20 CORE subcategories do not match with FTD categories well, which means that there was no predominantly predicted FTD category which would be appropriate.FTD predictions on CORE sublabels also revealed some issues with the categorization of instances of certain labels ("Magazine Article", "Description of a Thing", "Research Article" etc.). This shows that maybe some of the categories are not to be included in the joint schema which will be used for training a classifier on all of the datasets.
+
+   As with the GINCO labels, the comparison also revealed that FTD labels do not focus on some other labels, that GINCO and CORE define as a separate genre category. For instance, while GINCO and CORE have Forum as a genre category, it is not possible to identify this category with the FTD schema. According to FTD predictions, Forum text are between argumentative and personal texts. This could be a problem if we merge the datasets, because we cannot know how many forum texts are in the FTD dataset, annotated as another category (e.g., as Opinion).
 
     For more details, see [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
 
@@ -566,6 +570,70 @@ Comparison of main CORE labels and FTD labels:
 * 'Lyrical': 'A11 (personal)': 0.577
 * 'Informational Persuasion': 'A12 (promotion)': 0.40, 'A1 (argumentative)': 0.185, 'A17 (review)': 0.258
 * 'Spoken': 'A1 (argumentative)': 0.30, 'A11 (personal)': 0.278, 'A17 (review)': 0.252
+
+As with the GINCO labels, the comparison also revealed that FTD labels do not focus on some other labels, that GINCO and CORE define as a separate genre category. For instance, while GINCO and CORE have Forum as a genre category, it is not possible to identify this category with the FTD schema. According to FTD predictions, Forum text are between argumentative and personal texts. This could be a problem if we merge the datasets, because we cannot know how many forum texts are in the FTD dataset, annotated as another category (e.g., as Opinion).
+
+### FTD and CORE sub categories
+
+Predictions of FTD categories to the CORE instances shows that they match much more with the CORE sub categories than with the main categories. 19 CORE subcategories match very well with FTD categories. Some categories, such as  'Description with Intent to Sell' or 'News Report/Blog' match worse, but they were still predominantly predicted with appropriate FTD category. Around 20 CORE subcategories do not match with FTD categories well, which means that there was no predominantly predicted FTD category which would be appropriate.
+
+FTD predictions on CORE sublabels possibly also revealed some issues with the categorization of instances of certain labels. For instance:
+* 'Description of a Thing' which is a category that belongs under 'Informational Description/Explanation' main category, was mainly identified as 'A12 (promotion)': 0.37*
+* "Historical Article" and "Magazine Article" which belong under "Narrative" main category are identified as having a lot of argumentative properties based on FTD ('A1 (argumentative)')
+* "Informational Blog" and "Research Article" which belong under 'Informational Description/Explanation' were also predominantly identified as 'A1 (argumentative)' text
+* "Prayer" is mostly identified as 'A16 (information)'
+
+This shows that maybe some of the categories are not to be included in the joint schema which will be used for training a classifier on all of the datasets.
+
+1. Categories that match well:
+* 'Advertisement': 'A12 (promotion)': 0.67
+* 'Editorial': 'A1 (argumentative)': 0.92
+* 'Encyclopedia Article': 'A16 (information)': 0.82
+* 'FAQ about How-to':  'A7 (instruction)': 0.66
+* 'How-to':  'A7 (instruction)': 0.74
+* 'Formal Speech': 'A1 (argumentative)': 0.78
+* 'Legal terms': 'A9 (legal)': 0.789
+* 'Letter to Editor': 'A1 (argumentative)': 0.875
+* 'Opinion Blog': 'A1 (argumentative)': 0.66
+* 'Personal Blog: 'A11 (personal)': 0.677
+* 'Persuasive Article or Essay': 'A1 (argumentative)': 0.75
+* 'Religious Blogs/Sermons': 'A1 (argumentative)': 0.67
+* 'Reviews': 'A17 (review)': 0.72
+* 'Short Story': 'A4 (fiction)': 0.80
+* 'Sports Report': A8 (news)': 0.759
+* 'Technical Support': 'A7 (instruction)': 0.875
+* Other Informational Persuasion': 'A1 (argumentative)': 1.0
+* 'Other Opinion': 'A1 (argumentative)': 0.67
+* 'Other Spoken': 'A11 (personal)': 0.67
+
+
+2. Categories that match, but less well:
+* 'Advice': 'A7 (instruction)': 0.51
+* 'Description with Intent to Sell': A12 (promotion)': 0.465, 'A17 (review)': 0.283
+* 'News Report/Blog': 'A8 (news)': 0.55, 'A1 (argumentative)': 0.28
+* 'Recipe': 'A7 (instruction)': 0.47, 'A11 (personal)': 0.35
+
+3. CORE sub categories with no (appropriate) majority FTD label:
+* 'Course Materials': 'A7 (instruction)': 0.30 or 'A16 (information)': 0.30
+* 'Description of a Person':  'A16 (information)': 0.33, 'A17 (review)': 0.228
+* 'Description of a Thing': 'A12 (promotion)': 0.37
+* 'Discussion Forum': 'A1 (argumentative)': 0.37, 'A11 (personal)': 0.32
+* 'FAQ about Information': 'A7 (instruction)': 0.44, 'A12 (promotion)': 0.28
+* 'Historical Article': 'A16 (information)': 0.423, 'A1 (argumentative)': 0.36
+* 'Information Blog': 'A1 (argumentative)': 0.29, 'A7 (instruction)': 0.21
+* 'Interview': ''A17 (review)': 0.36, A1 (argumentative)': 0.18, 'A11 (personal)': 0.265
+* 'Magazine Article': 'A1 (argumentative)': 0.47
+* 'Poem': 'A4 (fiction)': 0.33, A11 (personal)': 0.2, 'A17 (review)': 0.27
+* 'Prayer': A16 (information)': 0.67
+* 'Question/Answer Forum':  'A7 (instruction)': 0.357, 'A11 (personal)': 0.23, A1 (argumentative)': 0.209
+* 'Reader/Viewer Responses': 'A17 (review)': 0.3, 'A12 (promotion)': 0.3, 'A7 (instruction)': 0.2
+* 'Research Article': 'A1 (argumentative)': 0.39, 'A14 (academic)': 0.376
+* 'Song Lyrics': 'A11 (personal)': 0.63 (matches well, but debatable if it's appropriate category)
+* 'TV/Movie Script': A11 (personal)': 0.6
+* 'Technical Report': 'A1 (argumentative)': 0.375, 'A7 (instruction)': 0.25 
+* 'Transcript of Video/Audio': 'A1 (argumentative)': 0.83
+* 'Travel Blog': 'A11 (personal)': 0.438, A17 (review)': 0.25, 'A12 (promotion)': 0.19
+* 'Other Information':  'A7 (instruction)': 0.30, 'A16 (information)': 0.185
 
 ### GINCO/MT-GINCO and CORE labels
 
