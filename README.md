@@ -507,6 +507,27 @@ The results on test file: Macro f1: 0.723, Micro f1: 0.72
 
 ![](figures/CM-MT-GINCO-downcast-on-test.png)
 
+### CORE-main
+
+I evaluated the model during training to search for the optimum epoch number which revealed the optimum number of epochs to be between 2 and 6 epochs. Then I trained the model for 2, 4, and 6 epochs and the optimum number of epochs revealed to be 4.
+
+Final hyperparameters:
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 4,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'CORE-hyperparameter-search',
+            "silent": True,
+            }
+```
+
 ## Comparison of labels based on cross-dataset prediction
 
 ### FTD and GINCO / GINCO and FTD

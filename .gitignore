@@ -32,3 +32,5 @@ data-splits/CORE-sub-test-sample.csv
 data-splits/CORE-sub-subset-dev.csv
 data-splits/CORE-sub-subset-test.csv
 data-splits/CORE-sub-subset-train.csv
+data-splits/CORE-main-subset-dev-sample.csv
+data-splits/CORE-sub-subset-dev-sample.csv
