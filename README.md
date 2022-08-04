@@ -69,6 +69,8 @@ From the results we can see that there is no big difference between the performa
 
     Comparison between the prediction of FTDs on Slovene and MT text shows that mostly there is not a big difference between prediction on Slovene or English text when the model is trained on English text. Only in 23% instances there is a difference between the FTD labels predicted on SL and MT text. This indicates that prediction of genre seems to be easily cross-lingual. However, it also depends on genres. On some labels, the predictions are worse on MT (Promotion labels), on some it is better (News: 0.24 more correctly predicted instances of News). Regarding the other direction (training on Slovene data, predicting on English), the situation is similar - the GINCO and MT-GINCO predictions on the CORE sample dataset differ only in case of 265 instances (18% of instances) and on the FTD they differ in case of 347 instances (29%).
 
+    Most FTD and GINCO-downcast categories match very well, even when we apply the Slovene classifier to the FTD dataset. The only two FTD categories that are not matched well by the GINCO categories are 'A1 (argumentative) and A17 (review). When we apply the MT-GINCO classifier, the results are better for A12 (promotion) (9 points), A4 (fiction) (26 points), A7 (instruction) (6 points), A8 (news) (7 points), but worse for A14 (academic) (3 points), A16 (information) (9 points), A9 (legal) (13 points).
+
     The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
 
    FTD categories match much more with the CORE sub categories than with the main categories. 19 CORE subcategories match very well with FTD categories. Some categories, such as  'Description with Intent to Sell' or 'News Report/Blog' match worse, but they were still predominantly predicted with appropriate FTD category. Around 20 CORE subcategories do not match with FTD categories well, which means that there was no predominantly predicted FTD category which would be appropriate.FTD predictions on CORE sublabels also revealed some issues with the categorization of instances of certain labels ("Magazine Article", "Description of a Thing", "Research Article" etc.). This shows that maybe some of the categories are not to be included in the joint schema which will be used for training a classifier on all of the datasets.
@@ -528,9 +530,23 @@ Final hyperparameters:
             }
 ```
 
+To load the CORE-main model from Wandb:
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/CORE-hyperparameter-search/CORE-main-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
 ## Comparison of labels based on cross-dataset prediction
 
 ### FTD and GINCO / GINCO and FTD
+
+#### FTD to GINCO
 I applied the FTD classifier in separate prediction runs once to Slovene text and once to the text that was machine-translated to English. The code with comparison and results is here: *3.1-Compare-FTD-labels-on-GINCO.ipynb*
 
 Main conclusions:
@@ -572,7 +588,27 @@ The comparison of labels:
     - Other: predicted with various FTD labels, mostly 'A12 (promotion)': 0.44 (less Promotion on MT)
     - Script/Drama (1): not well predicted - as 'A16 (information)' - but there is only one instance.
 
+#### GINCO/MT-GINCO to FTD
+
 Then I applied GINCO-downcast and MT-GINCO downcast classifiers to the FTD dataset. Also in this direction (trained on Slovene/English data, predicted on English data), it seems that there is not a big difference between cross-lingual and monolingual prediction. The GINCO and MT-GINCO predictions differ only in case of 347 instances (29%).
+
+What we can see based on the GINCO predictions on the FTD labels, is (first, the information for prediction of GINCO-downcast is given, followed by the information what is different on predictions by the MT-GINCO-downcast model):
+
+Most FTD and GINCO-downcast categories match very well, even when we apply the Slovene classifier to the FTD dataset. The only two FTD categories that are not matched well by the GINCO categories are 'A1 (argumentative) and A17 (review). When we apply the MT-GINCO classifier, the results are better for A12 (promotion) (9 points), A4 (fiction) (26 points), A7 (instruction) (6 points), A8 (news) (7 points), but worse for A14 (academic) (3 points), A16 (information) (9 points), A9 (legal) (13 points).
+
+1. Categories that match well:
+* 'A11 (personal)': 'Opinion/Argumentation': 0.696
+* 'A12 (promotion)': 'Promotion': 0.593; with MT-GINCO better: 'Promotion': 0.683
+* 'A14 (academic)': 'Information/Explanation': 0.81; with MT-GINCO slightly worse: 'Information/Explanation': 0.78
+* 'A16 (information)': 'Information/Explanation': 0.815; with MT-GINCO slightly worse: 'Information/Explanation': 0.73
+* 'A4 (fiction)': 'Other': 0.54; with MT-GINCO much better: 'Other': 0.808
+* 'A7 (instruction)': 'Instruction': 0.61, 'Instruction': 0.66
+* 'A8 (news)': 'News/Reporting': 0.74, 'News/Reporting': 0.81
+* 'A9 (legal)': Legal/Regulation': 0.64, 'Legal/Regulation': 0.51
+
+2. FTD categories that were not identified well:
+* 'A1 (argumentative)':  'Information/Explanation': 0.263, 'News/Reporting': 0.246, 'Opinion/Argumentation': 0.229; with MT-GINCO only slightly better: 'Opinion/Argumentation': 0.28,  less Information/Explanation
+* 'A17 (review)': 'Promotion': 0.29, 'Information/Explanation': 0.19; with MT-GINCO other categories, but not better: 'Promotion': 0.32, 'Opinion/Argumentation': 0.29
 
 ### FTD and CORE-main categories
 
