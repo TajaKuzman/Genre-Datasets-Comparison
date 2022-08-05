@@ -52,8 +52,9 @@ As previous experiments have shown that there is little variance between the res
     | GINCO-full-set        |  0.591        | 0.466         |
     | GINCO-downcast        |  0.73        |  0.715        |
     | MT-GINCO-downcast        |   0.72       |  0.723        |
-    | CORE-main        |          |          |
+    | CORE-main        |    0.745      |   0.62       |
     | CORE-sub        |          |          |
+
 
 From the results we can see that there is no big difference between the performance of GINCO-downcast (trained on Slovene text) and MT-GINCO-downcast (trained on English text - Slovene text, machine-translated to English).
 
@@ -74,6 +75,8 @@ From the results we can see that there is no big difference between the performa
     The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
 
    FTD categories match much more with the CORE sub categories than with the main categories. 19 CORE subcategories match very well with FTD categories. Some categories, such as  'Description with Intent to Sell' or 'News Report/Blog' match worse, but they were still predominantly predicted with appropriate FTD category. Around 20 CORE subcategories do not match with FTD categories well, which means that there was no predominantly predicted FTD category which would be appropriate.FTD predictions on CORE sublabels also revealed some issues with the categorization of instances of certain labels ("Magazine Article", "Description of a Thing", "Research Article" etc.). This shows that maybe some of the categories are not to be included in the joint schema which will be used for training a classifier on all of the datasets.
+
+   Suprisingly, the main CORE labels are rather well connected to the GINCO-downcast labels, even when the Slovene classifier is used. The only category that is not connected is the category "Spoken".  Some category are better predicted with MT-GINCO ('How-To/Instructional': 'Instruction' - 4 points better; 'Narrative': 'News/Reporting'- 1 point, 'Opinion': 'Opinion/Argumentation' - 8 points, 'Interactive Discussion': 'Forum' - 10 points; 'Lyrical': 'Other' - 13 points), some are worse ('Informational Persuasion': 'Promotion' - 7 points worse; 'Informational Description/Explanation': 'Information/Explanation' - 5 points worse).
 
    As with the GINCO labels, the comparison also revealed that FTD labels do not focus on some other labels, that GINCO and CORE define as a separate genre category. For instance, while GINCO and CORE have Forum as a genre category, it is not possible to identify this category with the FTD schema. According to FTD predictions, Forum text are between argumentative and personal texts. This could be a problem if we merge the datasets, because we cannot know how many forum texts are in the FTD dataset, annotated as another category (e.g., as Opinion).
 
@@ -542,6 +545,49 @@ model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
 
+Results on the dev file: Macro f1: 0.623, Micro f1: 0.736
+Results on test file: Macro f1: 0.62, Micro f1: 0.745
+
+![](figures/CM-CORE-main-on-test.png)
+
+### CORE-sub
+
+I evaluated the model during training to search for the optimum epoch number which revealed the optimum number of epochs to be between 2 and 8 epochs. Then I trained the model for 2, 4, 6 and 8 epochs and the optimum number of epochs revealed to be 6.
+
+Final hyperparameters:
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 6,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'CORE-hyperparameter-search',
+            "silent": True,
+            }
+```
+
+To load the CORE-sub model from Wandb:
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/CORE-hyperparameter-search/CORE-sub-classifier:v0', type='model')
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
+Results on the dev file: 
+Results on test file: 
+
+
+
+
 ## Comparison of labels based on cross-dataset prediction
 
 ### FTD and GINCO / GINCO and FTD
@@ -669,6 +715,7 @@ This shows that maybe some of the categories are not to be included in the joint
 * 'Description with Intent to Sell': A12 (promotion)': 0.465, 'A17 (review)': 0.283
 * 'News Report/Blog': 'A8 (news)': 0.55, 'A1 (argumentative)': 0.28
 * 'Recipe': 'A7 (instruction)': 0.47, 'A11 (personal)': 0.35
+* 'Travel Blog': 'A11 (personal)': 0.438, A17 (review)': 0.25, 'A12 (promotion)': 0.19
 
 3. CORE sub categories with no (appropriate) majority FTD label:
 * 'Course Materials': 'A7 (instruction)': 0.30 or 'A16 (information)': 0.30
@@ -689,12 +736,89 @@ This shows that maybe some of the categories are not to be included in the joint
 * 'TV/Movie Script': A11 (personal)': 0.6
 * 'Technical Report': 'A1 (argumentative)': 0.375, 'A7 (instruction)': 0.25 
 * 'Transcript of Video/Audio': 'A1 (argumentative)': 0.83
-* 'Travel Blog': 'A11 (personal)': 0.438, A17 (review)': 0.25, 'A12 (promotion)': 0.19
 * 'Other Information':  'A7 (instruction)': 0.30, 'A16 (information)': 0.185
 
 ### GINCO/MT-GINCO and CORE labels
 
 The analysis showed that the predictions of GINCO and MT-GINCO on CORE texts are mostly the same - the GINCO and MT-GINCO predictions differ only in case of 265 instances (18% of instances).
+
+#### GINCO/MT-GINCO to CORE-main
+
+Suprisingly, the main CORE labels are rather well connected to the GINCO-downcast labels, even when the Slovene classifier is used. The only category that is not connected is the category "Spoken".  Some category are better predicted with MT-GINCO ('How-To/Instructional': 'Instruction' - 4 points better; 'Narrative': 'News/Reporting'- 1 point, 'Opinion': 'Opinion/Argumentation' - 8 points, 'Interactive Discussion': 'Forum' - 10 points; 'Lyrical': 'Other' - 13 points), some are worse ('Informational Persuasion': 'Promotion' - 7 points worse; 'Informational Description/Explanation': 'Information/Explanation' - 5 points worse).
+
+1. Well-connected:
+* 'How-To/Instructional': 'Instruction': 0.698; with MT-GINCO better: 'Instruction': 0.736
+* 'Informational Persuasion': 'Promotion': 0.59; with MT-GINCO worse: 'Promotion': 0.52
+* 'Narrative': 'News/Reporting': 0.605; with MT-GINCO slightly better: 'News/Reporting': 0.616
+* 'Opinion': 'Opinion/Argumentation': 0.548; with MT-GINCO better: 'Opinion/Argumentation': 0.629
+
+2. A bit less connected:
+* 'Informational Description/Explanation': 'Information/Explanation': 0.433; with MT-GINCO worse: 'Information/Explanation': 0.38, 'Promotion': 0.19
+* 'Interactive Discussion': 'Forum': 0.495, 'Opinion/Argumentation': 0.22; with MT-GINCO better: 'Forum': 0.60
+* 'Lyrical': 'Other': 0.478, 'Opinion/Argumentation': 0.21; with MT-GINCO better: 'Other': 0.61
+
+2. Not well connected (no clear majority label/majority label does not seem to be appropriate):
+* 'Spoken': 'News/Reporting': 0.304, 'Opinion/Argumentation': 0.304, 'Other': 0.173; with MT-GINCO similar: 'News/Reporting': 0.30, 'Opinion/Argumentation': 0.43, 'Other': 0.21
+
+#### CORE-main to GINCO/MT-GINCO
+
+The CORE-main predictions on Slovene and MT text differ in 182 instances (18%).
+
+
+
+### GINCO/MT-GINCO to CORE-sub
+
+If we compare CORE subcategories and GINCO-downcast categories based on the GINCO predictions, we see that 17 CORE subcategories match very well with GINCO categories, 7 match, but less well, and 19 categories do not match well. With some categories, the prediction of MT classifier is better ('Discussion Forum': 'Forum' - 9 points better; 'How-to: 'Instruction' - 4 point better; 'Opinion Blog': 'Opinion/Argumentation' and 'Personal Blog': 'Opinion/Argumentation' - 2 points better; 'Sports Report': 'News/Reporting' - 7 points better; 'Reviews': 'Opinion/Argumentation': 15 points better; 'Song Lyrics': 'Other' - 15 points), in some worse ('Description with Intent to Sell': 'Promotion' - 6 points worse; 'Encyclopedia Article': 'Information/Explanation' - 5 points; 'Historical Article': 'Information/Explanation' - 26 points; 'Persuasive Article or Essay': 'Opinion/Argumentation' - 40 points worse; 'Recipe': 'Instruction' - 16 points worse; 'Travel Blog': 'Opinion/Argumentation' - 19 points worse; 'Legal terms': 'Legal/Regulation': 0.429 on SL, no Legal/Regulation on MT). 
+
+1. Categories that match well:
+* 'Advertisement' (1 instance): 'Promotion': 1.0
+* 'Course Materials': 'Information/Explanation': 0.75
+* 'Description with Intent to Sell': 'Promotion': 0.658; slightly worse with MT: 'Promotion': 0.60
+* 'Discussion Forum': 'Forum': 0.575; better with MT: 'Forum': 0.67
+* 'Encyclopedia Article': 'Information/Explanation': 0.75; slightly worse with MT: 'Information/Explanation': 0.7
+* 'Historical Article': 'Information/Explanation': 0.875; worse with MT:   'Information/Explanation': 0.62, 'Opinion/Argumentation': 0.19
+*  'How-to: 'Instruction': 0.63; better with MT: 'Instruction': 0.71
+* 'News Report/Blog': 'News/Reporting': 0.79; the same with MT
+* 'Opinion Blog': 'Opinion/Argumentation': 0.67; slightly better with MT: 'Opinion/Argumentation': 0.69
+* 'Personal Blog': 'Opinion/Argumentation': 0.798; better with MT: 'Opinion/Argumentation': 0.82
+* 'Persuasive Article or Essay': 'Opinion/Argumentation': 0.6; much worse with MT: 'Opinion/Argumentation': 0.2
+* 'Recipe': 'Instruction': 0.83; worse with MT: 'Instruction': 0.67
+* 'Research Article': 'Information/Explanation': 0.677; the same with MT
+* 'Sports Report': 'News/Reporting': 0.67; better with MT: 'News/Reporting': 0.74
+* 'Technical Report' (1 instance): 'Information/Explanation': 1.0; the same with MT
+* 'Technical Support' (1 instance): 'Instruction': 1.0; the same with MT
+* 'Travel Blog': 'Opinion/Argumentation': 0.636; worse with MT: 'Opinion/Argumentation': 0.45,'Promotion': 0.27
+* 'Formal Speech' (2 instances): 'Opinion/Argumentation': 0.5, 'Other': 0.5; MT:  'Opinion/Argumentation': 1.0
+* 'Letter to Editor' (1 instance): 'Forum': 1.0; much better with MT: 'Opinion/Argumentation': 1.0
+
+2. Categories that match, but less well:
+* 'Advice': 'Opinion/Argumentation': 0.34, 'Instruction': 0.285; slightly better with MT: 'Instruction': 0.4, 'Opinion/Argumentation': 0.31
+* 'Description of a Person': 'Information/Explanation': 0.448, 'Opinion/Argumentation': 0.206; slightly more Opinion with MT
+* 'FAQ about How-to': 'Instruction': 0.5, 'Promotion': 0.5; the same with MT
+* 'FAQ about Information': 'Information/Explanation': 0.56, 'Instruction': 0.22, 'Promotion': 0.22; the same with MT
+* 'Legal terms': 'Legal/Regulation': 0.429, 'Instruction': 0.29; much worse with MT: 'Instruction': 0.43, Information/Explanation': 0.43; 'Legal/Regulation': 0.0
+* 'Reviews': 'Opinion/Argumentation': 0.5, 'Promotion': 0.279; much better with MT: 'Opinion/Argumentation': 0.647
+* 'Song Lyrics': 'Other': 0.5, 'Opinion/Argumentation': 0.2; better with MT: 'Other': 0.65
+* 'Question/Answer Forum': 'Forum': 0.35, 'Other': 0.2; better with MT: 'Forum': 0.475, 'Instruction': 0.15
+
+3. CORE sub categories with no (appropriate) majority GINCO-downcast label:
+* 'Description of a Thing': 'Information/Explanation': 0.34, 'Promotion': 0.288; more Promotion with MT: 'Promotion': 0.31, 'Information/Explanation': 0.27
+* 'Editorial' (2 instances): 'News/Reporting': 1.0; the same with MT
+* 'Information Blog': 'Information/Explanation': 0.33, 'News/Reporting': 0.19; worse with MT: 'Information/Explanation': 0.26, 'Opinion/Argumentation': 0.21
+* 'Interview': 'News/Reporting': 0.44, 'Opinion/Argumentation': 0.22; similar with MT, except more Opinion/Argumentation
+* 'Magazine Article' (3 instances): 'Information/Explanation': 0.33, 'List of Summaries/Excerpts': 0.33, 'News/Reporting': 0.33; different with MT, but not better: 'Opinion/Argumentation': 0.67
+* 'Other Forum' (1 instance):  'Opinion/Argumentation': 1.0; the same with MT
+* 'Other Information':  'Promotion': 0.4, 'Information/Explanation': 0.2; the same with MT
+* 'Other Opinion' (1 instance) 'Promotion': 1.0; the same with MT
+* 'Other Spoken' (1 instance): 'Opinion/Argumentation': 1.0; the same with MT
+* 'Poem' (3 instances): 'Information/Explanation': 0.33, 'Opinion/Argumentation': 0.33, 'Other': 0.33; same with MT
+* 'Prayer' (1 instance): 'Information/Explanation': 1.0; same with MT   
+* 'Reader/Viewer Responses' (2 instances): 'Opinion/Argumentation': 0.5, 'Other': 0.5; better with MT: 'Forum': 0.5, 'Opinion/Argumentation': 0.5
+* 'Religious Blogs/Sermons': 'Opinion/Argumentation': 0.30, 'Information/Explanation': 0.27; better (?) with MT: 'Opinion/Argumentation': 0.615
+* 'Short Story': 'Opinion/Argumentation': 0.545; much better with MT: 'Other': 0.64
+* 'TV/Movie Script' (1 instance): 'Opinion/Argumentation': 1.0; the same with MT
+* 'Transcript of Video/Audio' (2 instances): 'Information/Explanation': 0.5, 'Other': 0.5; much better with MT: 'Other': 1.0
+
 
 ## Training on the joint schema
 
