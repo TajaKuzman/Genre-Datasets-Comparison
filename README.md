@@ -55,9 +55,9 @@ As previous experiments have shown that there is little variance between the res
     | CORE-main        |    0.745      |   0.62       |
     | CORE-sub        |    0.661      |   0.394       |
 
-From the in-dataset experiments, we can see that the FTD dataset obtains the best results, followed by GINCO-downcast and MT-GINCO-downcast, while the GINCO-full-set and CORE-main achieve worse results, especially in terms of macro F1. The CORE-sub shows the problem with a too high granularity of labels, as the macro F1 is low.
+    From the in-dataset experiments, we can see that the FTD dataset obtains the best results, followed by GINCO-downcast and MT-GINCO-downcast, while the GINCO-full-set and CORE-main achieve worse results, especially in terms of macro F1. The CORE-sub shows the problem with a too high granularity of labels, as the macro F1 is low.
 
-From the results we can see that there is no big difference between the performance of GINCO-downcast (trained on Slovene text) and MT-GINCO-downcast (trained on English text - Slovene text, machine-translated to English).
+    From the results we can see that there is no big difference between the performance of GINCO-downcast (trained on Slovene text) and MT-GINCO-downcast (trained on English text - Slovene text, machine-translated to English).
 
     For more details, see [Baseline experiments](#baseline-experiments).
 
@@ -75,9 +75,13 @@ From the results we can see that there is no big difference between the performa
 
     The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
 
+    In contrast to the other direction, FTD categories are identified well with the CORE-main classifier - 7 categories match, while 3 categories are not well predicted. As in the case of the CORE-main predictions to the GINCO dataset, we can see that the category "Opinion" is not matched with the FTD category 'A1 (argumentative)' or 'A11 (personal)' which were expected to be connected. However, here, FTD's Review is better identified as CORE's "Opinion" than in the case of GINCO. As with GINCO, the CORE-main classifier is not capable of recognizing promotion.
+
    FTD categories match much more with the CORE sub categories than with the main categories. 19 CORE subcategories match very well with FTD categories. Some categories, such as  'Description with Intent to Sell' or 'News Report/Blog' match worse, but they were still predominantly predicted with appropriate FTD category. Around 20 CORE subcategories do not match with FTD categories well, which means that there was no predominantly predicted FTD category which would be appropriate.FTD predictions on CORE sublabels also revealed some issues with the categorization of instances of certain labels ("Magazine Article", "Description of a Thing", "Research Article" etc.). This shows that maybe some of the categories are not to be included in the joint schema which will be used for training a classifier on all of the datasets.
 
    Suprisingly, the main CORE labels are rather well connected to the GINCO-downcast labels, even when the Slovene classifier is used. The only category that is not connected is the category "Spoken".  Some category are better predicted with MT-GINCO ('How-To/Instructional': 'Instruction' - 4 points better; 'Narrative': 'News/Reporting'- 1 point, 'Opinion': 'Opinion/Argumentation' - 8 points, 'Interactive Discussion': 'Forum' - 10 points; 'Lyrical': 'Other' - 13 points), some are worse ('Informational Persuasion': 'Promotion' - 7 points worse; 'Informational Description/Explanation': 'Information/Explanation' - 5 points worse).
+
+    The CORE-main predictions on Slovene and MT text differ in 182 instances (18%). 12 GINCO categories are relatively well connected to the CORE main categories (with at least on of the classifiers), while the other half (12 categories) are not well connected. Using MT-GINCO improves results in some cases ('News/Reporting': 'Narrative' - 14 points better; 'Opinionated News': 'Narrative' - 13 points better; 'Prose': 'Narrative' - 17 points better), while it gives worse results with some other categories (Forum: 'Interactive Discussion' - 18 points less; Script/Drama - MT-GINCO identifies it as Informational Description/Explanation). The comparison shows that CORE categories and texts are not suited well to be able to recognize some of the genres that are included in the GINCO schema: Correspondence, Promotional categories (Invitation, Promotion, Promotion of a Product, Promotion of Services), List of Summaries/Excerpts. Interestingly, although the CORE includes a category "Opinion" it is not matched well to the GINCO category Opinion/Argumentation, and the GINCO category "Review" which is a CORE subcategory belonging under the main category "Opinion" is not recognized by this main category.
 
    As with the GINCO labels, the comparison also revealed that FTD labels do not focus on some other labels, that GINCO and CORE define as a separate genre category. For instance, while GINCO and CORE have Forum as a genre category, it is not possible to identify this category with the FTD schema. According to FTD predictions, Forum text are between argumentative and personal texts. This could be a problem if we merge the datasets, because we cannot know how many forum texts are in the FTD dataset, annotated as another category (e.g., as Opinion).
 
@@ -659,7 +663,9 @@ Most FTD and GINCO-downcast categories match very well, even when we apply the S
 
 ### FTD and CORE-main categories
 
-The comparison showed that the main CORE categories are not well connected to the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
+#### FTD to CORE-main
+
+The comparison showed that the main CORE categories are not well predicted with the FTD categories. The only main CORE category where a majority of instances are identified with a corresponding FTD label, is 'How-To/Instructional' ('A7 (instruction)': 0.713). Some CORE main categories could be described by a combination of FTD categories: 'Interactive Discussion' (forum): 'A1 (argumentative)' + 'A11 (personal)', Opinion': 'A1 (argumentative)' + 'A17 (review)' . Most CORE main labels are predicted with multiple FTD labels where no corresponding label has the majority.
 
 Comparison of main CORE labels and FTD labels:
 
@@ -676,6 +682,24 @@ Comparison of main CORE labels and FTD labels:
 * 'Spoken': 'A1 (argumentative)': 0.30, 'A11 (personal)': 0.278, 'A17 (review)': 0.252
 
 As with the GINCO labels, the comparison also revealed that FTD labels do not focus on some other labels, that GINCO and CORE define as a separate genre category. For instance, while GINCO and CORE have Forum as a genre category, it is not possible to identify this category with the FTD schema. According to FTD predictions, Forum text are between argumentative and personal texts. This could be a problem if we merge the datasets, because we cannot know how many forum texts are in the FTD dataset, annotated as another category (e.g., as Opinion).
+
+#### CORE-main to FTD
+
+In contrast to the other direction, FTD categories are identified well with the CORE-main classifier - 7 categories match, while 3 categories are not well predicted. As in the case of the CORE-main predictions to the GINCO dataset, we can see that the category "Opinion" is not matched with the FTD category 'A1 (argumentative)' or 'A11 (personal)' which were expected to be connected. However, here, FTD's Review is better identified as CORE's "Opinion" than in the case of GINCO. As with GINCO, the CORE-main classifier is not capable of recognizing promotion.
+
+1. Categories that are connected well:
+* 'A11 (personal)': 'Narrative': 0.48
+* A14 (academic): Informational Description/Explanation': 0.91
+* 'A16 (information)': 'Informational Description/Explanation': 0.91
+* 'A17 (review)': 'Opinion': 0.56
+* 'A4 (fiction)': 'Narrative': 0.80
+* 'A8 (news)': 'Narrative': 0.74
+* 'A9 (legal)': 'Informational Description/Explanation': 0.99
+
+2. Categories that are not connected well/wrongly predicted:
+* 'A1 (argumentative)': 'Informational Description/Explanation': 0.51,  'Opinion': 0.22
+* 'A12 (promotion)': 'Informational Description/Explanation': 0.69
+* 'A7 (instruction)': 'How-To/Instructional': 0.44, 'Informational Description/Explanation': 0.42
 
 ### FTD and CORE sub categories
 
@@ -763,8 +787,37 @@ Suprisingly, the main CORE labels are rather well connected to the GINCO-downcas
 
 #### CORE-main to GINCO/MT-GINCO
 
-The CORE-main predictions on Slovene and MT text differ in 182 instances (18%).
+The CORE-main predictions on Slovene and MT text differ in 182 instances (18%). 12 GINCO categories are relatively well connected to the CORE main categories (with at least on of the classifiers), while the other half (12 categories) are not well connected. Using MT-GINCO improves results in some cases ('News/Reporting': 'Narrative' - 14 points better; 'Opinionated News': 'Narrative' - 13 points better; 'Prose': 'Narrative' - 17 points better), while it gives worse results with some other categories (Forum: 'Interactive Discussion' - 18 points less; Script/Drama - MT-GINCO identifies it as Informational Description/Explanation). The comparison shows that CORE categories and texts are not suited well to be able to recognize some of the genres that are included in the GINCO schema: Correspondence, Promotional categories (Invitation, Promotion, Promotion of a Product, Promotion of Services), List of Summaries/Excerpts. Interestingly, although the CORE includes a category "Opinion" it is not matched well to the GINCO category Opinion/Argumentation, and the GINCO category "Review" which is a CORE subcategory belonging under the main category "Opinion" is not recognized by this main category.
 
+If there is no information regarding the MT-GINCO results, they are the same as the GINCO.
+
+1. Well connected labels:
+* FAQ: 'Informational Description/Explanation': 0.67
+* Forum: 'Interactive Discussion': 0.76; much worse with MT-GINCO: 'Interactive Discussion': 0.58, 'Narrative': 0.15
+* 'Information/Explanation': 'Informational Description/Explanation': 0.907
+* Interview: 'Spoken': 0.875
+* 'Script/Drama': 'Spoken': 1.0; much worse with MT-GINCO: 'Informational Description/Explanation': 1.0
+* 'Legal/Regulation': 'Informational Description/Explanation': 1.0
+* Lyrical': 'Lyrical': 0.75
+* 'News/Reporting': between 'Informational Description/Explanation': 0.496 and 'Narrative': 0.452; better with MT-GINCO: 'Narrative': 0.59, 'Informational Description/Explanation': 0.37
+* 'Opinionated News': between 'Narrative': 0.52 and Informational Description/Explanation': 0.348; better results with MT-GINCO: 'Narrative': 0.65
+* 'Prose': 'Narrative': 0.5, even better with MT-GINCO: 'Narrative': 0.67
+* 'Recipe': 'How-To/Instructional': 1.0
+* 'Research Article': 'Informational Description/Explanation': 1.0
+
+2. Not well connected: 
+* Announcement: 'Informational Description/Explanation': 0.94
+* Call: 'Informational Description/Explanation': 1.0
+* 'Correspondence': 'Interactive Discussion': 0.5; with MT-GINCO between 'Informational Description/Explanation': 0.31 and 'Interactive Discussion': 0.31
+* 'Instruction': split between 'How-To/Instructional': 0.42 and 'Informational Description/Explanation': 0.53; with MT-GINCO a bit more 'How-To/Instructional': 0.5
+* 'Invitation': 'Informational Description/Explanation': 0.93; even more Informational Description/Explanation with MT-GINCO:  'Informational Description/Explanation': 0.97
+* 'List of Summaries/Excerpts': various categories; with MT-GINCO mostly  'Informational Description/Explanation': 0.42, 'Narrative': 0.30
+* 'Opinion/Argumentation': 'Informational Description/Explanation': 0.438, 'Spoken': 0.20; even more scattered across categories with MT-GINCO: 'Informational Description/Explanation': 0.33l, 'Informational Description/Explanation': 0.33, 'Spoken': 0.22
+* Other: mostly 'Informational Description/Explanation': 0.56; similar with MT-GINCO: 'Informational Description/Explanation': 0.47
+* 'Promotion': 'Informational Description/Explanation': 0.7
+* 'Promotion of Services':  'Informational Description/Explanation': 0.84
+* 'Promotion of a Product': 'Informational Description/Explanation': 0.49; a bit "better" with MT-GINCO: 'Informational Description/Explanation': 0.51, but also 'Informational Persuasion': 0.4
+*  'Review': 'Informational Description/Explanation': 0.294, various other categories; even worse with MT-GINCO: 'Spoken': 0.41
 
 
 ### GINCO/MT-GINCO to CORE-sub
