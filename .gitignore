@@ -36,3 +36,5 @@ data-splits/CORE-main-subset-dev-sample.csv
 data-splits/CORE-sub-subset-dev-sample.csv
 results/testing-CORE-main-on-dev-sheet-with-predictions.csv
 results/testing-CORE-main-on-test-sheet-with-predictions.csv
+results/testing-CORE-sub-on-dev-sheet-with-predictions.csv
+results/testing-CORE-sub-on-test-sheet-with-predictions.csv

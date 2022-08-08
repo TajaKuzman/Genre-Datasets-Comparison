@@ -42,7 +42,7 @@ As previous experiments have shown that there is little variance between the res
 
 1. Baseline experiments (in-dataset experiments) - training and testing on the splits from the same dataset:
     * GINCO-full-set: the GINCO dataset with the full set of GINCO labels, except instances of labels that have less than 10 instances -> 17 labels
-    * GINCO-downcast: GINCO dataset a merged set of labels
+    * GINCO-downcast: GINCO dataset a merged set of labels - 9 labels
     * CORE-main: main categories as labels
     * CORE-sub: subcategories as labels
 
@@ -53,8 +53,9 @@ As previous experiments have shown that there is little variance between the res
     | GINCO-downcast        |  0.73        |  0.715        |
     | MT-GINCO-downcast        |   0.72       |  0.723        |
     | CORE-main        |    0.745      |   0.62       |
-    | CORE-sub        |          |          |
+    | CORE-sub        |    0.661      |   0.394       |
 
+From the in-dataset experiments, we can see that the FTD dataset obtains the best results, followed by GINCO-downcast and MT-GINCO-downcast, while the GINCO-full-set and CORE-main achieve worse results, especially in terms of macro F1. The CORE-sub shows the problem with a too high granularity of labels, as the macro F1 is low.
 
 From the results we can see that there is no big difference between the performance of GINCO-downcast (trained on Slovene text) and MT-GINCO-downcast (trained on English text - Slovene text, machine-translated to English).
 
@@ -576,17 +577,17 @@ To load the CORE-sub model from Wandb:
 import wandb
 run = wandb.init()
 artifact = run.use_artifact('tajak/CORE-hyperparameter-search/CORE-sub-classifier:v0', type='model')
+artifact_dir = artifact.download()
 
 # Loading a local save
 model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
 
-Results on the dev file: 
-Results on test file: 
+Results on the dev file: Macro f1: 0.396, Micro f1: 0.662
+Results on test file: Macro f1: 0.394, Micro f1: 0.661
 
-
-
+![](figures/CM-CORE-sub-on-test.png)
 
 ## Comparison of labels based on cross-dataset prediction
 
