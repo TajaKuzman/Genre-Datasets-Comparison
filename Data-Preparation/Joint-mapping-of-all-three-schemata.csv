@@ -1,0 +1,79 @@
+Category,X-GENRE joint schema,From the initial schema
+A1 (argumentative),discarded,FTD
+A17 (review),discarded,FTD
+Advice,discarded,CORE
+Course Materials,discarded,CORE
+Description of a Person,discarded,CORE
+Description of a Thing,discarded,CORE
+Description with Intent to Sell,discarded,CORE
+FAQ,discarded,GINCO
+FAQ about How-to,discarded,CORE
+FAQ about Information,discarded,CORE
+Historical Article,discarded,CORE
+Information Blog,discarded,CORE
+List of Summaries/Excerpts,discarded,GINCO
+Magazine Article,discarded,CORE
+Other Forum,discarded,CORE
+Other Information,discarded,CORE
+Other Informational Persuasion,discarded,CORE
+Other Opinion,discarded,CORE
+Other Spoken,discarded,CORE
+Poem,discarded,CORE
+Question/Answer Forum,discarded,CORE
+Reader/Viewer Responses,discarded,CORE
+Religious Blogs/Sermons,discarded,CORE
+Technical Report,discarded,CORE
+Transcript of Video/Audio,discarded,CORE
+Travel Blog,discarded,CORE
+Discussion Forum,Forum,CORE
+Forum,Forum,GINCO
+A14 (academic),Information/Explanation,FTD
+A16 (information),Information/Explanation,FTD
+Encyclopedia Article,Information/Explanation,CORE
+Information/Explanation,Information/Explanation,GINCO
+Research Article,Information/Explanation,CORE
+Research Article,Information/Explanation,GINCO
+A7 (instruction),Instruction,FTD
+How-to,Instruction,CORE
+Instruction,Instruction,GINCO
+Recipe,Instruction,CORE
+Recipe,Instruction,GINCO
+Technical Support,Instruction,CORE
+A9 (legal),Legal,FTD
+Legal terms,Legal,CORE
+Legal/Regulation,Legal,GINCO
+A8 (news),News,FTD
+Announcement,News,GINCO
+News Report/Blog,News,CORE
+News/Reporting,News,GINCO
+Opinionated News,News,GINCO
+Sports Report,News,CORE
+A11 (personal),Opinion/Argumentation,FTD
+Editorial,Opinion/Argumentation,CORE
+Formal Speech,Opinion/Argumentation,CORE
+Letter to Editor,Opinion/Argumentation,CORE
+Opinion Blog,Opinion/Argumentation,CORE
+Opinion/Argumentation,Opinion/Argumentation,GINCO
+Personal Blog,Opinion/Argumentation,CORE
+Persuasive Article or Essay,Opinion/Argumentation,CORE
+Review,Opinion/Argumentation,GINCO
+Reviews,Opinion/Argumentation,CORE
+Call,Other,GINCO
+Correspondence,Other,GINCO
+Interview,Other,CORE
+Interview,Other,GINCO
+Lyrical,Other,GINCO
+Other,Other,GINCO
+Script/Drama,Other,GINCO
+TV/Movie Script,Other,CORE
+A12 (promotion),Promotion,FTD
+Advertisement,Promotion,CORE
+Invitation,Promotion,GINCO
+Promotion,Promotion,GINCO
+Promotion of a Product,Promotion,GINCO
+Promotion of Services,Promotion,GINCO
+A4 (fiction),Prose/Lyrical,FTD
+Prayer,Prose/Lyrical,CORE
+Prose,Prose/Lyrical,GINCO
+Short Story,Prose/Lyrical,CORE
+Song Lyrics,Prose/Lyrical,CORE
