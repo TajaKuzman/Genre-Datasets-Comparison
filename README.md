@@ -32,8 +32,8 @@ The joint schema based on the comparison of the labels (based on predictions of 
 * [Information on the datasets](#information-on-the-datasets)
 * [Baseline experiments](#baseline-experiments)
 * [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
-* [Training on a joint dataset](#training-on-the-joint-schema-x-genre)
-* [Adding X-CORE datasets](#adding-x-core-datasets)
+* [Joint schema](#joint-schema-x-genre)
+* [Comparison of baseline classifiers based on the predictions, mapped to the joint schemas](#comparison-of-baseline-classifiers-based-on-the-predictions-mapped-to-the-joint-schema)
 
 ## Experiments Overview
 
@@ -308,7 +308,7 @@ Text length:
 
 #### GINCO-full-set
 
-As labels, we used the primary_level_1 labels (the original set without downcasting).Like in experiments with CORE, we discarded instances of categories with less than 10 instances (marked with a * in the table below).
+As labels, we used the primary_level_1 labels (the original set without downcasting). Like in experiments with CORE, we discarded instances of categories with less than 10 instances (marked with a * in the table below).
 
 |                            |   Count |   Percentage |
 |:---------------------------|--------:|-------------:|
@@ -808,7 +808,7 @@ CORE main categories are not able to describe promotional texts in contrast to F
 
 More details on how labels were predicted across datasets and schemata here: *More-details-on-comparison-of-labels.md*
 
-## Training on the joint schema (X-GENRE)
+## Joint schema (X-GENRE)
 
 ### Mapping
 
@@ -876,7 +876,9 @@ Roughly 10% (109 texts - 11%) of the texts are discarded (labels 'FAQ' and 'List
 
 **The distribution of X-GENRE labels in the CORE dataset**
 
-11211 texts (23% of all texts, including texts with multiple labels or no subcategory label) are discarded (labels: Advice (CORE),  Course Materials (CORE),  Description of a Person (CORE),  Description of a Thing (CORE),  Description with Intent to Sell (CORE), FAQ about How-to (CORE),  FAQ about Information (CORE),  Historical Article (CORE),  Information Blog (CORE),  Magazine Article (CORE),  Other Forum (CORE),  Other Information (CORE),  Other Informational Persuasion (CORE),  Other Opinion (CORE),  Other Spoken (CORE),  Poem (CORE),  Question/Answer Forum (CORE),  Reader/Viewer Responses (CORE),  Religious Blogs/Sermons (CORE),  Technical Report (CORE),  Transcript of Video/Audio (CORE),  Travel Blog (CORE),  Other Narrative (CORE), Other Lyrical (CORE), Other How-to (CORE)). Texts with multiple labels (3622 texts) or no subcategory label (4932 texts) are discarded as well.
+11211 texts (23% of all texts, including texts with multiple labels or no subcategory label) are discarded (labels: Advice (CORE),  Course Materials (CORE),  Description of a Person (CORE),  Description of a Thing (CORE),  Description with Intent to Sell (CORE), FAQ about How-to (CORE),  FAQ about Information (CORE),  Historical Article (CORE),  Information Blog (CORE),  Magazine Article (CORE),  Other Forum (CORE),  Other Information (CORE),  Other Informational Persuasion (CORE),  Other Opinion (CORE),  Other Spoken (CORE),  Poem (CORE),  Question/Answer Forum (CORE),  Reader/Viewer Responses (CORE),  Religious Blogs/Sermons (CORE),  Technical Report (CORE),  Transcript of Video/Audio (CORE),  Travel Blog (CORE),  Other Narrative (CORE), Other Lyrical (CORE), Other How-to (CORE)).
+
+Texts with multiple labels (3622 texts) or no subcategory label (4932 texts) are discarded as well.
 
 Number of texts that have a mapping (other than "discarded"): 28,655.
 
@@ -892,4 +894,4 @@ Number of texts that have a mapping (other than "discarded"): 28,655.
 | Legal                   |     186 |         0.65 |
 | Promotion               |      13 |         0.05 |
 
-## Adding X-CORE datasets
+For the experiments, we will use only a 1000 instances, so that the distribution of texts from each dataset is more or less balanced.
