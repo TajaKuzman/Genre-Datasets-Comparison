@@ -62,7 +62,6 @@ Call,Other,GINCO
 Correspondence,Other,GINCO
 Interview,Other,CORE
 Interview,Other,GINCO
-Lyrical,Other,GINCO
 Other,Other,GINCO
 Script/Drama,Other,GINCO
 TV/Movie Script,Other,CORE
@@ -72,8 +71,12 @@ Invitation,Promotion,GINCO
 Promotion,Promotion,GINCO
 Promotion of a Product,Promotion,GINCO
 Promotion of Services,Promotion,GINCO
+Lyrical,Prose/Lyrical,GINCO
 A4 (fiction),Prose/Lyrical,FTD
 Prayer,Prose/Lyrical,CORE
 Prose,Prose/Lyrical,GINCO
 Short Story,Prose/Lyrical,CORE
 Song Lyrics,Prose/Lyrical,CORE
+Other Narrative,discarded,CORE
+Other Lyrical,discarded,CORE
+Other How-to,discarded,CORE

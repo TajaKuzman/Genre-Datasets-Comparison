@@ -32,8 +32,8 @@ The joint schema based on the comparison of the labels (based on predictions of 
 * [Information on the datasets](#information-on-the-datasets)
 * [Baseline experiments](#baseline-experiments)
 * [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
-* [Training on a joint dataset](#training-on-the-joint-schema)
-* [X-GENRE: adding X-CORE datasets](#x-genre-adding-x-core-datasets)
+* [Training on a joint dataset](#training-on-the-joint-schema-x-genre)
+* [Adding X-CORE datasets](#adding-x-core-datasets)
 
 ## Experiments Overview
 
@@ -802,9 +802,94 @@ CORE main categories are not able to describe promotional texts in contrast to F
     - '**Transcript of Video/Audio**' (CORE): 'A1 (argumentative)', 'Other'
     - '**Other Information**' (CORE): more 'A7 (instruction)' than 'A16 (information)', 'Promotion'
     - '**Other Opinion**' pr. as 'A1 (argumentative)', but 'Promotion' with GINCO
+    - '**Other Lyrical**' (CORE): very rare, too fuzzy. Manual inspection revealed that information about a poet was annotated under this as well (index no. 21796)
+    - '**Other Narrative**' (CORE): very rare, too fuzzy (based on manual inspection)
+    - '**Other How-to**' (CORE): very rare, too fuzzy (based on manual inspection)
 
 More details on how labels were predicted across datasets and schemata here: *More-details-on-comparison-of-labels.md*
 
-## Training on the joint schema
+## Training on the joint schema (X-GENRE)
 
-## X-GENRE: adding X-CORE datasets
+### Mapping
+
+The following mapping is used:
+
+```
+map_FTD = {'A1 (argumentative)': 'discarded', 'A17 (review)': 'discarded', 'A14 (academic)': 'Information/Explanation', 'A16 (information)': 'Information/Explanation', 'A7 (instruction)': 'Instruction', 'A9 (legal)': 'Legal', 'A8 (news)': 'News', 'A11 (personal)': 'Opinion/Argumentation', 'A12 (promotion)': 'Promotion', 'A4 (fiction)': 'Prose/Lyrical'}
+
+map_GINCO = {'FAQ': 'discarded', 'List of Summaries/Excerpts': 'discarded', 'Forum': 'Forum', 'Information/Explanation': 'Information/Explanation', 'Research Article': 'Information/Explanation', 'Instruction': 'Instruction', 'Recipe': 'Instruction', 'Legal/Regulation': 'Legal', 'Announcement': 'News', 'News/Reporting': 'News', 'Opinionated News': 'News', 'Opinion/Argumentation': 'Opinion/Argumentation', 'Review': 'Opinion/Argumentation', 'Call': 'Other', 'Correspondence': 'Other', 'Interview': 'Other', 'Other': 'Other', 'Script/Drama': 'Other', 'Invitation': 'Promotion', 'Promotion': 'Promotion', 'Promotion of a Product': 'Promotion', 'Promotion of Services': 'Promotion', 'Lyrical': 'Prose/Lyrical', 'Prose': 'Prose/Lyrical'}
+
+
+map_CORE = {'Advice': 'discarded', 'Course Materials': 'discarded', 'Description of a Person': 'discarded', 'Description of a Thing': 'discarded', 'Description with Intent to Sell': 'discarded', 'FAQ about How-to': 'discarded', 'FAQ about Information': 'discarded', 'Historical Article': 'discarded', 'Information Blog': 'discarded', 'Magazine Article': 'discarded', 'Other Forum': 'discarded', 'Other Information': 'discarded', 'Other Informational Persuasion': 'discarded', 'Other Opinion': 'discarded', 'Other Spoken': 'discarded', 'Poem': 'discarded', 'Question/Answer Forum': 'discarded', 'Reader/Viewer Responses': 'discarded', 'Religious Blogs/Sermons': 'discarded', 'Technical Report': 'discarded', 'Transcript of Video/Audio': 'discarded', 'Travel Blog': 'discarded', 'Discussion Forum': 'Forum', 'Encyclopedia Article': 'Information/Explanation', 'Research Article': 'Information/Explanation', 'How-to': 'Instruction', 'Recipe': 'Instruction', 'Technical Support': 'Instruction', 'Legal terms': 'Legal', 'News Report/Blog': 'News', 'Sports Report': 'News', 'Editorial': 'Opinion/Argumentation', 'Formal Speech': 'Opinion/Argumentation', 'Letter to Editor': 'Opinion/Argumentation', 'Opinion Blog': 'Opinion/Argumentation', 'Personal Blog': 'Opinion/Argumentation', 'Persuasive Article or Essay': 'Opinion/Argumentation', 'Reviews': 'Opinion/Argumentation', 'Interview': 'Other', 'TV/Movie Script': 'Other', 'Advertisement': 'Promotion', 'Prayer': 'Prose/Lyrical', 'Short Story': 'Prose/Lyrical', 'Song Lyrics': 'Prose/Lyrical', 'Other Narrative': 'discarded', 'Other Lyrical': 'discarded', 'Other How-to': 'discarded'}
+```
+
+### Data
+
+Differences between the distribution of labels in the datasets (in percentages per all the texts that were used in a dataset):
+
+|                         |   GINCO |   FTD |   CORE |
+|:------------------------|--------:|------:|-------:|
+| Forum                   |    5.82 |  0    |   6.81 |
+| Information/Explanation |   15.57 | 23.52 |   4.69 |
+| Instruction             |    4.93 | 15.71 |  5.33 |
+| Legal                   |    1.9  |  6.95 |   0.65 |
+| News                    |   24.75 | 12.95 |  46.49 |
+| Opinion/Argumentation   |   14.67 |  7.52 |  31.33 |
+| Other                   |    7.84 |  0    |   1.71 |
+| Promotion               |   23.4  | 24.38 |   0.05 |
+| Prose/Lyrical           |    1.12 |  8.95 |   2.94 |
+
+As we can see, FTD dataset was not made to include "Forum" as a specific genre category. The comparison also shows that CORE has very few promotional texts, while in the other two datasets, they represent a fifth of all texts.
+
+<img style="width:100%" src="figures/Distribution-of-joint-labels.png">
+
+**The distribution of X-GENRE labels in the GINCO dataset**
+
+Roughly 10% (109 texts - 11%) of the texts are discarded (labels 'FAQ' and 'List of Summaries/Excerpts'). Number of texts used: 893. Distribution of labels (without the "discarded" ones):
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |     221 |        24.75 |
+| Promotion               |     209 |        23.4  |
+| Information/Explanation |     139 |        15.57 |
+| Opinion/Argumentation   |     131 |        14.67 |
+| Other                   |      70 |         7.84 |
+| Forum                   |      52 |         5.82 |
+| Instruction             |      44 |         4.93 |
+| Legal                   |      17 |         1.9  |
+| Prose/Lyrical           |      10 |         1.12 |
+
+
+**The distribution of X-GENRE labels in the FTD dataset**
+
+364 texts (23% of all texts, including texts with multiple labels) are discarded (labels 'A1 (argumentative)', 'A17 (review)'). Texts with multiple labels (139) are discarded as well. Number of texts used: 1050
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| Promotion               |     256 |        24.38 |
+| Information/Explanation |     247 |        23.52 |
+| Instruction             |     165 |        15.71 |
+| News                    |     136 |        12.95 |
+| Prose/Lyrical           |      94 |         8.95 |
+| Opinion/Argumentation   |      79 |         7.52 |
+| Legal                   |      73 |         6.95 |
+
+**The distribution of X-GENRE labels in the CORE dataset**
+
+11211 texts (23% of all texts, including texts with multiple labels or no subcategory label) are discarded (labels: Advice (CORE),  Course Materials (CORE),  Description of a Person (CORE),  Description of a Thing (CORE),  Description with Intent to Sell (CORE), FAQ about How-to (CORE),  FAQ about Information (CORE),  Historical Article (CORE),  Information Blog (CORE),  Magazine Article (CORE),  Other Forum (CORE),  Other Information (CORE),  Other Informational Persuasion (CORE),  Other Opinion (CORE),  Other Spoken (CORE),  Poem (CORE),  Question/Answer Forum (CORE),  Reader/Viewer Responses (CORE),  Religious Blogs/Sermons (CORE),  Technical Report (CORE),  Transcript of Video/Audio (CORE),  Travel Blog (CORE),  Other Narrative (CORE), Other Lyrical (CORE), Other How-to (CORE)). Texts with multiple labels (3622 texts) or no subcategory label (4932 texts) are discarded as well.
+
+Number of texts that have a mapping (other than "discarded"): 28,655.
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |   13323 |        46.49 |
+| Opinion/Argumentation   |    8979 |        31.33 |
+| Forum                   |    1950 |         6.81 |
+| Instruction             |    1528 |         5.33 |
+| Information/Explanation |    1344 |         4.69 |
+| Prose/Lyrical           |     842 |         2.94 |
+| Other                   |     490 |         1.71 |
+| Legal                   |     186 |         0.65 |
+| Promotion               |      13 |         0.05 |
+
+## Adding X-CORE datasets
