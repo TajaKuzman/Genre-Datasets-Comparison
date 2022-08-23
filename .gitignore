@@ -38,3 +38,6 @@ results/testing-CORE-main-on-dev-sheet-with-predictions.csv
 results/testing-CORE-main-on-test-sheet-with-predictions.csv
 results/testing-CORE-sub-on-dev-sheet-with-predictions.csv
 results/testing-CORE-sub-on-test-sheet-with-predictions.csv
+data-splits/CORE-sample-X-GENRE-dev.csv
+data-splits/CORE-sample-X-GENRE-test.csv
+data-splits/CORE-sample-X-GENRE-train.csv

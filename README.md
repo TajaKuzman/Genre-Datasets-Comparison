@@ -859,6 +859,8 @@ Roughly 10% (109 texts - 11%) of the texts are discarded (labels 'FAQ' and 'List
 | Legal                   |      17 |         1.9  |
 | Prose/Lyrical           |      10 |         1.12 |
 
+The dataset was split into 60:20:20 stratified train-dev-test split (535-179-179 texts). It has 9 labels: ['Information/Explanation' 'Opinion/Argumentation' 'Promotion' 'Other' 'Forum' 'News' 'Prose/Lyrical' 'Instruction' 'Legal']
+
 
 **The distribution of X-GENRE labels in the FTD dataset**
 
@@ -894,23 +896,23 @@ Number of texts that have a mapping (other than "discarded"): 28,655.
 | Legal                   |     186 |         0.65 |
 | Promotion               |      13 |         0.05 |
 
-As we can see from the table, the distribution of the labels is severely unbalanced. As I will use much less texts in the experiments, I decided to discard 80% of News instances and 6900 instances of Opinion to make the dataset smaller and more balanced.
+As we can see from the table, the distribution of the labels is severely unbalanced. As I will use much less texts in the experiments, I decided to discard 80% of News instances and 6900 instances of Opinion to make the dataset smaller and more balanced. Then I used only 1000 instances of the resulting 10,755 to have a sample of a similar size than FTD and GINCO. The sample was created as a stratified split from the 10.000 instances, stratified according to the label distribution. There are only 13 instances of "Promotion" in the entire dataset and I did not want to discard a label, so I decided to add all 13 texts to the sample.
 
-Number of texts: 10,755
+Number of texts: 1000
 
 |                         |   Count |   Percentage |
 |:------------------------|--------:|-------------:|
-| News                    |    2323 |    21.5993   |
-| Opinion/Argumentation   |    2079 |    19.3305   |
-| Forum                   |    1950 |    18.1311   |
-| Instruction             |    1528 |    14.2073   |
-| Information/Explanation |    1344 |    12.4965   |
-| Prose/Lyrical           |     842 |     7.82892  |
-| Other                   |     490 |     4.55602  |
-| Legal                   |     186 |     1.72943  |
-| Promotion               |      13 |     0.120874 |
+| News                    |     216 |     21.3228  |
+| Opinion/Argumentation   |     194 |     19.151   |
+| Forum                   |     182 |     17.9664  |
+| Instruction             |     142 |     14.0178  |
+| Information/Explanation |     125 |     12.3396  |
+| Prose/Lyrical           |      78 |      7.6999  |
+| Other                   |      46 |      4.54097 |
+| Legal                   |      17 |      1.67818 |
+| Promotion               |      13 |      1.28332 |
 
-For the experiments, we will use only a 1000 instances, so that the distribution of texts from each dataset is more or less balanced.
+The sample was split in a 60:20:20 train-dev-test split (607:203:203 texts), stratified based on the labels. There are 9 labels: ['Other', 'Information/Explanation', 'News', 'Instruction', 'Opinion/Argumentation', 'Forum', 'Prose/Lyrical', 'Legal', 'Promotion']
 
 
 #### X-GENRE classifiers
@@ -950,3 +952,19 @@ artifact_dir = artifact.download()
 # Loading a local save
 model = ClassificationModel(
     "xlmroberta", artifact_dir)
+```
+
+Results on FTD dev file: Macro f1: 0.828, Micro f1: 0.814
+
+Results on FTD test file: Macro f1: 0.851, Micro f1: 0.843
+
+![Confusion matrix for training and testing on FTD](results/Confusion-matrix-testing-FTD-X-GENRE-on-test.png)
+
+Results on SL-GINCO: Macro f1: 0.498, Micro f1: 0.57
+Results on MT-GINCO: Macro f1: 0.458, Micro f1: 0.57
+
+![Confusion matrix for training on FTD, testing on SL-GINCO](results/Confusion-matrix-testing-FTD-X-GENRE-on-SL-GINCO-test.png)
+
+Results on CORE: Macro f1: 0.397, Micro f1: 0.478
+
+![Confusion matrix for training on FTD, testing on SL-GINCO](results/Confusion-matrix-testing-FTD-X-GENRE-on-CORE-test.png)
