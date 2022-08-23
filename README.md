@@ -862,7 +862,7 @@ Roughly 10% (109 texts - 11%) of the texts are discarded (labels 'FAQ' and 'List
 
 **The distribution of X-GENRE labels in the FTD dataset**
 
-364 texts (23% of all texts, including texts with multiple labels) are discarded (labels 'A1 (argumentative)', 'A17 (review)'). Texts with multiple labels (139) are discarded as well. Number of texts used: 1050
+364 texts (23% of all texts, including texts with multiple labels) are discarded (labels 'A1 (argumentative)', 'A17 (review)'). Texts with multiple labels (139) are discarded as well. Number of texts used: 1050. Texts were split into 60:20:20 train-dev-test split (630:210:210 texts), stratified based on the labels. There are 7 labels: ['Prose/Lyrical', 'Promotion', 'News', 'Opinion/Argumentation', 'Instruction', 'Legal', 'Information/Explanation']
 
 |                         |   Count |   Percentage |
 |:------------------------|--------:|-------------:|
@@ -878,6 +878,8 @@ Roughly 10% (109 texts - 11%) of the texts are discarded (labels 'FAQ' and 'List
 
 11211 texts (23% of all texts, including texts with multiple labels or no subcategory label) are discarded (labels: Advice (CORE),  Course Materials (CORE),  Description of a Person (CORE),  Description of a Thing (CORE),  Description with Intent to Sell (CORE), FAQ about How-to (CORE),  FAQ about Information (CORE),  Historical Article (CORE),  Information Blog (CORE),  Magazine Article (CORE),  Other Forum (CORE),  Other Information (CORE),  Other Informational Persuasion (CORE),  Other Opinion (CORE),  Other Spoken (CORE),  Poem (CORE),  Question/Answer Forum (CORE),  Reader/Viewer Responses (CORE),  Religious Blogs/Sermons (CORE),  Technical Report (CORE),  Transcript of Video/Audio (CORE),  Travel Blog (CORE),  Other Narrative (CORE), Other Lyrical (CORE), Other How-to (CORE)). Texts with multiple labels (3622 texts) or no subcategory label (4932 texts) are discarded as well.
 
+We also had to discard instances of "Promotion" because there is 
+
 Number of texts that have a mapping (other than "discarded"): 28,655.
 
 |                         |   Count |   Percentage |
@@ -892,4 +894,48 @@ Number of texts that have a mapping (other than "discarded"): 28,655.
 | Legal                   |     186 |         0.65 |
 | Promotion               |      13 |         0.05 |
 
+As we can see from the table, the distribution of the labels is severely unbalanced. As I will use much less texts in the experiments, I decided to discard 80% of News instances and 6900 instances of Opinion to make the dataset smaller and more balanced.
+
+Number of texts: 10,755
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |    2323 |    21.5993   |
+| Opinion/Argumentation   |    2079 |    19.3305   |
+| Forum                   |    1950 |    18.1311   |
+| Instruction             |    1528 |    14.2073   |
+| Information/Explanation |    1344 |    12.4965   |
+| Prose/Lyrical           |     842 |     7.82892  |
+| Other                   |     490 |     4.55602  |
+| Legal                   |     186 |     1.72943  |
+| Promotion               |      13 |     0.120874 |
+
 For the experiments, we will use only a 1000 instances, so that the distribution of texts from each dataset is more or less balanced.
+
+
+#### X-GENRE classifiers
+
+In all experiments I followed the methodology from the baseline experiments - I trained the model on the train split, performed hyperparameter search (search for no. of epochs) on dev split and tested it on the test split. As a hyperparameter search, I first evaluated during training and chose an array of the most useful epochs based on the training and evaluation loss (I searched for an epoch before the evaluation loss starts rising again). Then I trained and tested (on dev split) the model on each of the chosen epochs and found the optimum one.
+
+##### FTD-X-GENRE classifier
+
+Hyperparameters:
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 8,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            # The following parameters are commented out because I want to save the model
+            #"no_cache": True,
+            # Disable no_save: True if you want to save the model
+            #"no_save": True,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'X-GENRE classifiers',
+            "silent": True,
+            }
+```
