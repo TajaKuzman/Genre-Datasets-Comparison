@@ -915,6 +915,25 @@ Number of texts: 1000
 The sample was split in a 60:20:20 train-dev-test split (607:203:203 texts), stratified based on the labels. There are 9 labels: ['Other', 'Information/Explanation', 'News', 'Instruction', 'Opinion/Argumentation', 'Forum', 'Prose/Lyrical', 'Legal', 'Promotion']
 
 
+**The distribution of X-GENRE labels in the joined dataset (X-GENRE dataset)**
+
+The splits of the joined dataset constitute of the splits from each dataset (e.g., the train split constitutes of the FTD, GINCO and CORE train splits as used when training classifiers on them). Total number of instances: 2956 (train-dev-test: 1772-592-592 texts).
+
+Distribution of labels:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| News                    |     573 |    0.193843  |
+| Information/Explanation |     511 |    0.172869  |
+| Promotion               |     478 |    0.161705  |
+| Opinion/Argumentation   |     404 |    0.136671  |
+| Instruction             |     351 |    0.118742  |
+| Forum                   |     234 |    0.079161  |
+| Prose/Lyrical           |     182 |    0.0615697 |
+| Other                   |     116 |    0.0392422 |
+| Legal                   |     107 |    0.0361976 |
+
+
 #### X-GENRE classifiers
 
 In all experiments I followed the methodology from the baseline experiments - I trained the model on the train split, performed hyperparameter search (search for no. of epochs) on dev split and tested it on the test split. As a hyperparameter search, I first evaluated during training and chose an array of the most useful epochs based on the training and evaluation loss (I searched for an epoch before the evaluation loss starts rising again). Then I trained and tested (on dev split) the model on each of the chosen epochs and found the optimum one.
@@ -967,4 +986,45 @@ Results on MT-GINCO: Macro f1: 0.458, Micro f1: 0.57
 
 Results on CORE: Macro f1: 0.397, Micro f1: 0.478
 
-![Confusion matrix for training on FTD, testing on SL-GINCO](results/Confusion-matrix-testing-FTD-X-GENRE-on-CORE-test.png)
+![Confusion matrix for training on FTD, testing on CORE](results/Confusion-matrix-testing-FTD-X-GENRE-on-CORE-test.png)
+
+Results on the joint dataset (X-GENRE): Macro f1: 0.532, Micro f1: 0.635
+
+![Confusion matrix for training on FTD, testing on X-GENRE](results/Confusion-matrix-testing-FTD-X-GENRE-on-X-GENRE-test.png)
+
+##### SI-GINCO-X-GENRE classifier
+
+Hyperparameters:
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 20,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            # The following parameters are commented out because I want to save the model
+            #"no_cache": True,
+            # Disable no_save: True if you want to save the model
+            #"no_save": True,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'X-GENRE classifiers',
+            "silent": True,
+            }
+
+```
+
+To load the SI-GINCO-X-GENRE model from Wandb:
+
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/X-GENRE classifiers/SI-GINCO-X-GENRE-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
