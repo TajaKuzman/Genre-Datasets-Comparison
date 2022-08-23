@@ -939,3 +939,14 @@ Hyperparameters:
             "silent": True,
             }
 ```
+
+To load the FTD-X-GENRE model from Wandb:
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/X-GENRE classifiers/FTD-X-GENRE-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
