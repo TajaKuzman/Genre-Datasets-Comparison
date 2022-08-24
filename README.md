@@ -977,24 +977,26 @@ Results on FTD dev file: Macro f1: 0.828, Micro f1: 0.814
 
 Results on FTD test file: Macro f1: 0.851, Micro f1: 0.843
 
-![Confusion matrix for training and testing on FTD](results/Confusion-matrix-testing-FTD-X-GENRE-on-test.png)
+![Confusion matrix for training and testing on FTD](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-test.png)
 
 Results on SL-GINCO: Macro f1: 0.498, Micro f1: 0.57
 Results on MT-GINCO: Macro f1: 0.458, Micro f1: 0.57
 
-![Confusion matrix for training on FTD, testing on SL-GINCO](results/Confusion-matrix-testing-FTD-X-GENRE-on-SL-GINCO-test.png)
+![Confusion matrix for training on FTD, testing on SL-GINCO](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-SL-GINCO-test.png)
 
 Results on CORE: Macro f1: 0.397, Micro f1: 0.478
 
-![Confusion matrix for training on FTD, testing on CORE](results/Confusion-matrix-testing-FTD-X-GENRE-on-CORE-test.png)
+![Confusion matrix for training on FTD, testing on CORE](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-CORE-test.png)
 
 Results on the joint dataset (X-GENRE): Macro f1: 0.532, Micro f1: 0.635
 
-![Confusion matrix for training on FTD, testing on X-GENRE](results/Confusion-matrix-testing-FTD-X-GENRE-on-X-GENRE-test.png)
+![Confusion matrix for training on FTD, testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-X-GENRE-test.png)
 
-##### SI-GINCO-X-GENRE classifier
+##### SI-GINCO-X-GENRE classifier & MT-GINCO-X-GENRE classifier
 
-Hyperparameters:
+For training of MT-GINCO-X-GENRE, I used the same code as for the training of SI-GINCO-X-GENRE, I just changed the datasets from Slovene to MT-GINCO.
+
+Hyperparameters (both classifiers use the same hyperparameters):
 ```
         args= {
             "overwrite_output_dir": True,
@@ -1028,3 +1030,114 @@ artifact_dir = artifact.download()
 model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
+
+**SL-GINCO results**:
+- on dev file: Macro f1: 0.582, Micro f1: 0.67
+- on test file: Macro f1: 0.75, Micro f1: 0.754
+
+![Confusion matrix for training on SL-GINCO, testing on Sl-GINCO](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-test.png)
+
+Results on MT-GINCO: Macro f1: 0.596, Micro f1: 0.676
+
+Results on CORE: Macro f1: 0.521, Micro f1: 0.591
+
+![Confusion matrix for training on SL-GINCO, testing on CORE](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-CORE-test.png)
+
+Results on FTD: Macro f1: 0.654, Micro f1: 0.726
+
+![Confusion matrix for training on SL-GINCO, testing on FTD](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-FTD-test.png)
+
+Results on X-GENRE: Macro f1: 0.617, Micro f1: 0.672
+
+![Confusion matrix for training on SL-GINCO, testing on X-GENRE (joint dataset)](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-X-GENRE-test.png)
+
+To load the MT-GINCO-X-GENRE model from Wandb:
+
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/X-GENRE classifiers/MT-GINCO-X-GENRE-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
+**MT-GINCO results**
+
+Results on dev file: Macro f1: 0.759, Micro f1: 0.765
+Results on test file: Macro f1: 0.723, Micro f1: 0.743
+
+![Confusion matrix for training on MT-GINCO, testing on MT-GINCO](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-MT-GINCO-test.png)
+
+Results on SI-GINCO-test: Macro f1: 0.655, Micro f1: 0.732
+
+Results on CORE-test: Macro f1: 0.553, Micro f1: 0.66
+
+![Confusion matrix for training on MT-GINCO, testing on CORE](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-CORE-test.png)
+
+Results on FTD-test: Macro f1: 0.718, Micro f1: 0.736
+
+![Confusion matrix for training on MT-GINCO, testing on FTD](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-FTD-test.png)
+
+Results on X-genre: Macro f1: 0.667, Micro f1: 0.698
+![Confusion matrix for training on MT-GINCO, testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-X-GENRE-test.png)
+
+
+##### CORE-X-GENRE classifier
+
+Hyperparameters used:
+
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 10,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            # The following parameters are commented out because I want to save the model
+            #"no_cache": True,
+            # Disable no_save: True if you want to save the model
+            #"no_save": True,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'X-GENRE classifiers',
+            "silent": True,
+            }
+```
+
+To access the model from the Wandb:
+
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/X-GENRE classifiers/CORE-X-GENRE-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
+Results on dev file: Macro f1: 0.609, Micro f1: 0.764
+
+Results on test file: Macro f1: 0.627, Micro f1: 0.778
+
+![Confusion matrix for training and testing on CORE (CORE-test)](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-CORE-test.png)
+
+Results on SI-GINCO: Macro f1: 0.348, Micro f1: 0.374
+
+Results on MT-GINCO: Macro f1: 0.394, Micro f1: 0.385
+
+![Confusion matrix for training on CORE and testing on MT-GINCO](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-MT-GINCO-test.png)
+
+Results on FTD: Macro f1: 0.419, Micro f1: 0.495
+
+![Confusion matrix for training on CORE and testing on FTD](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-FTD-test.png)
+
+Results on X-GENRE: Macro f1: 0.481, Micro f1: 0.551
+
+![Confusion matrix for training on CORE and testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-X-GENRE-test.png)
