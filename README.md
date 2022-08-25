@@ -55,10 +55,10 @@ Baseline experiments (in-dataset experiments) - training and testing on the spli
 | Dataset | Micro F1 | Macro F1 |
 |---------|----------|----------|
 | FTD     | 0.739    | 0.74     |
-| GINCO-full-set        |  0.591        | 0.466         |
-| GINCO-downcast        |  0.73        |  0.715        |
 | MT-GINCO-downcast        |   0.72       |  0.723        |
+| GINCO-downcast        |  0.73        |  0.715        |
 | CORE-main        |    0.745      |   0.62       |
+| GINCO-full-set        |  0.591        | 0.466         |
 | CORE-sub        |    0.661      |   0.394       |
 
 From the in-dataset experiments, we can see that the FTD dataset obtains the best results, followed by GINCO-downcast and MT-GINCO-downcast, while the GINCO-full-set and CORE-main achieve worse results, especially in terms of macro F1. The CORE-sub shows the problem with a too high granularity of labels, as the macro F1 is low.
