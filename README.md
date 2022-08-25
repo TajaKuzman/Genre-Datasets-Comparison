@@ -880,8 +880,6 @@ The dataset was split into 60:20:20 stratified train-dev-test split (535-179-179
 
 11211 texts (23% of all texts, including texts with multiple labels or no subcategory label) are discarded (labels: Advice (CORE),  Course Materials (CORE),  Description of a Person (CORE),  Description of a Thing (CORE),  Description with Intent to Sell (CORE), FAQ about How-to (CORE),  FAQ about Information (CORE),  Historical Article (CORE),  Information Blog (CORE),  Magazine Article (CORE),  Other Forum (CORE),  Other Information (CORE),  Other Informational Persuasion (CORE),  Other Opinion (CORE),  Other Spoken (CORE),  Poem (CORE),  Question/Answer Forum (CORE),  Reader/Viewer Responses (CORE),  Religious Blogs/Sermons (CORE),  Technical Report (CORE),  Transcript of Video/Audio (CORE),  Travel Blog (CORE),  Other Narrative (CORE), Other Lyrical (CORE), Other How-to (CORE)). Texts with multiple labels (3622 texts) or no subcategory label (4932 texts) are discarded as well.
 
-We also had to discard instances of "Promotion" because there is 
-
 Number of texts that have a mapping (other than "discarded"): 28,655.
 
 |                         |   Count |   Percentage |
@@ -937,6 +935,30 @@ Distribution of labels:
 #### X-GENRE classifiers
 
 In all experiments I followed the methodology from the baseline experiments - I trained the model on the train split, performed hyperparameter search (search for no. of epochs) on dev split and tested it on the test split. As a hyperparameter search, I first evaluated during training and chose an array of the most useful epochs based on the training and evaluation loss (I searched for an epoch before the evaluation loss starts rising again). Then I trained and tested (on dev split) the model on each of the chosen epochs and found the optimum one.
+
+##### Overview of results
+
+**In-dataset experiments**
+
+| Trained on   |   Micro F1 |   Macro F1 |
+|:-------------|-----------:|-----------:|
+| FTD          |      0.843 |      0.851 |
+| CORE         |      0.778 |      0.627 |
+| SI-GINCO     |      0.754 |      0.75  |
+| MT-GINCO     |      0.743 |      0.723 |
+
+Comparison with the baseline results (original schemata):
+
+| Dataset | Micro F1 | Macro F1 |
+|---------|----------|----------|
+| FTD     | 0.739    | 0.74     |
+| MT-GINCO-downcast        |   0.72       |  0.723        |
+| GINCO-downcast        |  0.73        |  0.715        |
+| CORE-main        |    0.745      |   0.62       |
+| GINCO-full-set        |  0.591        | 0.466         |
+| CORE-sub        |    0.661      |   0.394       |
+
+****
 
 ##### FTD-X-GENRE classifier
 
@@ -1141,3 +1163,58 @@ Results on FTD: Macro f1: 0.419, Micro f1: 0.495
 Results on X-GENRE: Macro f1: 0.481, Micro f1: 0.551
 
 ![Confusion matrix for training on CORE and testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-X-GENRE-test.png)
+
+##### X-GENRE classifier
+
+Hyperparameters:
+```
+args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 15,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            # Only the trained model will be saved - to prevent filling all of the space
+            "save_model_every_epoch":False,
+            "wandb_project": 'X-GENRE classifiers',
+            "silent": True,
+            }
+```
+
+To access the model from the Wandb:
+
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/X-GENRE classifiers/X-GENRE-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
+
+Results on the dev file: Macro f1: 0.784, Micro f1: 0.784
+
+Results on the test file: Macro f1: 0.794, Micro f1: 0.797
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-X-GENRE-test.png)
+
+Results on CORE: Macro f1: 0.859, Micro f1: 0.837
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-CORE-test.png)
+
+Results on SI-GINCO: Macro f1: 0.758, Micro f1: 0.749
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-SI-GINCO-test.png)
+
+Results on MT-GINCO: Macro f1: 0.676, Micro f1: 0.698
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-MT-GINCO-test.png)
+
+Results on FTD: Macro f1: 0.809, Micro f1: 0.804
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-CORE-test.png)
+
