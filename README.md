@@ -32,8 +32,8 @@ The joint schema based on the comparison of the labels (based on predictions of 
 * [Information on the datasets](#information-on-the-datasets)
 * [Baseline experiments](#baseline-experiments)
 * [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
-* [Joint schema](#joint-schema-x-genre)
-* [Comparison of baseline classifiers based on the predictions, mapped to the joint schemas](#comparison-of-baseline-classifiers-based-on-the-predictions-mapped-to-the-joint-schema)
+* [Experiments based on the joint schema](#joint-schema-x-genre)
+
 
 ## Experiments Overview
 
@@ -103,14 +103,16 @@ For more details, see [Comparison of labels based on cross-dataset prediction](#
 
 ### 3. Training on a combination of GINCO + FTD + CORE (joint schema)
 
-Training on a combination of GINCO + FTD + CORE (joint schema):
-* testing on SL-GINCO and MT-GINCO (joint schema)
-* testing on CORE (joint schema)
-* testing on FTD (joint schema)
-* testing on a combination of GINCO + FTD + CORE (joint schema)
-* testing on EnTenTen (manual analysis whether predicted labels apply)
+First, the original labels were mapped to a joint schema ("X-GENRE" schema): see [Mapping](#mapping) and the resulting [data](#data).
 
-For more details, see [Training on a joint dataset](#training-on-the-joint-schema)
+Then classifiers were trained with the joint schema labels:
+* FTD-X-GENRE classifier (FTD dataset with X-GENRE labels)
+* CORE-X-GENRE classifier (CORE dataset with X-GENRE labels)
+* SI-GINCO-X-GENRE classifier (SI-GINCO dataset with X-GENRE labels)
+* MT-GINCO-X-GENRE classifier (MT-GINCO dataset with X-GENRE labels)
+* X-GENRE classifier (FTD+CORE+GINCO dataset with X-GENRE labels)
+
+For more details, see [Experiments based on the joint schema](#joint-schema-x-genre)
 
 (4. Multilingual experiments: training on GINCO + FTD + CORE + X-CORE corpora (joint schema):
 * testing on GINCO (GINCO schema)
@@ -119,8 +121,7 @@ For more details, see [Training on a joint dataset](#training-on-the-joint-schem
 * (testing on EN-GINCO (GINCO schema))
 * testing on a combination of GINCO + FTD + CORE (joint schema)
 * testing on a combination of all corpora used for training
-
-For more details, see [X-GENRE: adding X-CORE datasets](#x-genre-adding-x-core-datasets)
+)
 
 ## Information on the datasets
 
@@ -943,6 +944,7 @@ In all experiments I followed the methodology from the baseline experiments - I 
 | Trained on   |   Micro F1 |   Macro F1 |
 |:-------------|-----------:|-----------:|
 | FTD          |      0.843 |      0.851 |
+| X-GENRE      |      0.797 |      0.794 |
 | CORE         |      0.778 |      0.627 |
 | SI-GINCO     |      0.754 |      0.75  |
 | MT-GINCO     |      0.743 |      0.723 |
@@ -958,7 +960,7 @@ Comparison with the baseline results (original schemata):
 | GINCO-full-set        |  0.591        | 0.466         |
 | CORE-sub        |    0.661      |   0.394       |
 
-****
+In-dataset experiments with joint labels (“X-GENRE” labels) give better results than the experiments with the original schemata. However, this could be due to the fact that “problematic” categories were not used here. Like in the first experiments, FTD has the best results, but here, its results are much higher than the scores of other classifiers. We should also note that FTD has less labels than other datasets (no “Forum”). The X-GENRE dataset (all datasets joined) has the second best results, and its scores are better than all scores from the baseline experiments. It is followed by CORE on micro F1 and the GINCO classifiers on the macro F1. MT-GINCO performs similarly to SL-GINCO (but slightly worse).
 
 ##### FTD-X-GENRE classifier
 
@@ -995,22 +997,21 @@ model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
 
-Results on FTD dev file: Macro f1: 0.828, Micro f1: 0.814
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| FTD          | FTD         |      0.843 |      0.851 |
+| FTD          | FTD-dev     |      0.814 |      0.828 |
+| FTD          | X-GENRE     |      0.635 |      0.532 |
+| FTD          | SI-GINCO    |      0.57  |      0.498 |
+| FTD          | MT-GINCO    |      0.57  |      0.458 |
+| FTD          | CORE        |      0.478 |      0.397 |
 
-Results on FTD test file: Macro f1: 0.851, Micro f1: 0.843
 
 ![Confusion matrix for training and testing on FTD](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-test.png)
 
-Results on SL-GINCO: Macro f1: 0.498, Micro f1: 0.57
-Results on MT-GINCO: Macro f1: 0.458, Micro f1: 0.57
-
 ![Confusion matrix for training on FTD, testing on SL-GINCO](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-SL-GINCO-test.png)
 
-Results on CORE: Macro f1: 0.397, Micro f1: 0.478
-
 ![Confusion matrix for training on FTD, testing on CORE](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-CORE-test.png)
-
-Results on the joint dataset (X-GENRE): Macro f1: 0.532, Micro f1: 0.635
 
 ![Confusion matrix for training on FTD, testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-testing-FTD-X-GENRE-on-X-GENRE-test.png)
 
@@ -1054,24 +1055,25 @@ model = ClassificationModel(
 ```
 
 **SL-GINCO results**:
-- on dev file: Macro f1: 0.582, Micro f1: 0.67
-- on test file: Macro f1: 0.75, Micro f1: 0.754
+
+| Trained on   | Tested on    |   Micro F1 |   Macro F1 |
+|:-------------|:-------------|-----------:|-----------:|
+| SI-GINCO     | SI-GINCO     |      0.754 |      0.75  |
+| SI-GINCO     | FTD          |      0.726 |      0.654 |
+| SI-GINCO     | MT-GINCO     |      0.676 |      0.596 |
+| SI-GINCO     | X-GENRE      |      0.672 |      0.617 |
+| SI-GINCO     | SI-GINCO-dev |      0.67  |      0.582 |
+| SI-GINCO     | CORE         |      0.591 |      0.521 |
 
 ![Confusion matrix for training on SL-GINCO, testing on Sl-GINCO](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-test.png)
 
-Results on MT-GINCO: Macro f1: 0.596, Micro f1: 0.676
-
-Results on CORE: Macro f1: 0.521, Micro f1: 0.591
-
 ![Confusion matrix for training on SL-GINCO, testing on CORE](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-CORE-test.png)
-
-Results on FTD: Macro f1: 0.654, Micro f1: 0.726
 
 ![Confusion matrix for training on SL-GINCO, testing on FTD](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-FTD-test.png)
 
-Results on X-GENRE: Macro f1: 0.617, Micro f1: 0.672
-
 ![Confusion matrix for training on SL-GINCO, testing on X-GENRE (joint dataset)](figures/X-genre-labels/Confusion-matrix-testing-SL-GINCO-X-GENRE-on-X-GENRE-test.png)
+
+**MT-GINCO**
 
 To load the MT-GINCO-X-GENRE model from Wandb:
 
@@ -1088,22 +1090,21 @@ model = ClassificationModel(
 
 **MT-GINCO results**
 
-Results on dev file: Macro f1: 0.759, Micro f1: 0.765
-Results on test file: Macro f1: 0.723, Micro f1: 0.743
+| Trained on   | Tested on    |   Micro F1 |   Macro F1 |
+|:-------------|:-------------|-----------:|-----------:|
+| MT-GINCO     | MT-GINCO-dev |      0.765 |      0.759 |
+| MT-GINCO     | MT-GINCO     |      0.743 |      0.723 |
+| MT-GINCO     | FTD          |      0.736 |      0.718 |
+| MT-GINCO     | SI-GINCO     |      0.732 |      0.655 |
+| MT-GINCO     | X-GENRE      |      0.698 |      0.667 |
+| MT-GINCO     | CORE         |      0.66  |      0.553 |
 
 ![Confusion matrix for training on MT-GINCO, testing on MT-GINCO](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-MT-GINCO-test.png)
 
-Results on SI-GINCO-test: Macro f1: 0.655, Micro f1: 0.732
-
-Results on CORE-test: Macro f1: 0.553, Micro f1: 0.66
-
 ![Confusion matrix for training on MT-GINCO, testing on CORE](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-CORE-test.png)
-
-Results on FTD-test: Macro f1: 0.718, Micro f1: 0.736
 
 ![Confusion matrix for training on MT-GINCO, testing on FTD](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-FTD-test.png)
 
-Results on X-genre: Macro f1: 0.667, Micro f1: 0.698
 ![Confusion matrix for training on MT-GINCO, testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-X-GENRE-test.png)
 
 
@@ -1144,23 +1145,20 @@ model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
 
-Results on dev file: Macro f1: 0.609, Micro f1: 0.764
-
-Results on test file: Macro f1: 0.627, Micro f1: 0.778
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| CORE         | CORE        |      0.778 |      0.627 |
+| CORE         | CORE-dev    |      0.764 |      0.609 |
+| CORE         | X-GENRE     |      0.551 |      0.481 |
+| CORE         | FTD         |      0.495 |      0.419 |
+| CORE         | MT-GINCO    |      0.385 |      0.394 |
+| CORE         | SI-GINCO    |      0.374 |      0.348 |
 
 ![Confusion matrix for training and testing on CORE (CORE-test)](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-CORE-test.png)
 
-Results on SI-GINCO: Macro f1: 0.348, Micro f1: 0.374
-
-Results on MT-GINCO: Macro f1: 0.394, Micro f1: 0.385
-
 ![Confusion matrix for training on CORE and testing on MT-GINCO](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-MT-GINCO-test.png)
 
-Results on FTD: Macro f1: 0.419, Micro f1: 0.495
-
 ![Confusion matrix for training on CORE and testing on FTD](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-FTD-test.png)
-
-Results on X-GENRE: Macro f1: 0.481, Micro f1: 0.551
 
 ![Confusion matrix for training on CORE and testing on X-GENRE](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-X-GENRE-test.png)
 
@@ -1196,25 +1194,78 @@ model = ClassificationModel(
     "xlmroberta", artifact_dir)
 ```
 
-Results on the dev file: Macro f1: 0.784, Micro f1: 0.784
 
-Results on the test file: Macro f1: 0.794, Micro f1: 0.797
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| X-GENRE      | CORE        |      0.837 |      0.859 |
+| X-GENRE      | FTD         |      0.804 |      0.809 |
+| X-GENRE      | X-GENRE     |      0.797 |      0.794 |
+| X-GENRE      | X-GENRE-dev |      0.784 |      0.784 |
+| X-GENRE      | SI-GINCO    |      0.749 |      0.758 |
+| X-GENRE      | MT-GINCO    |      0.698 |      0.676 |
 
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-X-GENRE-test.png)
 
-Results on CORE: Macro f1: 0.859, Micro f1: 0.837
-
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-CORE-test.png)
-
-Results on SI-GINCO: Macro f1: 0.758, Micro f1: 0.749
 
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-SI-GINCO-test.png)
 
-Results on MT-GINCO: Macro f1: 0.676, Micro f1: 0.698
-
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-MT-GINCO-test.png)
 
-Results on FTD: Macro f1: 0.809, Micro f1: 0.804
-
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-CORE-test.png)
+
+##### Results based on "tested on"
+
+Results for tested on SI-GINCO:
+
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| SI-GINCO     | SI-GINCO    |      0.754 |      0.75  |
+| X-GENRE      | SI-GINCO    |      0.749 |      0.758 |
+| MT-GINCO     | SI-GINCO    |      0.732 |      0.655 |
+| FTD          | SI-GINCO    |      0.57  |      0.498 |
+| CORE         | SI-GINCO    |      0.374 |      0.348 |
+
+
+Results for tested on MT-GINCO:
+
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| MT-GINCO     | MT-GINCO    |      0.743 |      0.723 |
+| X-GENRE      | MT-GINCO    |      0.698 |      0.676 |
+| SI-GINCO     | MT-GINCO    |      0.676 |      0.596 |
+| FTD          | MT-GINCO    |      0.57  |      0.458 |
+| CORE         | MT-GINCO    |      0.385 |      0.394 |
+
+
+Results for tested on CORE:
+
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| X-GENRE      | CORE        |      0.837 |      0.859 |
+| CORE         | CORE        |      0.778 |      0.627 |
+| MT-GINCO     | CORE        |      0.66  |      0.553 |
+| SI-GINCO     | CORE        |      0.591 |      0.521 |
+| FTD          | CORE        |      0.478 |      0.397 |
+
+Results for tested on FTD:
+
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| FTD          | FTD         |      0.843 |      0.851 |
+| X-GENRE      | FTD         |      0.804 |      0.809 |
+| MT-GINCO     | FTD         |      0.736 |      0.718 |
+| SI-GINCO     | FTD         |      0.726 |      0.654 |
+| CORE         | FTD         |      0.495 |      0.419 |
+
+
+Results for tested on X-GENRE:
+
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| X-GENRE      | X-GENRE     |      0.797 |      0.794 |
+| MT-GINCO     | X-GENRE     |      0.698 |      0.667 |
+| SI-GINCO     | X-GENRE     |      0.672 |      0.617 |
+| FTD          | X-GENRE     |      0.635 |      0.532 |
+| CORE         | X-GENRE     |      0.551 |      0.481 |
 
