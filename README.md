@@ -939,6 +939,37 @@ In all experiments I followed the methodology from the baseline experiments - I 
 
 ##### Overview of results
 
+All results (analysed separately below):
+
+| Trained on   | Tested on    |   Micro F1 |   Macro F1 |
+|:-------------|:-------------|-----------:|-----------:|
+| FTD          | FTD          |      0.843 |      0.851 |
+| X-GENRE      | CORE         |      0.837 |      0.859 |
+| X-GENRE      | FTD          |      0.804 |      0.809 |
+| X-GENRE      | X-GENRE      |      0.797 |      0.794 |
+| CORE         | CORE         |      0.778 |      0.627 |
+| SI-GINCO     | SI-GINCO     |      0.754 |      0.75  |
+| X-GENRE      | SI-GINCO     |      0.749 |      0.758 |
+| MT-GINCO     | MT-GINCO     |      0.743 |      0.723 |
+| MT-GINCO     | FTD          |      0.736 |      0.718 |
+| MT-GINCO     | SI-GINCO     |      0.732 |      0.655 |
+| SI-GINCO     | FTD          |      0.726 |      0.654 |
+| X-GENRE      | MT-GINCO     |      0.698 |      0.676 |
+| MT-GINCO     | X-GENRE      |      0.698 |      0.667 |
+| SI-GINCO     | MT-GINCO     |      0.676 |      0.596 |
+| SI-GINCO     | X-GENRE      |      0.672 |      0.617 |
+| MT-GINCO     | CORE         |      0.66  |      0.553 |
+| FTD          | X-GENRE      |      0.635 |      0.532 |
+| SI-GINCO     | CORE         |      0.591 |      0.521 |
+| FTD          | SI-GINCO     |      0.57  |      0.498 |
+| FTD          | MT-GINCO     |      0.57  |      0.458 |
+| CORE         | X-GENRE      |      0.551 |      0.481 |
+| CORE         | FTD          |      0.495 |      0.419 |
+| FTD          | CORE         |      0.478 |      0.397 |
+| CORE         | MT-GINCO     |      0.385 |      0.394 |
+| CORE         | SI-GINCO     |      0.374 |      0.348 |
+
+
 **In-dataset experiments**
 
 | Trained on   |   Micro F1 |   Macro F1 |
