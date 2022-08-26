@@ -42,3 +42,4 @@ data-sheets-with-all-info/CORE-all-information-with-CORE-sub-predictions.csv
 data-splits/CORE-sample-X-GENRE-test.csv
 data-splits/CORE-sample-X-GENRE-train.csv
 data-splits/CORE-sample-X-GENRE-dev.csv
+data-preparation-code/data/ru-batch-01.tsv.txt

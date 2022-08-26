@@ -112,6 +112,8 @@ Then classifiers were trained with the joint schema labels:
 * MT-GINCO-X-GENRE classifier (MT-GINCO dataset with X-GENRE labels)
 * X-GENRE classifier (FTD+CORE+GINCO dataset with X-GENRE labels)
 
+Then the classifiers were also tested on the English GINCO dataset (EN-GINCO): [Classifiers tested on EN-GINCO](#classifiers-tested-on-en-ginco).
+
 For more details, see [Experiments based on the joint schema](#joint-schema-x-genre)
 
 (4. Multilingual experiments: training on GINCO + FTD + CORE + X-CORE corpora (joint schema):
@@ -945,9 +947,13 @@ All results (analysed separately below):
 |:-------------|:-------------|-----------:|-----------:|
 | FTD          | FTD          |      0.843 |      0.851 |
 | X-GENRE      | CORE         |      0.837 |      0.859 |
+| FTD          | FTD-dev      |      0.814 |      0.828 |
 | X-GENRE      | FTD          |      0.804 |      0.809 |
 | X-GENRE      | X-GENRE      |      0.797 |      0.794 |
+| X-GENRE      | X-GENRE-dev  |      0.784 |      0.784 |
 | CORE         | CORE         |      0.778 |      0.627 |
+| MT-GINCO     | MT-GINCO-dev |      0.765 |      0.759 |
+| CORE         | CORE-dev     |      0.764 |      0.609 |
 | SI-GINCO     | SI-GINCO     |      0.754 |      0.75  |
 | X-GENRE      | SI-GINCO     |      0.749 |      0.758 |
 | MT-GINCO     | MT-GINCO     |      0.743 |      0.723 |
@@ -956,18 +962,25 @@ All results (analysed separately below):
 | SI-GINCO     | FTD          |      0.726 |      0.654 |
 | X-GENRE      | MT-GINCO     |      0.698 |      0.676 |
 | MT-GINCO     | X-GENRE      |      0.698 |      0.667 |
+| X-GENRE      | EN-GINCO     |      0.688 |      0.691 |
 | SI-GINCO     | MT-GINCO     |      0.676 |      0.596 |
 | SI-GINCO     | X-GENRE      |      0.672 |      0.617 |
+| SI-GINCO     | SI-GINCO-dev |      0.67  |      0.582 |
 | MT-GINCO     | CORE         |      0.66  |      0.553 |
+| MT-GINCO     | EN-GINCO     |      0.654 |      0.538 |
 | FTD          | X-GENRE      |      0.635 |      0.532 |
+| SI-GINCO     | EN-GINCO     |      0.632 |      0.502 |
 | SI-GINCO     | CORE         |      0.591 |      0.521 |
+| FTD          | EN-GINCO     |      0.574 |      0.475 |
 | FTD          | SI-GINCO     |      0.57  |      0.498 |
 | FTD          | MT-GINCO     |      0.57  |      0.458 |
 | CORE         | X-GENRE      |      0.551 |      0.481 |
 | CORE         | FTD          |      0.495 |      0.419 |
+| CORE         | EN-GINCO     |      0.485 |      0.422 |
 | FTD          | CORE         |      0.478 |      0.397 |
 | CORE         | MT-GINCO     |      0.385 |      0.394 |
 | CORE         | SI-GINCO     |      0.374 |      0.348 |
+
 
 
 **In-dataset experiments**
@@ -1311,3 +1324,55 @@ Results for tested on X-GENRE:
 | FTD          | X-GENRE     |      0.635 |      0.532 |
 | CORE         | X-GENRE     |      0.551 |      0.481 |
 
+#### Classifiers tested on EN-GINCO
+
+| Trained on   | Tested on   |   Micro F1 |   Macro F1 |
+|:-------------|:------------|-----------:|-----------:|
+| X-GENRE      | EN-GINCO    |      0.688 |      0.691 |
+| MT-GINCO     | EN-GINCO    |      0.654 |      0.538 |
+| SI-GINCO     | EN-GINCO    |      0.632 |      0.502 |
+| FTD          | EN-GINCO    |      0.574 |      0.475 |
+| CORE         | EN-GINCO    |      0.485 |      0.422 |
+
+X-GENRE performs the best.
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-EN-GINCO.png)
+
+MT-GINCO performs better than SI-GINCO is able to classify Opinion while SI-GINCO has much more problems with this category. On the other hand SI-GINCO classifies Information much better.
+
+![](figures/X-genre-labels/Confusion-matrix-MT-GINCO-classifier-tested-on-EN-GINCO.png)
+
+![](figures/X-genre-labels/Confusion-matrix-SI-GINCO-classifier-tested-on-EN-GINCO.png)
+
+FTD performs worse than GINCO datasets, mostly on the account of Forum and Other but also because it missclassifies many instances as Promotion.
+
+![](figures/X-genre-labels/Confusion-matrix-FTD-classifier-tested-on-EN-GINCO.png)
+
+CORE performs much worse, mostly on the account of Promotion and Legal.
+
+![](figures/X-genre-labels/Confusion-matrix-CORE-classifier-tested-on-EN-GINCO.png)
+
+
+#### Classifiers tested on other X-CORE datasets
+
+##### FinCORE
+
+The original dataset contains 10,738 instances. I discarded duplicated texts (2 instances). Discarded all instances with multiple subcategories (2847 instances) and instances with no subcategory (895). 2447 texts were discarded because they are from the "discarded" labels. Final number of instances: 4557.
+
+There are some new labels for which I could not find anywhere what the abbreviations mean (CB, IG etc.)
+
+Distribution of X-CORE labels in FinCORE:
+
+|                         |   Count |   Percentage |
+|:------------------------|--------:|-------------:|
+| Opinion/Argumentation   |    1765 |        38.73 |
+| News                    |    1599 |        35.09 |
+| Forum                   |     716 |        15.71 |
+| Information/Explanation |     298 |         6.54 |
+| Legal                   |     106 |         2.33 |
+| Other                   |      44 |         0.97 |
+| Instruction             |      29 |         0.64 |
+
+I tested the X-GENRE classifier on a (stratified) sample of FinCORE (200 instances) and the results were amazing since the classifier did not learn on Finnish: Macro f1: 0.581, Micro f1: 0.674
+
+![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-FINCORE.png)
