@@ -6,7 +6,8 @@ To this end, we perform text classification experiments:
 * baseline experiments: in-dataset experiments (training and testing on the same dataset)
 * cross-dataset experiments: training on one dataset, applying prediction on the other two - to analyse the comparability of labels (which labels are predicted as which)
 * multi-dataset experiments: merging the labels into a joint schema, and training on a combination of all three datasets - using the joint schema, testing on each dataset (+ on a combination of the datasets)
-* multi-lingual experiments: extending the multi-dataset experiments by adding the other CORE languages
+
+We then also evaluate the schemata by applying all classifiers to a sample from a web corpus where we group the documents based on their URLs. See [the section on comparison based on domain (URL) information](#comparison-of-predictions-based-on-domain-url-information-from-a-test-corpus).
 
 To simplify experiments, we will perform single-label classification and the texts from CORE and FTD which are labelled with multiple labels will not be used.
 
@@ -1378,3 +1379,84 @@ Distribution of X-CORE labels in FinCORE:
 I tested the X-GENRE classifier on a (stratified) sample of FinCORE (200 instances) and the results were amazing since the classifier did not learn on Finnish: Macro f1: 0.581, Micro f1: 0.674
 
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-FINCORE.png)
+
+## Comparison of predictions based on domain (URL) information from a test corpus
+
+To analyse how appropriate are various schemata for our target data, which is a MaCoCu web corpus, we apply all the classifiers to a sample of a corpus. Then we analyse the distribution of labels inside one domain. We base this comparison on a hypothesis that web domains mostly consist of only one genre. Thus, we will analyse to which extent the genre labels from different schemata are able to consistently assign a genre to texts inside one domain.
+
+### Data preparation
+
+- We first need to discard all texts with text length smaller than 75 - I created a dictionary of all domains and urls of texts that are long enough.
+- Then I calculated the frequency of the domains (number of texts in each domain). I discarded domains that have less than 10 instances (if I wouldn't, the median would be 6 texts per domain). Then I calculated the median and took the instances with the median number of instances, and the same amount of domains above and below the median, so that at the end, the sample has around 1000 different domains. - There were 219 domains at the median, so I took 391 domains from above and below the median.
+- Out of the table of domains and all urls belonging to them, I sampled 10 URLs per domain, and extracted texts with these URLs from the MaCoCu-sl XLM file. It turned out that ssome URLs appear multiple times with different texts, so at the end, the sample consisted out of 10.041 texts. The problem with this is a) that some domains have more instances than other, and b) that texts under some of the URLs might be shorter than 75 words. That is why I calculated the length of the texts again and discarded those with length less than 75 words. Then I also sampled out the instances from domains with more than 10 texts, so that at the end all domains have 10 instances.
+- The final number of domains is 1001 and number of texts 10,010 (10 per domain). Final file: *MaCoCu-sl-sample.csv*
+
+
+### Models used
+
+Then I applied the following classifiers, developed in previous experiments and saved to Wandb to the sample:
+- FTD classifier - original FTD data (except multi-labeled texts and non-text texts) - 10 categories, 849 instances in training data
+- GINCO-downcast classifier - used primary_level_4 downcasted GINCO labels - 9 labels. It was trained on 601 texts.
+- CORE-main classifier - main categories only - 9 instances. All texts with multiple labels were discarded. It was trained on 10256 instances.
+- GINCO X-GENRE classifier - 9 X-GENRE labels. It was trained on 535 texts (10% texts discarded - belonging to "discarded" labels)
+- FTD X-GENRE classifier - 7 X-GENRE labels. It was trained on 630 texts (23% texts were discarded).
+- CORE X-GENRE classifier - 9 X-GENRE labels. It was trained on 607 texts - large changes to the dataset were performed (change of distribution, taking only a sample to have a similar size as FTD and GINCO).
+- X-GENRE classifier - 9 X-GENRE labels. Trained on the training splits of all of the X-GENRE datasets mentioned above: 1772 instances in the training dataset.
+
+File with the predictions: *MaCoCu-sl-sample-with-predictions.csv*
+
+### To do:
+
+- Re-do the graphs
+
+Sometime later:
+- re-do the sample corpus (take 500 domains above and below the median at random - not the first 500 domains above)
+
+### Results
+
+Comparison of confidence of the predictions:
+
+| classifier    |   min |   median |   max |
+|:--------------|------:|---------:|------:|
+| X-GENRE       |  0.29 |     1    |  1    |
+| GINCO-X-GENRE |  0.27 |     0.99 |  0.99 |
+| GINCO         |  0.18 |     0.94 |  0.98 |
+| FTD-X-GENRE   |  0.19 |     0.87 |  0.97 |
+| CORE          |  0.23 |     0.86 |  0.99 |
+| FTD           |  0.15 |     0.81 |  0.97 |
+| CORE-X-GENRE  |  0.15 |     0.53 |  0.95 |
+
+Most frequent predicted label:
+
+| classifier    | most frequent label                   |   frequency |
+|:--------------|:--------------------------------------|------------:|
+| FTD           | A12 (promotion)                       |        0.62 |
+| GINCO         | Promotion                             |        0.43 |
+| CORE          | Informational Description/Explanation |        0.67 |
+| GINCO-X-GENRE | Promotion                             |        0.48 |
+| FTD-X-GENRE   | Promotion                             |        0.65 |
+| CORE-X-GENRE  | Information/Explanation               |        0.44 |
+| X-GENRE       | Promotion                             |        0.43 |
+
+Comparison of frequency of prediction of the most frequent label per domain:
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-histogram.png)
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-subplots.png)
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-KDE.png)
+
+Comparison of label distribution
+
+| FTD          | GINCO                | CORE                            | GINCO-X-GENRE  | FTD-X-GENRE       | CORE-X-GENRE      | X-GENRE           | |
+|------------------------------------|--------------------------------------------|-------------------------------------------------------|--------------------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|----|
+| ('A12 (promotion)', 0.62)       | ('Promotion', 0.43)                     | ('Informational Description/Explanation', 0.67) | ('Promotion', 0.48)               | ('Promotion', 0.65)                  | ('Information/Explanation', 0.44) | ('Promotion', 0.43)                  | |
+| ('A16 (information)', 0.12)     | ('Information/Explanation', 0.14)       | ('Informational Persuasion', 0.12)                 | ('Information/Explanation', 0.15) | ('Information/Explanation', 0.16) | ('Instruction', 0.2)                 | ('Information/Explanation', 0.18) |    |
+| ('A1 (argumentative)', 0.06) | ('Opinion/Argumentation', 0.11)         | ('Narrative', 0.1)                                 | ('News', 0.13)                    | ('News', 0.06)                       | ('Opinion/Argumentation', 0.14)      | ('News', 0.13)                       | |
+| ('A17 (review)', 0.05)          | ('News/Reporting', 0.11)                | ('How-To/Instructional', 0.05)                     | ('Opinion/Argumentation', 0.09)   | ('Instruction', 0.06)                | ('News', 0.13)                       | ('Opinion/Argumentation', 0.11)      | |
+| ('A7 (instruction)', 0.05)      | ('List of Summaries/Excerpts', 0.08) | ('Opinion', 0.04)                                  | ('Instruction', 0.07)             | ('Opinion/Argumentation', 0.03)      | ('Forum', 0.06)                      | ('Instruction', 0.08)                | |
+| ('A8 (news)', 0.04)             | ('Instruction', 0.07)                   | ('Interactive Discussion', 0.01)                   | ('Other', 0.06)                   | ('Legal', 0.03)                      | ('Other', 0.02)                      | ('Other', 0.03)                      | |
+| ('A11 (personal)', 0.03)        | ('Other', 0.03)                         | ('Spoken', 0.01)                                   | ('Forum', 0.01)                   | ('Prose/Lyrical', 0.01)              | ('Prose/Lyrical', 0.02)              | ('Legal', 0.02)                      | |
+| ('A9 (legal)', 0.02)            | ('Forum', 0.01)                         | ('Lyrical', 0.0)                                   | ('Legal', 0.01)                   |                                      |                                         | ('Forum', 0.01)                      | |
+| ('A4 (fiction)', 0.01)          | ('Legal/Regulation', 0.01)              |                                                    | ('Prose/Lyrical', 0.0)            |                                      |                                         | ('Prose/Lyrical', 0.0)               | |
+| ('A14 (academic)', 0.0)         |                                         |                                                       |                                      |                                         |                                         |                                         |    |

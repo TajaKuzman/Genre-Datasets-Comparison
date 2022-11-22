@@ -43,3 +43,12 @@ data-splits/CORE-sample-X-GENRE-test.csv
 data-splits/CORE-sample-X-GENRE-train.csv
 data-splits/CORE-sample-X-GENRE-dev.csv
 data-preparation-code/data/ru-batch-01.tsv.txt
+MaCoCu-final-sample-sufficient-length.csv
+MaCoCu-sl-sample.json
+__pycache__/prevert.cpython-39.pyc
+MaCoCu-sample-domains-and-urls.csv
+MaCoCu-sl-sample-with-predictions.csv
+MaCoCu-sl-sample.csv
+domain_dictionary.json
+url_dictionary.json
+MaCoCu-sample-with-predictions-genre-distribution-in-domains.csv
