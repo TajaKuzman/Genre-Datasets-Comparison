@@ -1,3 +1,5 @@
+Most recent results: [Comparison of classifiers based on MaCoCu-sl and domain information](#comparison-of-predictions-based-on-domain-url-information-from-a-test-corpus)
+
 # Comparison of genre datasets: CORE, GINCO and FTD
 
 We compare genre datasets that aim to cover all of the genre diversity found on the web: the CORE dataset, the GINCO dataset and the FTD dataset.
@@ -34,6 +36,7 @@ The joint schema based on the comparison of the labels (based on predictions of 
 * [Baseline experiments](#baseline-experiments)
 * [Comparison of labels based on cross-dataset prediction](#comparison-of-labels-based-on-cross-dataset-prediction)
 * [Experiments based on the joint schema](#joint-schema-x-genre)
+* [Comparison of classifiers on MaCoCu-sl](#comparison-of-predictions-based-on-domain-url-information-from-a-test-corpus)
 
 
 ## Experiments Overview
@@ -165,7 +168,7 @@ CORE-main is the CORE dataset, annotated with main categories only (9 categories
 
 
 |       |   text_length |
-|:------|--------------:|
+|-----|--------------:|
 | text count |      42734    |
 | mean  |       1236.27 |
 | std   |       3167.36 |
@@ -178,7 +181,7 @@ CORE-main is the CORE dataset, annotated with main categories only (9 categories
 Total number of texts: 42734. For the experiments, I used 40% of the data: 17094 instances. The data is split into 60:20:20 stratified split: train (10256 instance), test and dev split (3419 instances each). The distribution of the labels remained the same:
 
 |                                       |   Count |   Percentage |
-|:--------------------------------------|--------:|-------------:|
+|-------------------------------------|--------:|-------------:|
 | Narrative                             |    7064 |     41.3244  |
 | Informational Description/Explanation |    3726 |     21.7971  |
 | Opinion                               |    3145 |     18.3983  |
@@ -201,7 +204,7 @@ For the experiments, I used roughly 40% of the data: 15,895 instances. Prior to 
 The data is split into 60:20:20 stratified split: train (9537 instance), test and dev split (3179 instances each). There are 37 labels. The distribution of the labels remained the same as in the entire dataset:
 
 |                                 |   Count |   Percentage |
-|:--------------------------------|--------:|-------------:|
+|-------------------------------|--------:|-------------:|
 | News Report/Blog                |    4201 |    26.4297   |
 | Opinion Blog                    |    1654 |    10.4058   |
 | Description of a Thing          |    1403 |     8.82668  |
@@ -277,13 +280,13 @@ The final number of instances, used for the experiments: 1415.
 Dataset that is used for the ML experiments is split into the train-dev-test split according to the label distribution.
 
 |        | train              | test               | dev                |
-|:-------|:-------------------|:-------------------|:-------------------|
+|------|------------------|------------------|------------------|
 | count (texts) | 849                | 283                | 283                |
 
 Text length (non-text instances and multiple labels included in the table below):
 
 |       |    length |
-|:------|----------:|
+|-----|----------:|
 | count |   1678    |
 | mean  |   1468.09 |
 | std   |   4644.93 |
@@ -302,7 +305,7 @@ We will use paragraphs of texts that are marked as "keep".
 Text length:
 
 |       |   text_length |
-|:------|--------------:|
+|-----|--------------:|
 | count |      1002     |
 | mean  |       362.159 |
 | std   |       483.747 |
@@ -317,7 +320,7 @@ Text length:
 As labels, we used the primary_level_1 labels (the original set without downcasting). Like in experiments with CORE, we discarded instances of categories with less than 10 instances (marked with a * in the table below).
 
 |                            |   Count |   Percentage |
-|:---------------------------|--------:|-------------:|
+|--------------------------|--------:|-------------:|
 | Information/Explanation    |     130 |  0.129741    |
 | News/Reporting             |     115 |  0.11477     |
 | Promotion of a Product     |     115 |  0.11477     |
@@ -359,7 +362,7 @@ The categories were merged in the following way:
 The downcasted set (primary_level_4 in the sheet with all information) has 9 labels:
 
 |                            |   Count |   Percentage |
-|:---------------------------|--------:|-------------:|
+|--------------------------|--------:|-------------:|
 | News/Reporting             |     221 |    0.220559  |
 | Promotion                  |     209 |    0.208583  |
 | Information/Explanation    |     139 |    0.138723  |
@@ -834,7 +837,7 @@ map_CORE = {'Advice': 'discarded', 'Course Materials': 'discarded', 'Description
 Differences between the distribution of labels in the datasets (in percentages per all the texts that were used in a dataset):
 
 |                         |   GINCO |   FTD |   CORE |
-|:------------------------|--------:|------:|-------:|
+|-----------------------|--------:|------:|-------:|
 | Forum                   |    5.82 |  0    |   6.81 |
 | Information/Explanation |   15.57 | 23.52 |   4.69 |
 | Instruction             |    4.93 | 15.71 |  5.33 |
@@ -854,7 +857,7 @@ As we can see, FTD dataset was not made to include "Forum" as a specific genre c
 Roughly 10% (109 texts - 11%) of the texts are discarded (labels 'FAQ' and 'List of Summaries/Excerpts'). Number of texts used: 893. Distribution of labels (without the "discarded" ones):
 
 |                         |   Count |   Percentage |
-|:------------------------|--------:|-------------:|
+|-----------------------|--------:|-------------:|
 | News                    |     221 |        24.75 |
 | Promotion               |     209 |        23.4  |
 | Information/Explanation |     139 |        15.57 |
@@ -873,7 +876,7 @@ The dataset was split into 60:20:20 stratified train-dev-test split (535-179-179
 364 texts (23% of all texts, including texts with multiple labels) are discarded (labels 'A1 (argumentative)', 'A17 (review)'). Texts with multiple labels (139) are discarded as well. Number of texts used: 1050. Texts were split into 60:20:20 train-dev-test split (630:210:210 texts), stratified based on the labels. There are 7 labels: ['Prose/Lyrical', 'Promotion', 'News', 'Opinion/Argumentation', 'Instruction', 'Legal', 'Information/Explanation']
 
 |                         |   Count |   Percentage |
-|:------------------------|--------:|-------------:|
+|-----------------------|--------:|-------------:|
 | Promotion               |     256 |        24.38 |
 | Information/Explanation |     247 |        23.52 |
 | Instruction             |     165 |        15.71 |
@@ -889,7 +892,7 @@ The dataset was split into 60:20:20 stratified train-dev-test split (535-179-179
 Number of texts that have a mapping (other than "discarded"): 28,655.
 
 |                         |   Count |   Percentage |
-|:------------------------|--------:|-------------:|
+|-----------------------|--------:|-------------:|
 | News                    |   13323 |        46.49 |
 | Opinion/Argumentation   |    8979 |        31.33 |
 | Forum                   |    1950 |         6.81 |
@@ -905,7 +908,7 @@ As we can see from the table, the distribution of the labels is severely unbalan
 Number of texts: 1000
 
 |                         |   Count |   Percentage |
-|:------------------------|--------:|-------------:|
+|-----------------------|--------:|-------------:|
 | News                    |     216 |     21.3228  |
 | Opinion/Argumentation   |     194 |     19.151   |
 | Forum                   |     182 |     17.9664  |
@@ -926,7 +929,7 @@ The splits of the joined dataset constitute of the splits from each dataset (e.g
 Distribution of labels:
 
 |                         |   Count |   Percentage |
-|:------------------------|--------:|-------------:|
+|-----------------------|--------:|-------------:|
 | News                    |     573 |    0.193843  |
 | Information/Explanation |     511 |    0.172869  |
 | Promotion               |     478 |    0.161705  |
@@ -947,7 +950,7 @@ In all experiments I followed the methodology from the baseline experiments - I 
 All results (analysed separately below):
 
 | Trained on   | Tested on    |   Micro F1 |   Macro F1 |
-|:-------------|:-------------|-----------:|-----------:|
+|------------|------------|-----------:|-----------:|
 | FTD          | FTD          |      0.843 |      0.851 |
 | X-GENRE      | CORE         |      0.837 |      0.859 |
 | FTD          | FTD-dev      |      0.814 |      0.828 |
@@ -989,7 +992,7 @@ All results (analysed separately below):
 **In-dataset experiments**
 
 | Trained on   |   Micro F1 |   Macro F1 |
-|:-------------|-----------:|-----------:|
+|------------|-----------:|-----------:|
 | FTD          |      0.843 |      0.851 |
 | X-GENRE      |      0.797 |      0.794 |
 | CORE         |      0.778 |      0.627 |
@@ -1056,7 +1059,7 @@ model = ClassificationModel(
 ```
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | FTD          | FTD         |      0.843 |      0.851 |
 | FTD          | FTD-dev     |      0.814 |      0.828 |
 | FTD          | X-GENRE     |      0.635 |      0.532 |
@@ -1115,7 +1118,7 @@ model = ClassificationModel(
 **SL-GINCO results**:
 
 | Trained on   | Tested on    |   Micro F1 |   Macro F1 |
-|:-------------|:-------------|-----------:|-----------:|
+|------------|------------|-----------:|-----------:|
 | SI-GINCO     | SI-GINCO     |      0.754 |      0.75  |
 | SI-GINCO     | FTD          |      0.726 |      0.654 |
 | SI-GINCO     | MT-GINCO     |      0.676 |      0.596 |
@@ -1149,7 +1152,7 @@ model = ClassificationModel(
 **MT-GINCO results**
 
 | Trained on   | Tested on    |   Micro F1 |   Macro F1 |
-|:-------------|:-------------|-----------:|-----------:|
+|------------|------------|-----------:|-----------:|
 | MT-GINCO     | MT-GINCO-dev |      0.765 |      0.759 |
 | MT-GINCO     | MT-GINCO     |      0.743 |      0.723 |
 | MT-GINCO     | FTD          |      0.736 |      0.718 |
@@ -1204,7 +1207,7 @@ model = ClassificationModel(
 ```
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | CORE         | CORE        |      0.778 |      0.627 |
 | CORE         | CORE-dev    |      0.764 |      0.609 |
 | CORE         | X-GENRE     |      0.551 |      0.481 |
@@ -1254,7 +1257,7 @@ model = ClassificationModel(
 
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | X-GENRE      | CORE        |      0.837 |      0.859 |
 | X-GENRE      | FTD         |      0.804 |      0.809 |
 | X-GENRE      | X-GENRE     |      0.797 |      0.794 |
@@ -1277,7 +1280,7 @@ model = ClassificationModel(
 Results for tested on SI-GINCO:
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | SI-GINCO     | SI-GINCO    |      0.754 |      0.75  |
 | X-GENRE      | SI-GINCO    |      0.749 |      0.758 |
 | MT-GINCO     | SI-GINCO    |      0.732 |      0.655 |
@@ -1288,7 +1291,7 @@ Results for tested on SI-GINCO:
 Results for tested on MT-GINCO:
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | MT-GINCO     | MT-GINCO    |      0.743 |      0.723 |
 | X-GENRE      | MT-GINCO    |      0.698 |      0.676 |
 | SI-GINCO     | MT-GINCO    |      0.676 |      0.596 |
@@ -1299,7 +1302,7 @@ Results for tested on MT-GINCO:
 Results for tested on CORE:
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | X-GENRE      | CORE        |      0.837 |      0.859 |
 | CORE         | CORE        |      0.778 |      0.627 |
 | MT-GINCO     | CORE        |      0.66  |      0.553 |
@@ -1309,7 +1312,7 @@ Results for tested on CORE:
 Results for tested on FTD:
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | FTD          | FTD         |      0.843 |      0.851 |
 | X-GENRE      | FTD         |      0.804 |      0.809 |
 | MT-GINCO     | FTD         |      0.736 |      0.718 |
@@ -1320,7 +1323,7 @@ Results for tested on FTD:
 Results for tested on X-GENRE:
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | X-GENRE      | X-GENRE     |      0.797 |      0.794 |
 | MT-GINCO     | X-GENRE     |      0.698 |      0.667 |
 | SI-GINCO     | X-GENRE     |      0.672 |      0.617 |
@@ -1330,7 +1333,7 @@ Results for tested on X-GENRE:
 #### Classifiers tested on EN-GINCO
 
 | Trained on   | Tested on   |   Micro F1 |   Macro F1 |
-|:-------------|:------------|-----------:|-----------:|
+|------------|-----------|-----------:|-----------:|
 | X-GENRE      | EN-GINCO    |      0.688 |      0.691 |
 | MT-GINCO     | EN-GINCO    |      0.654 |      0.538 |
 | SI-GINCO     | EN-GINCO    |      0.632 |      0.502 |
@@ -1367,7 +1370,7 @@ There are some new labels for which I could not find anywhere what the abbreviat
 Distribution of X-CORE labels in FinCORE:
 
 |                         |   Count |   Percentage |
-|:------------------------|--------:|-------------:|
+|-----------------------|--------:|-------------:|
 | Opinion/Argumentation   |    1765 |        38.73 |
 | News                    |    1599 |        35.09 |
 | Forum                   |     716 |        15.71 |
@@ -1407,17 +1410,15 @@ File with the predictions: *MaCoCu-sl-sample-with-predictions.csv*
 
 ### To do:
 
-- Re-do the graphs
-
 Sometime later:
 - re-do the sample corpus (take 500 domains above and below the median at random - not the first 500 domains above)
 
 ### Results
 
-Comparison of confidence of the predictions:
+**Comparison of confidence of the predictions**:
 
 | classifier    |   min |   median |   max |
-|:--------------|------:|---------:|------:|
+|-------------|------:|---------:|------:|
 | X-GENRE       |  0.29 |     1    |  1    |
 | GINCO-X-GENRE |  0.27 |     0.99 |  0.99 |
 | GINCO         |  0.18 |     0.94 |  0.98 |
@@ -1426,10 +1427,10 @@ Comparison of confidence of the predictions:
 | FTD           |  0.15 |     0.81 |  0.97 |
 | CORE-X-GENRE  |  0.15 |     0.53 |  0.95 |
 
-Most frequent predicted label:
+**Most frequently predicted label**:
 
 | classifier    | most frequent label                   |   frequency |
-|:--------------|:--------------------------------------|------------:|
+|-------------|-------------------------------------|------------:|
 | FTD           | A12 (promotion)                       |        0.62 |
 | GINCO         | Promotion                             |        0.43 |
 | CORE          | Informational Description/Explanation |        0.67 |
@@ -1438,7 +1439,7 @@ Most frequent predicted label:
 | CORE-X-GENRE  | Information/Explanation               |        0.44 |
 | X-GENRE       | Promotion                             |        0.43 |
 
-Comparison of frequency of prediction of the most frequent label per domain:
+**Comparison of frequency of prediction of the most frequent label per domain**:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-histogram.png)
 
@@ -1446,7 +1447,7 @@ Comparison of frequency of prediction of the most frequent label per domain:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-KDE.png)
 
-Comparison of label distribution
+**Comparison of label distribution (instance level)**
 
 | FTD          | GINCO                | CORE                            | GINCO-X-GENRE  | FTD-X-GENRE       | CORE-X-GENRE      | X-GENRE           | |
 |------------------------------------|--------------------------------------------|-------------------------------------------------------|--------------------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|----|
@@ -1460,3 +1461,34 @@ Comparison of label distribution
 | ('A9 (legal)', 0.02)            | ('Forum', 0.01)                         | ('Lyrical', 0.0)                                   | ('Legal', 0.01)                   |                                      |                                         | ('Forum', 0.01)                      | |
 | ('A4 (fiction)', 0.01)          | ('Legal/Regulation', 0.01)              |                                                    | ('Prose/Lyrical', 0.0)            |                                      |                                         | ('Prose/Lyrical', 0.0)               | |
 | ('A14 (academic)', 0.0)         |                                         |                                                       |                                      |                                         |                                         |                                         |    |
+
+**Comparison of label distribution on the domain level**
+
+Table shows in how many of the domains a label is the most frequent label in the domain. The values in the table are percentages.
+
+|  most frequent label in domain: FTD |  most frequent label in domain: GINCO |  most frequent label in domain: CORE                |  most frequent label in domain: GINCO-X-GENRE |  most frequent label in domain: FTD-X-GENRE |  most frequent label in domain: CORE-X-GENRE |  most frequent label in domain: X-GENRE |
+|---------------------------------------|-----------------------------------------|-------------------------------------------------------|-------------------------------------------------|-----------------------------------------------|------------------------------------------------|-------------------------------------------|
+|  ('A12 (promotion)', 0.74)          |  ('Promotion', 0.52)                  |  ('Informational Description/Explanation', 0.76)  |  ('Promotion', 0.57)                          |  ('Promotion', 0.76)                        |  ('Information/Explanation', 0.51)           |  ('Promotion', 0.5)                     |
+|  ('A16 (information)', 0.08)        |  ('Information/Explanation', 0.13)    |  ('Informational Persuasion', 0.09)                 |  ('News', 0.13)                               |  ('Information/Explanation', 0.12)          |  ('Instruction', 0.18)                       |  ('Information/Explanation', 0.16)      |
+|  ('A17 (review)', 0.04)             |  ('News/Reporting', 0.12)             |  ('Narrative', 0.08)                                |  ('Information/Explanation', 0.12)            |  ('News', 0.05)                             |  ('Opinion/Argumentation', 0.13)             |  ('News', 0.14)                         |
+|  ('A1 (argumentative)', 0.04)       |  ('Opinion/Argumentation', 0.11)      |  ('How-To/Instructional', 0.03)                     |  ('Opinion/Argumentation', 0.09)              |  ('Instruction', 0.03)                      |  ('News', 0.11)                              |  ('Opinion/Argumentation', 0.11)        |
+|  ('A8 (news)', 0.03)                |  ('List of Summaries/Excerpts', 0.04) |  ('Opinion', 0.02)                                  |  ('Instruction', 0.04)                        |  ('Opinion/Argumentation', 0.02)            |  ('Forum', 0.03)                             |  ('Instruction', 0.06)                  |
+|  ('A7 (instruction)', 0.03)         |  ('Instruction', 0.04)                |  ('Interactive Discussion', 0.01)                   |  ('Other', 0.03)                              |  ('Legal', 0.01)                            |  ('Prose/Lyrical', 0.02)                     |  ('Other', 0.01)                        |
+|  ('A11 (personal)', 0.03)           |  ('Forum', 0.01)                      |  ('Spoken', 0.0)                                    |  ('Forum', 0.01)                              |  ('Prose/Lyrical', 0.01)                    |  ('Other', 0.01)                             |  ('Forum', 0.01)                        |
+|  ('A9 (legal)', 0.01)               |  ('Legal/Regulation', 0.01)           |  ('Lyrical', 0.0)                                   |  ('Legal', 0.01)                              |                                             |                                                |  ('Legal', 0.01)                        |
+|  ('A4 (fiction)', 0.01)             |  ('Other', 0.0)                       |                                                     |  ('Prose/Lyrical', 0.0)                       |                                             |                                                |  ('Prose/Lyrical', 0.0)                 |
+|  ('A14 (academic)', 0.0)            |                                       |                                                       |                                                 |                                               |                                                |                                           |
+
+**Precision, recall and F1 scores using domain information as a signal of a "true label"**
+
+We used the most frequent label predicted on the domain as the "true label". Biggest values for each metric are in bold.
+
+| Classifier (no. of labels)   |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:--------------|-----------:|-----------:|------------------:|---------------:|
+| FTD-X-GENRE (7)  |       **0.57** |       0.76 |              **0.51** |           **0.67** |
+| GINCO-X-GENRE (9)|       0.53 |       0.68 |              0.49 |           0.58 |
+| CORE-X-GENRE  (9)|       0.53 |       0.65 |              0.5  |           0.59 |
+| FTD (10)          |       0.52 |       0.74 |              0.46 |           0.62 |
+| CORE  (9)        |       0.51 |       **0.78** |              0.45 |           0.63 |
+| X-GENRE (9)      |       0.51 |       0.66 |              0.49 |           0.57 |
+| GINCO  (9)       |       0.49 |       0.64 |              0.47 |           0.55 |
