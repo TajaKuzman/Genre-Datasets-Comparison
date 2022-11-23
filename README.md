@@ -1492,3 +1492,78 @@ We used the most frequent label predicted on the domain as the "true label". Big
 | CORE  (9)        |       0.51 |       **0.78** |              0.45 |           0.63 |
 | X-GENRE (9)      |       0.51 |       0.66 |              0.49 |           0.57 |
 | GINCO  (9)       |       0.49 |       0.64 |              0.47 |           0.55 |
+
+**Comparison of X-GENRE classifier's performance based on X-GENRE majority label**
+
+I calculated the evaluation metrics for the X-GENRE classifiers (classifiers which use the X-GENRE schema) by taking the majority label (label predicted by most of the classifiers) as the "y_true" label. If there was a tie (more than 1 most common label), I randomly chose the majority label out of them.
+
+Ties occurred in 11% of instances:
+
+|     |   X-GENRE-majority-label-tie |
+|:----|-----------------------------:|
+| no  |                     0.889311 |
+| yes |                     0.110689 |
+
+The distribution of the majority X-GENRE predictions:
+
+|                         |   X-GENRE-majority-label |
+|:------------------------|-------------------------:|
+| Promotion               |               0.463037   |
+| Information/Explanation |               0.191009   |
+| News                    |               0.120779   |
+| Opinion/Argumentation   |               0.086014   |
+| Instruction             |               0.0792208  |
+| Other                   |               0.0225774  |
+| Legal                   |               0.0167832  |
+| Forum                   |               0.0138861  |
+| Prose/Lyrical           |               0.00669331 |
+
+Results:
+
+| Classifier (labels)   |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:--------------|-----------:|-----------:|------------------:|---------------:|
+| X-GENRE  (9)     |       **0.84** |       **0.88** |              **0.84** |           **0.85** |
+| GINCO-X-GENRE (9) |       0.73 |       0.86 |              0.83 |           0.74 |
+| FTD-X-GENRE (7)  |       0.68 |       0.74 |              0.76 |           0.68 |
+| CORE-X-GENRE (9) |       0.48 |       0.53 |              0.38 |           0.75 |
+
+**Comparison of X-GENRE classifier agreement**
+
+I used the predictions of one classifier as y_true, and the predictions of the other as y_pred. I did it in both directions, just to check how the results change.
+FTD-X-GENRE has less labels than the other (7, instead of 9), so whenever this classifier was in the pair, I used 7 labels for calculation of the evaluation metrics.
+
+A problem: CORE-X-GENRE didn't predict Promotion to any of the instances - when calculating macro and micro F1, this affected the results - metrics for when CORE-X-GENRE labels are used as the list of labels (when its predictions are used as y_pred) are different than when the other classifier is used to create a list of labels (when its predictions are used as y_pred - except in the case of FTD-X-GENRE, which is always used for the list of labels, because it has less labels).
+
+| Classifier as y_true   | Classifier as y_pred   |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:-----------------------|:-----------------------|-----------:|-----------:|------------------:|---------------:|
+| GINCO-X-GENRE          | X-GENRE                |       **0.67** |       **0.79** |              0.64 |           **0.76** |
+| X-GENRE                | GINCO-X-GENRE          |       **0.67** |       **0.79** |              **0.76** |           0.64 |
+| FTD-X-GENRE            | X-GENRE                |       0.6  |       0.66 |              0.62 |           0.67 |
+| X-GENRE                | FTD-X-GENRE            |       0.6  |       0.66 |              0.67 |           0.62 |
+| GINCO-X-GENRE          | FTD-X-GENRE            |       0.53 |       0.69 |              0.57 |           0.65 |
+| FTD-X-GENRE            | GINCO-X-GENRE          |       0.53 |       0.69 |              0.65 |           0.57 |
+| X-GENRE                | CORE-X-GENRE           |       0.4  |       0.47 |              0.33 |           0.67 |
+| CORE-X-GENRE           | X-GENRE                |       0.31 |       0.37 |              0.52 |           0.26 |
+| CORE-X-GENRE           | GINCO-X-GENRE          |       0.27 |       0.32 |              0.51 |           0.22 |
+| GINCO-X-GENRE          | CORE-X-GENRE           |       0.34 |       0.42 |              0.28 |           0.65 |
+| CORE-X-GENRE           | FTD-X-GENRE            |       0.27 |       0.24 |              0.5  |           0.18 |
+| FTD-X-GENRE            | CORE-X-GENRE           |       0.27 |       0.24 |              0.18 |           0.5  |
+
+Based on the results, GINCO-X-GENRE and X-GENRE match the most, followed by FTD-X-GENRE and X-GENRE. On Micro F1 level, FTD-X-GENRE and GINCO-X-GENRE even outperform the combination of FTD-X-GENRE and X-GENRE (mostly because they both predict "Promotion" most frequently). CORE-X-GENRE matches the worst with all other. The worst agreement is between FTD-X-GENRE and CORE-X-GENRE.
+
+![](figures/X-GENRE-comparison/Classifier-comparison-GINCO-X-GENRE-cm.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-GINCO-X-GENRE-report.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-FTD-X-GENRE-cm.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-FTD-X-GENRE-report.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-GINCO-FTD-cm.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-GINCO-FTD-report.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-CORE-FTD-cm.png)
+
+![](figures/X-GENRE-comparison/Classifier-comparison-CORE-X-GENRE-cm.png)
+
