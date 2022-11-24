@@ -1415,7 +1415,7 @@ Sometime later:
 
 ### Results
 
-**Comparison of confidence of the predictions**:
+#### Comparison of confidence of the predictions
 
 | classifier    |   min |   median |   max |
 |-------------|------:|---------:|------:|
@@ -1427,7 +1427,7 @@ Sometime later:
 | FTD           |  0.15 |     0.81 |  0.97 |
 | CORE-X-GENRE  |  0.15 |     0.53 |  0.95 |
 
-**Most frequently predicted label**:
+#### Most frequently predicted label
 
 | classifier    | most frequent label                   |   frequency |
 |-------------|-------------------------------------|------------:|
@@ -1439,7 +1439,7 @@ Sometime later:
 | CORE-X-GENRE  | Information/Explanation               |        0.44 |
 | X-GENRE       | Promotion                             |        0.43 |
 
-**Comparison of frequency of prediction of the most frequent label per domain**:
+#### Comparison of frequency of prediction of the most frequent label per domain
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-histogram.png)
 
@@ -1447,7 +1447,7 @@ Sometime later:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-KDE.png)
 
-**Comparison of label distribution (instance level)**
+#### Comparison of label distribution (instance level)
 
 | FTD          | GINCO                | CORE                            | GINCO-X-GENRE  | FTD-X-GENRE       | CORE-X-GENRE      | X-GENRE           | |
 |------------------------------------|--------------------------------------------|-------------------------------------------------------|--------------------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|----|
@@ -1462,7 +1462,7 @@ Sometime later:
 | ('A4 (fiction)', 0.01)          | ('Legal/Regulation', 0.01)              |                                                    | ('Prose/Lyrical', 0.0)            |                                      |                                         | ('Prose/Lyrical', 0.0)               | |
 | ('A14 (academic)', 0.0)         |                                         |                                                       |                                      |                                         |                                         |                                         |    |
 
-**Comparison of label distribution on the domain level**
+#### Comparison of label distribution on the domain level
 
 Table shows in how many of the domains a label is the most frequent label in the domain. The values in the table are percentages.
 
@@ -1479,7 +1479,7 @@ Table shows in how many of the domains a label is the most frequent label in the
 |  ('A4 (fiction)', 0.01)             |  ('Other', 0.0)                       |                                                     |  ('Prose/Lyrical', 0.0)                       |                                             |                                                |  ('Prose/Lyrical', 0.0)                 |
 |  ('A14 (academic)', 0.0)            |                                       |                                                       |                                                 |                                               |                                                |                                           |
 
-**Precision, recall and F1 scores using domain information as a signal of a "true label"**
+#### Precision, recall and F1 scores using domain information as a signal of a "true label"
 
 We used the most frequent label predicted on the domain as the "true label". Biggest values for each metric are in bold.
 
@@ -1493,7 +1493,7 @@ We used the most frequent label predicted on the domain as the "true label". Big
 | X-GENRE (9)      |       0.51 |       0.66 |              0.49 |           0.57 |
 | GINCO  (9)       |       0.49 |       0.64 |              0.47 |           0.55 |
 
-**Comparison of X-GENRE classifier's performance based on X-GENRE majority label**
+#### Comparison of X-GENRE classifier's performance based on X-GENRE majority label
 
 I calculated the evaluation metrics for the X-GENRE classifiers (classifiers which use the X-GENRE schema) by taking the majority label (label predicted by most of the classifiers) as the "y_true" label. If there was a tie (more than 1 most common label), I randomly chose the majority label out of them.
 
@@ -1527,7 +1527,7 @@ Results:
 | FTD-X-GENRE (7)  |       0.68 |       0.74 |              0.76 |           0.68 |
 | CORE-X-GENRE (9) |       0.48 |       0.53 |              0.38 |           0.75 |
 
-**Comparison of X-GENRE classifier agreement**
+#### Comparison of X-GENRE classifier agreement
 
 I used the predictions of one classifier as y_true, and the predictions of the other as y_pred. I did it in both directions, just to check how the results change.
 FTD-X-GENRE has less labels than the other (7, instead of 9), so whenever this classifier was in the pair, I used 7 labels for calculation of the evaluation metrics.
@@ -1567,3 +1567,214 @@ Based on the results, GINCO-X-GENRE and X-GENRE match the most, followed by FTD-
 
 ![](figures/X-GENRE-comparison/Classifier-comparison-CORE-X-GENRE-cm.png)
 
+#### Comparing schemata with Apriori algorithm
+
+I had another idea that we could analyse which labels occur together using the apriori algorithm which is used in association rule learning.
+
+Main concepts:
+
+- Support: It measures the number of times a particular item or combination of items occur in a dataset out of the number of all instances.
+`Support(pair) = frequency_of_pair/no_of_instances`
+
+- Confidence: It measures how likely the pair will occur given they the left value has been predicted - number of times both have been predicted together divided by a number of time the left value has been predicted (-> if the left value occurs very often, the confidence will be smaller)
+`Confidence(pair (based of occurrence of left value)) = frequency_of_pair/frequency of left value`
+
+- Lift: A lift is a metric that determines the strength of association between the best rules. It is obtained by taking confidence (based on the frequency of the left value and right value) dand diving it with support (for right value). 
+`Lift(pair (based on occurrence of left value)) = Confidence(based on occurrence of left value)/Support(right value)}`
+
+This means that if left value is very frequent -> confidence is smaller, if the pair does not occur together very often, it won't reach the confidence limit. The frequency of right value does not impact the confidence, but it does impact the lift. For the same number of occurences of the pair, the lift is higher if one of them is infrequent than if both were frequent. The bigger support (frequency of the pair occuring together), the bigger is lift.
+
+Comparison: FTD with GINCO (very similar results also with GINCO-X-GENRE)
+
+| Left_Hand_Side         | Right_Hand_Side                |   Support |   Confidence |     Lift |
+|:-----------------------|:-------------------------------|----------:|-------------:|---------:|
+| FTD: A7 (instruction)  | GINCO: Instruction             | 0.0373626 |     0.733333 | 10.238   |
+| FTD: A8 (news)         | GINCO: News/Reporting          | 0.0324675 |     0.788835 |  7.03138 |
+| FTD: A11 (personal)    | GINCO: Opinion/Argumentation   | 0.0241758 |     0.75625  |  6.66966 |
+| FTD: A16 (information) | GINCO: Information/Explanation | 0.0748252 |     0.637447 |  4.54152 |
+| FTD: A12 (promotion)   | GINCO: Promotion               | 0.40979   |     0.659274 |  1.52762 |
+
+Labels not matched: ['FTD: A1 (argumentative)', 'FTD: A17 (review)', 'FTD: A9 (legal)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'GINCO: List of Summaries/Excerpts', 'GINCO: Other', 'GINCO: Legal/Regulation', 'GINCO: Forum']
+
+Comparison: FTD with CORE
+| Left_Hand_Side                              | Right_Hand_Side                             |   Support |   Confidence |    Lift |
+|:--------------------------------------------|:--------------------------------------------|----------:|-------------:|--------:|
+| FTD: A8 (news)                              | CORE: Narrative                             | 0.0305694 |     0.742718 | 7.67246 |
+| FTD: A11 (personal)                         | CORE: Narrative                             | 0.0217782 |     0.68125  | 7.03747 |
+| CORE: Informational Persuasion              | FTD: A12 (promotion)                        | 0.118282  |     0.964955 | 1.55243 |
+| FTD: A9 (legal)                             | CORE: Informational Description/Explanation | 0.0195804 |     1        | 1.49225 |
+| FTD: A16 (information)                      | CORE: Informational Description/Explanation | 0.106993  |     0.911489 | 1.36017 |
+| CORE: Informational Description/Explanation | FTD: A12 (promotion)                        | 0.454146  |     0.677698 | 1.09029 |
+
+Labels not matched: ['FTD: A1 (argumentative)', 'FTD: A7 (instruction)', 'FTD: A17 (review)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'CORE: Opinion', 'CORE: Spoken', 'CORE: How-To/Instructional', 'CORE: Interactive Discussion', 'CORE: Lyrical']
+
+Comparison: FTD with CORE-X-GENRE
+| Left_Hand_Side                        | Right_Hand_Side                       |   Support |   Confidence |    Lift |
+|:--------------------------------------|:--------------------------------------|----------:|-------------:|--------:|
+| FTD: A8 (news)                        | CORE-X-GENRE: News                    | 0.0378621 |     0.919903 | 7.35481 |
+| FTD: A7 (instruction)                 | CORE-X-GENRE: Instruction             | 0.035964  |     0.705882 | 3.60504 |
+| FTD: A9 (legal)                       | CORE-X-GENRE: Information/Explanation | 0.0190809 |     0.97449  | 2.19996 |
+| FTD: A16 (information)                | CORE-X-GENRE: Information/Explanation | 0.0944056 |     0.804255 | 1.81565 |
+| CORE-X-GENRE: Instruction             | FTD: A12 (promotion)                  | 0.147852  |     0.755102 | 1.21481 |
+| CORE-X-GENRE: Opinion/Argumentation   | FTD: A12 (promotion)                  | 0.0912088 |     0.648898 | 1.04395 |
+| CORE-X-GENRE: Forum                   | FTD: A12 (promotion)                  | 0.0353646 |     0.641304 | 1.03174 |
+| CORE-X-GENRE: Information/Explanation | FTD: A12 (promotion)                  | 0.283217  |     0.639378 | 1.02864 |
+
+Labels not matched: ['FTD: A1 (argumentative)', 'FTD: A17 (review)', 'FTD: A11 (personal)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'CORE-X-GENRE: Prose/Lyrical', 'CORE-X-GENRE: Other']
+
+Comparison: FTD with FTD-X-GENRE
+| Left_Hand_Side                       | Right_Hand_Side        |   Support |   Confidence |     Lift |
+|:-------------------------------------|:-----------------------|----------:|-------------:|---------:|
+| FTD-X-GENRE: Legal                   | FTD: A9 (legal)        | 0.0188811 |     0.694853 | 35.4871  |
+| FTD-X-GENRE: Opinion/Argumentation   | FTD: A11 (personal)    | 0.0223776 |     0.720257 | 22.5305  |
+| FTD-X-GENRE: Instruction             | FTD: A7 (instruction)  | 0.041958  |     0.720412 | 14.1398  |
+| FTD-X-GENRE: News                    | FTD: A8 (news)         | 0.036963  |     0.581761 | 14.1345  |
+| FTD-X-GENRE: Information/Explanation | FTD: A16 (information) | 0.0994006 |     0.630545 |  5.37171 |
+
+Labels not matched: ['FTD: A12 (promotion)', 'FTD: A1 (argumentative)', 'FTD: A17 (review)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'FTD-X-GENRE: Promotion', 'FTD-X-GENRE: Prose/Lyrical']
+
+Comparison: FTD with X-GENRE
+| Left_Hand_Side         | Right_Hand_Side                  |   Support |   Confidence |     Lift |
+|:-----------------------|:---------------------------------|----------:|-------------:|---------:|
+| FTD: A9 (legal)        | X-GENRE: Legal                   | 0.0143856 |     0.734694 | 38.5041  |
+| FTD: A7 (instruction)  | X-GENRE: Instruction             | 0.0386613 |     0.758824 |  9.6639  |
+| FTD: A11 (personal)    | X-GENRE: Opinion/Argumentation   | 0.0267732 |     0.8375   |  7.41892 |
+| FTD: A8 (news)         | X-GENRE: News                    | 0.0397602 |     0.966019 |  7.19483 |
+| FTD: A16 (information) | X-GENRE: Information/Explanation | 0.0806194 |     0.686809 |  3.83006 |
+| FTD: A12 (promotion)   | X-GENRE: Promotion               | 0.407692  |     0.655898 |  1.53544 |
+
+Labels not matched: ['FTD: A1 (argumentative)', 'FTD: A17 (review)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'X-GENRE: Other', 'X-GENRE: Prose/Lyrical', 'X-GENRE: Forum']
+
+Comparison: GINCO with CORE
+| Left_Hand_Side                    | Right_Hand_Side                             |   Support |   Confidence |    Lift |
+|:----------------------------------|:--------------------------------------------|----------:|-------------:|--------:|
+| CORE: How-To/Instructional        | GINCO: Instruction                          | 0.033966  |     0.65764  | 9.18128 |
+| CORE: Opinion                     | GINCO: Opinion/Argumentation                | 0.0248751 |     0.680328 | 6.00007 |
+| CORE: Informational Persuasion    | GINCO: Promotion                            | 0.11039   |     0.90057  | 2.08674 |
+| GINCO: Information/Explanation    | CORE: Informational Description/Explanation | 0.136364  |     0.97153  | 1.44976 |
+| GINCO: List of Summaries/Excerpts | CORE: Informational Description/Explanation | 0.0607393 |     0.73697  | 1.09974 |
+| GINCO: Other                      | CORE: Informational Description/Explanation | 0.0177822 |     0.706349 | 1.05405 |
+| GINCO: Promotion                  | CORE: Informational Description/Explanation | 0.304296  |     0.705093 | 1.05217 |
+
+Labels not matched: ['GINCO: News/Reporting', 'GINCO: Legal/Regulation', 'GINCO: Forum', 'CORE: Narrative', 'CORE: Spoken', 'CORE: Interactive Discussion', 'CORE: Lyrical']
+
+Comparison: GINCO with FTD-X-GENRE
+| Left_Hand_Side                       | Right_Hand_Side                |   Support |   Confidence |    Lift |
+|:-------------------------------------|:-------------------------------|----------:|-------------:|--------:|
+| FTD-X-GENRE: Instruction             | GINCO: Instruction             | 0.0396603 |     0.680961 | 9.50686 |
+| FTD-X-GENRE: News                    | GINCO: News/Reporting          | 0.046953  |     0.738994 | 6.58711 |
+| FTD-X-GENRE: Opinion/Argumentation   | GINCO: Opinion/Argumentation   | 0.0214785 |     0.691318 | 6.097   |
+| FTD-X-GENRE: Information/Explanation | GINCO: Information/Explanation | 0.0865135 |     0.548796 | 3.90993 |
+| FTD-X-GENRE: Promotion               | GINCO: Promotion               | 0.40979   |     0.625973 | 1.45046 |
+| GINCO: List of Summaries/Excerpts    | FTD-X-GENRE: Promotion         | 0.0609391 |     0.739394 | 1.12946 |
+
+Labels not matched: ['GINCO: Other', 'GINCO: Legal/Regulation', 'GINCO: Forum', 'FTD-X-GENRE: Legal', 'FTD-X-GENRE: Prose/Lyrical']
+
+Comparison: GINCO with CORE-X-GENRE
+| Left_Hand_Side                 | Right_Hand_Side                       |   Support |   Confidence |     Lift |
+|:-------------------------------|:--------------------------------------|----------:|-------------:|---------:|
+| GINCO: Forum                   | CORE-X-GENRE: Forum                   | 0.010989  |     0.763889 | 13.8524  |
+| CORE-X-GENRE: Prose/Lyrical    | GINCO: Opinion/Argumentation          | 0.012987  |     0.646766 |  5.70408 |
+| CORE-X-GENRE: News             | GINCO: News/Reporting                 | 0.0647353 |     0.517572 |  4.61344 |
+| GINCO: Instruction             | CORE-X-GENRE: Instruction             | 0.0555445 |     0.775453 |  3.96035 |
+| GINCO: Information/Explanation | CORE-X-GENRE: Information/Explanation | 0.126074  |     0.898221 |  2.02778 |
+| CORE-X-GENRE: Instruction      | GINCO: Promotion                      | 0.113686  |     0.580612 |  1.34535 |
+
+Labels not matched: ['GINCO: List of Summaries/Excerpts', 'GINCO: Other', 'GINCO: Legal/Regulation', 'CORE-X-GENRE: Opinion/Argumentation', 'CORE-X-GENRE: Other']
+
+Comparison: CORE with CORE-X-GENRE
+| Left_Hand_Side                        | Right_Hand_Side                             |   Support |   Confidence |     Lift |
+|:--------------------------------------|:--------------------------------------------|----------:|-------------:|---------:|
+| CORE: Interactive Discussion          | CORE-X-GENRE: Forum                         | 0.0105894 |     0.84127  | 15.2556  |
+| CORE: How-To/Instructional            | CORE-X-GENRE: Instruction                   | 0.0434565 |     0.841393 |  4.29711 |
+| CORE: Narrative                       | CORE-X-GENRE: News                          | 0.0503497 |     0.520124 |  4.1585  |
+| CORE-X-GENRE: Information/Explanation | CORE: Informational Description/Explanation | 0.381718  |     0.86175  |  1.28594 |
+
+Labels not matched: ['CORE: Informational Persuasion', 'CORE: Opinion', 'CORE: Spoken', 'CORE: Lyrical', 'CORE-X-GENRE: Opinion/Argumentation', 'CORE-X-GENRE: Prose/Lyrical', 'CORE-X-GENRE: Other']
+
+Comparison: CORE with X-GENRE
+| Left_Hand_Side                   | Right_Hand_Side                             |   Support |   Confidence |    Lift |
+|:---------------------------------|:--------------------------------------------|----------:|-------------:|--------:|
+| CORE: How-To/Instructional       | X-GENRE: Instruction                        | 0.0400599 |     0.775629 | 9.87792 |
+| CORE: Opinion                    | X-GENRE: Opinion/Argumentation              | 0.0235764 |     0.644809 | 5.71198 |
+| CORE: Informational Persuasion   | X-GENRE: Promotion                          | 0.11029   |     0.899756 | 2.1063  |
+| X-GENRE: Legal                   | CORE: Informational Description/Explanation | 0.0190809 |     1        | 1.49225 |
+| X-GENRE: Information/Explanation | CORE: Informational Description/Explanation | 0.170629  |     0.951532 | 1.41992 |
+| X-GENRE: Promotion               | CORE: Informational Description/Explanation | 0.301299  |     0.705332 | 1.05253 |
+
+Labels not matched: ['CORE: Narrative', 'CORE: Spoken', 'CORE: Interactive Discussion', 'CORE: Lyrical', 'X-GENRE: Other', 'X-GENRE: News', 'X-GENRE: Prose/Lyrical', 'X-GENRE: Forum']
+
+Comparison: GINCO-X-GENRE with FTD-X-GENRE
+| Left_Hand_Side                       | Right_Hand_Side                        |   Support |   Confidence |    Lift |
+|:-------------------------------------|:---------------------------------------|----------:|-------------:|--------:|
+| FTD-X-GENRE: Instruction             | GINCO-X-GENRE: Instruction             | 0.0393606 |     0.675815 | 9.3309  |
+| FTD-X-GENRE: Opinion/Argumentation   | GINCO-X-GENRE: Opinion/Argumentation   | 0.0204795 |     0.659164 | 7.29893 |
+| FTD-X-GENRE: News                    | GINCO-X-GENRE: News                    | 0.0549451 |     0.86478  | 6.90858 |
+| FTD-X-GENRE: Information/Explanation | GINCO-X-GENRE: Information/Explanation | 0.0916084 |     0.581115 | 3.97062 |
+| FTD-X-GENRE: Promotion               | GINCO-X-GENRE: Promotion               | 0.451948  |     0.690371 | 1.43314 |
+
+Labels not matched: ['GINCO-X-GENRE: Other', 'GINCO-X-GENRE: Legal', 'GINCO-X-GENRE: Forum', 'GINCO-X-GENRE: Prose/Lyrical', 'FTD-X-GENRE: Legal', 'FTD-X-GENRE: Prose/Lyrical']
+
+Comparison: GINCO-X-GENRE with CORE-X-GENRE
+| Left_Hand_Side                         | Right_Hand_Side                       |   Support |   Confidence |     Lift |
+|:---------------------------------------|:--------------------------------------|----------:|-------------:|---------:|
+| GINCO-X-GENRE: Forum                   | CORE-X-GENRE: Forum                   | 0.0110889 |     0.816176 | 14.8006  |
+| CORE-X-GENRE: Prose/Lyrical            | GINCO-X-GENRE: Opinion/Argumentation  | 0.0132867 |     0.661692 |  7.32692 |
+| CORE-X-GENRE: News                     | GINCO-X-GENRE: News                   | 0.0782218 |     0.625399 |  4.99621 |
+| GINCO-X-GENRE: Instruction             | CORE-X-GENRE: Instruction             | 0.0526474 |     0.726897 |  3.71236 |
+| GINCO-X-GENRE: Information/Explanation | CORE-X-GENRE: Information/Explanation | 0.129371  |     0.883959 |  1.99559 |
+| CORE-X-GENRE: Instruction              | GINCO-X-GENRE: Promotion              | 0.125175  |     0.639286 |  1.32709 |
+| CORE-X-GENRE: Opinion/Argumentation    | GINCO-X-GENRE: Promotion              | 0.0745255 |     0.530206 |  1.10066 |
+
+Labels not matched: ['GINCO-X-GENRE: Other', 'GINCO-X-GENRE: Legal', 'GINCO-X-GENRE: Prose/Lyrical', 'CORE-X-GENRE: Other']
+
+Comparison: FTD-X-GENRE with GINCO-X-GENRE
+| Left_Hand_Side                       | Right_Hand_Side                        |   Support |   Confidence |    Lift |
+|:-------------------------------------|:---------------------------------------|----------:|-------------:|--------:|
+| FTD-X-GENRE: Instruction             | GINCO-X-GENRE: Instruction             | 0.0393606 |     0.675815 | 9.3309  |
+| FTD-X-GENRE: Opinion/Argumentation   | GINCO-X-GENRE: Opinion/Argumentation   | 0.0204795 |     0.659164 | 7.29893 |
+| FTD-X-GENRE: News                    | GINCO-X-GENRE: News                    | 0.0549451 |     0.86478  | 6.90858 |
+| FTD-X-GENRE: Information/Explanation | GINCO-X-GENRE: Information/Explanation | 0.0916084 |     0.581115 | 3.97062 |
+| FTD-X-GENRE: Promotion               | GINCO-X-GENRE: Promotion               | 0.451948  |     0.690371 | 1.43314 |
+
+Labels not matched: ['FTD-X-GENRE: Legal', 'FTD-X-GENRE: Prose/Lyrical', 'GINCO-X-GENRE: Other', 'GINCO-X-GENRE: Legal', 'GINCO-X-GENRE: Forum', 'GINCO-X-GENRE: Prose/Lyrical']
+
+Comparison: FTD-X-GENRE with CORE-X-GENRE
+| Left_Hand_Side                       | Right_Hand_Side                       |   Support |   Confidence |    Lift |
+|:-------------------------------------|:--------------------------------------|----------:|-------------:|--------:|
+| FTD-X-GENRE: News                    | CORE-X-GENRE: News                    | 0.0513487 |     0.808176 | 6.46154 |
+| FTD-X-GENRE: Instruction             | CORE-X-GENRE: Instruction             | 0.042957  |     0.737564 | 3.76685 |
+| FTD-X-GENRE: Legal                   | CORE-X-GENRE: Information/Explanation | 0.0255744 |     0.941176 | 2.12476 |
+| FTD-X-GENRE: Information/Explanation | CORE-X-GENRE: Information/Explanation | 0.12028   |     0.762991 | 1.72249 |
+| CORE-X-GENRE: Opinion/Argumentation  | FTD-X-GENRE: Promotion                | 0.11039   |     0.785359 | 1.19967 |
+| CORE-X-GENRE: Other                  | FTD-X-GENRE: Promotion                | 0.0148851 |     0.730392 | 1.11571 |
+| CORE-X-GENRE: Instruction            | FTD-X-GENRE: Promotion                | 0.141359  |     0.721939 | 1.10279 |
+| CORE-X-GENRE: Forum                  | FTD-X-GENRE: Promotion                | 0.0376623 |     0.682971 | 1.04327 |
+
+Labels not matched: ['FTD-X-GENRE: Opinion/Argumentation', 'FTD-X-GENRE: Prose/Lyrical', 'CORE-X-GENRE: Prose/Lyrical']
+
+Comparison: FTD-X-GENRE with X-GENRE
+| Left_Hand_Side                       | Right_Hand_Side                  |   Support |   Confidence |     Lift |
+|:-------------------------------------|:---------------------------------|----------:|-------------:|---------:|
+| FTD-X-GENRE: Legal                   | X-GENRE: Legal                   | 0.0170829 |     0.628676 | 32.9479  |
+| FTD-X-GENRE: Instruction             | X-GENRE: Instruction             | 0.0432567 |     0.74271  |  9.45869 |
+| FTD-X-GENRE: Opinion/Argumentation   | X-GENRE: Opinion/Argumentation   | 0.0235764 |     0.758842 |  6.72214 |
+| FTD-X-GENRE: News                    | X-GENRE: News                    | 0.0549451 |     0.86478  |  6.44081 |
+| FTD-X-GENRE: Information/Explanation | X-GENRE: Information/Explanation | 0.0975025 |     0.618504 |  3.44915 |
+| FTD-X-GENRE: Promotion               | X-GENRE: Promotion               | 0.40999   |     0.626278 |  1.4661  |
+| X-GENRE: Other                       | FTD-X-GENRE: Promotion           | 0.0243756 |     0.743902 |  1.13634 |
+
+Labels not matched: ['FTD-X-GENRE: Prose/Lyrical', 'X-GENRE: Prose/Lyrical', 'X-GENRE: Forum']
+
+Comparison: CORE-X-GENRE with X-GENRE
+| Left_Hand_Side                   | Right_Hand_Side                       |   Support |   Confidence |     Lift |
+|:---------------------------------|:--------------------------------------|----------:|-------------:|---------:|
+| X-GENRE: Forum                   | CORE-X-GENRE: Forum                   | 0.0103896 |     0.912281 | 16.5434  |
+| CORE-X-GENRE: Prose/Lyrical      | X-GENRE: Opinion/Argumentation        | 0.0118881 |     0.59204  |  5.24453 |
+| CORE-X-GENRE: News               | X-GENRE: News                         | 0.079021  |     0.631789 |  4.70551 |
+| X-GENRE: Instruction             | CORE-X-GENRE: Instruction             | 0.0636364 |     0.810433 |  4.13899 |
+| X-GENRE: Legal                   | CORE-X-GENRE: Information/Explanation | 0.0175824 |     0.921466 |  2.08026 |
+| X-GENRE: Information/Explanation | CORE-X-GENRE: Information/Explanation | 0.154745  |     0.862953 |  1.94816 |
+| CORE-X-GENRE: Instruction        | X-GENRE: Promotion                    | 0.108891  |     0.556122 |  1.30187 |
+
+Labels not matched: ['CORE-X-GENRE: Opinion/Argumentation', 'CORE-X-GENRE: Other', 'X-GENRE: Other', 'X-GENRE: Prose/Lyrical']
