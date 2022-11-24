@@ -1584,6 +1584,8 @@ Main concepts:
 
 This means that if left value is very frequent -> confidence is smaller, if the pair does not occur together very often, it won't reach the confidence limit. The frequency of right value does not impact the confidence, but it does impact the lift. For the same number of occurences of the pair, the lift is higher if one of them is infrequent than if both were frequent. The bigger support (frequency of the pair occuring together), the bigger is lift.
 
+Parameters used: min_support=0.01, min_confidence=0.50, min_lift=1.0
+
 Comparison: FTD with GINCO (very similar results also with GINCO-X-GENRE)
 
 | Left_Hand_Side         | Right_Hand_Side                |   Support |   Confidence |     Lift |
@@ -1596,6 +1598,8 @@ Comparison: FTD with GINCO (very similar results also with GINCO-X-GENRE)
 
 Labels not matched: ['FTD: A1 (argumentative)', 'FTD: A17 (review)', 'FTD: A9 (legal)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'GINCO: List of Summaries/Excerpts', 'GINCO: Other', 'GINCO: Legal/Regulation', 'GINCO: Forum']
 
+--> Some labels not frequent enough (support too small) to be relevant for the target dataset (Legal/Regulation, Forum, academic, fiction) ... Some labels do not match with a label in the other schema consistently - argumentative, review, list of summaries/excerpts
+
 Comparison: FTD with CORE
 | Left_Hand_Side                              | Right_Hand_Side                             |   Support |   Confidence |    Lift |
 |:--------------------------------------------|:--------------------------------------------|----------:|-------------:|--------:|
@@ -1607,6 +1611,8 @@ Comparison: FTD with CORE
 | CORE: Informational Description/Explanation | FTD: A12 (promotion)                        | 0.454146  |     0.677698 | 1.09029 |
 
 Labels not matched: ['FTD: A1 (argumentative)', 'FTD: A7 (instruction)', 'FTD: A17 (review)', 'FTD: A14 (academic)', 'FTD: A4 (fiction)', 'CORE: Opinion', 'CORE: Spoken', 'CORE: How-To/Instructional', 'CORE: Interactive Discussion', 'CORE: Lyrical']
+
+--> Informational/Description matches with legal, information and promotion 
 
 Comparison: FTD with CORE-X-GENRE
 | Left_Hand_Side                        | Right_Hand_Side                       |   Support |   Confidence |    Lift |
