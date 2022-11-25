@@ -1408,11 +1408,6 @@ Then I applied the following classifiers, developed in previous experiments and 
 
 File with the predictions: *MaCoCu-sl-sample-with-predictions.csv*
 
-### To do:
-
-Sometime later:
-- re-do the sample corpus (take 500 domains above and below the median at random - not the first 500 domains above)
-
 ### Results
 
 #### Comparison of confidence of the predictions
@@ -1439,14 +1434,6 @@ Sometime later:
 | CORE-X-GENRE  | Information/Explanation               |        0.44 |
 | X-GENRE       | Promotion                             |        0.43 |
 
-#### Comparison of frequency of prediction of the most frequent label per domain
-
-![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-histogram.png)
-
-![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-subplots.png)
-
-![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-KDE.png)
-
 #### Comparison of label distribution (instance level)
 
 | FTD          | GINCO                | CORE                            | GINCO-X-GENRE  | FTD-X-GENRE       | CORE-X-GENRE      | X-GENRE           | |
@@ -1461,6 +1448,15 @@ Sometime later:
 | ('A9 (legal)', 0.02)            | ('Forum', 0.01)                         | ('Lyrical', 0.0)                                   | ('Legal', 0.01)                   |                                      |                                         | ('Forum', 0.01)                      | |
 | ('A4 (fiction)', 0.01)          | ('Legal/Regulation', 0.01)              |                                                    | ('Prose/Lyrical', 0.0)            |                                      |                                         | ('Prose/Lyrical', 0.0)               | |
 | ('A14 (academic)', 0.0)         |                                         |                                                       |                                      |                                         |                                         |                                         |    |
+
+#### Comparison of frequency of prediction of the most frequent label per domain
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-histogram.png)
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-subplots.png)
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-KDE.png)
+
 
 #### Comparison of label distribution on the domain level
 
