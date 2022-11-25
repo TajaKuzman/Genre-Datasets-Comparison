@@ -28,7 +28,11 @@ I re-did all experiments on a new sample of MaCoCu-sl, where I chosen 500 random
 | CORE-X-GENRE  | Information/Explanation               |        0.41 |
 | X-GENRE       | Promotion                             |        0.39 |
 
+The frequency of the most frequent label changed only slightly (up to 5 percent) - it is slightly less frequent now.
+
 #### Comparison of label distribution (instance level)
+
+Label distribution remains more or less the same (very small differences between the samples).
 
 | label_distribution_FTD          | label_distribution_GINCO                | label_distribution_CORE                            | label_distribution_GINCO-X-GENRE  | label_distribution_FTD-X-GENRE       | label_distribution_CORE-X-GENRE      | label_distribution_X-GENRE           |
 |------------------------------------|--------------------------------------------|-------------------------------------------------------|--------------------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|
@@ -45,13 +49,18 @@ I re-did all experiments on a new sample of MaCoCu-sl, where I chosen 500 random
 
 #### Comparison of frequency of prediction of the most frequent label per domain
 
+Distributions are very similar to the sample1.
+
 ![](Comparison-of-distribution-in-domains-MaCoCu-sl-histogram-sample2.png)
 
-![](Comparison-on-MaCoCu-sl-sample2/Comparison-of-distribution-in-domains-MaCoCu-sl-subplots-sample2.png)
+![](Comparison-of-distribution-in-domains-MaCoCu-sl-subplots-sample2.png)
 
 ![](Comparison-of-distribution-in-domains-MaCoCu-sl-KDE-sample2.png)
 
+
 #### Comparison of label distribution on the domain level
+
+Frequency of the most frequent label on domain level is slightly smaller for all classifiers, but only up to 5 points. Otherwise, the distributions are very similar.
 
 Table shows in how many of the domains a label is the most frequent label in the domain. The values in the table are percentages.
 
@@ -71,6 +80,10 @@ Table shows in how many of the domains a label is the most frequent label in the
 #### Precision, recall and F1 scores using domain information as a signal of a "true label"
 
 We used the most frequent label predicted on the domain as the "true label". Biggest values for each metric are in bold.
+
+In sample1, the ranking based on Macro F1 was FTD-X-GENRE (0.57), GINCO-X-GENRE and CORE-X-GENRE (sharing the 2nd spot: 0.53), FTD (0.52), CORE and X-GENRE (0.51), GINCO (0.49).
+
+Here, CORE has a slightly higher Macro F1 score, ranking is: FTD-X-GENRE (0.58), CORE-X-GENRE (0.56), CORE (0.54), GINCO-X-GENRE (0.53), GINCO and X-GENRE (0.51), FTD (0.49). However, in both samples, all scores are pretty similar.
 
 | Classifier    |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
 |:--------------|-----------:|-----------:|------------------:|---------------:|
@@ -93,7 +106,9 @@ Number of ties:
 | no  |                       0.8954 |
 | yes |                       0.1046 |
 
-Distribution of majority X-GENRE labels:
+Distribution of majority X-GENRE labels
+
+Distribution is very similar to the sample1.
 
 |                         |   X-GENRE-majority-label |
 |:------------------------|-------------------------:|
@@ -109,6 +124,8 @@ Distribution of majority X-GENRE labels:
 
 Results:
 
+The ranking remains the same as in sample1, only the values are mostly a couple of points slightly higher. No big differences between the samples were observed, though.
+
 | Classifier    |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
 |:--------------|-----------:|-----------:|------------------:|---------------:|
 | X-GENRE       |       **0.87** |       **0.89** |              **0.86** |           **0.89** |
@@ -121,6 +138,7 @@ Results:
 I used the predictions of one classifier as y_true, and the predictions of the other as y_pred. I did it in both directions, just to check how the results change.
 FTD-X-GENRE has less labels than the other (7, instead of 9), so whenever this classifier was in the pair, I used 7 labels for calculation of the evaluation metrics.
 
+The ranking order is the same as in sample1 and the results are very similar as well. CORE-X-GENRE now has a bit higher scores when in combination with GINCO-X-GENRE and X-GENRE (up to 5 points bigger Macro F1).
 
 | Classifier as y_true   | Classifier as y_pred   |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
 |:-----------------------|:-----------------------|-----------:|-----------:|------------------:|---------------:|
@@ -131,8 +149,8 @@ FTD-X-GENRE has less labels than the other (7, instead of 9), so whenever this c
 | GINCO-X-GENRE          | FTD-X-GENRE            |       0.52 |       0.68 |              0.55 |           0.65 |
 | FTD-X-GENRE            | GINCO-X-GENRE          |       0.52 |       0.68 |              0.65 |           0.55 |
 | X-GENRE                | CORE-X-GENRE           |       0.45 |       0.51 |              0.38 |           0.**68** |
-| GINCO-X-GENRE          | CORE-X-GENRE           |       0.37 |       0.45 |              0.31 |           0.68 |
 | CORE-X-GENRE           | X-GENRE                |       0.35 |       0.41 |              0.53 |           0.3  |
-| FTD-X-GENRE            | CORE-X-GENRE           |       0.28 |       0.27 |              0.2  |           0.49 |
+| GINCO-X-GENRE          | CORE-X-GENRE           |       0.37 |       0.45 |              0.31 |           0.68 |
 | CORE-X-GENRE           | GINCO-X-GENRE          |       0.28 |       0.35 |              0.53 |           0.24 |
+| FTD-X-GENRE            | CORE-X-GENRE           |       0.28 |       0.27 |              0.2  |           0.49 |
 | CORE-X-GENRE           | FTD-X-GENRE            |       0.28 |       0.27 |              0.49 |           0.2  |
