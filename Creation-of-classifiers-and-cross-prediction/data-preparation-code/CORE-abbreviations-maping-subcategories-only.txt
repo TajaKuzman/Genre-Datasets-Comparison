@@ -1,0 +1,337 @@
+Abbreviations	CORE
+FH	FAQ about How-to
+HT	How-to
+OH	Other How-to
+RE	Recipe
+TS	Technical Support
+DF	Discussion Forum
+OF	Other Forum
+QA	Question/Answer Forum
+RR	Reader/Viewer Responses
+CM	Course Materials
+DP	Description of a Person
+DT	Description of a Thing
+EN	Encyclopedia Article
+FI	FAQ about Information
+IB	Information Blog
+LT	Legal terms
+OI	Other Information
+RA	Research Article
+TR	Technical Report
+DS	Description with Intent to Sell
+ED	Editorial
+OE	Other Informational Persuasion
+PA	Persuasive Article or Essay
+OL	Other Lyrical
+PO	Poem
+PR	Prayer
+SL	Song Lyrics
+HA	Historical Article
+MA	Magazine Article
+NE	News Report/Blog
+ON	Other Narrative
+PB	Personal Blog
+SR	Sports Report
+SS	Short Story
+TB	Travel Blog
+AD	Advertisement
+AV	Advice
+LE	Letter to Editor
+OB	Opinion Blog
+OO	Other Opinion
+RS	Religious Blogs/Sermons
+RV	Reviews
+FS	Formal Speech
+IT	Interview
+OS	Other Spoken
+TA	Transcript of Video/Audio
+TV	TV/Movie Script
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

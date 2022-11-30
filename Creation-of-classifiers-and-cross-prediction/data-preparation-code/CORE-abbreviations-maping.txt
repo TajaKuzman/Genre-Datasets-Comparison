@@ -1,0 +1,345 @@
+Abbreviations	CORE
+HI	How-To/Instructional
+HI FH	FAQ about How-to
+HI HT	How-to
+HI OH	Other How-to
+HI RE	Recipe
+HI TS	Technical Support
+ID	Interactive Discussion
+ID DF	Discussion Forum
+ID OF	Other Forum
+ID QA	Question/Answer Forum
+ID RR	Reader/Viewer Responses
+IN	Informational Description/Explanation
+IN CM	Course Materials
+IN DP	Description of a Person
+IN DT	Description of a Thing
+IN EN	Encyclopedia Article
+IN FI	FAQ about Information
+IN IB	Information Blog
+IN LT	Legal terms
+IN OI	Other Information
+IN RA	Research Article
+IN TR	Technical Report
+IP	Informational Persuasion
+IP DS	Description with Intent to Sell
+IP ED	Editorial
+IP OE	Other Informational Persuasion
+IP PA	Persuasive Article or Essay
+LY	Lyrical
+LY OL	Other Lyrical
+LY PO	Poem
+LY PR	Prayer
+LY SL	Song Lyrics
+NA	Narrative
+NA HA	Historical Article
+NA MA	Magazine Article
+NA NE	News Report/Blog
+NA ON	Other Narrative
+NA PB	Personal Blog
+NA SR	Sports Report
+NA SS	Short Story
+NA TB	Travel Blog
+OP	Opinion
+OP AD	Advertisement
+OP AV	Advice
+OP LE	Letter to Editor
+OP OB	Opinion Blog
+OP OO	Other Opinion
+OP RS	Religious Blogs/Sermons
+OP RV	Reviews
+SP	Spoken
+SP FS	Formal Speech
+SP IT	Interview
+SP OS	Other Spoken
+SP TA	Transcript of Video/Audio
+SP TV	TV/Movie Script
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

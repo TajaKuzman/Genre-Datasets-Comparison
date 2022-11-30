@@ -70,3 +70,19 @@ Comparison-on-MaCoCu-sl-sample2/shuffled/MaCoCu-sample2-with-predictions-genre-d
 data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
 data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
 data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/MaCoCu-is_with_predictions.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/MaCoCu-mk_with_predictions.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/MaCoCu-mk-with-predictions-genre-distribution-in-domains.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-sl-sample2/MaCoCu-sample2-with-predictions-genre-distribution-in-domains.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-sl-sample2/MaCoCu-sl_sample2_with_predictions.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-sl-sample2/shuffled/MaCoCu-sl_sample2_with_predictions.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-sl-sample2/shuffled/MaCoCu-sample2-with-predictions-genre-distribution-in-domains.csv
+Creation-of-classifiers-and-cross-prediction/data-preparation-code/FinCORE-all-information.csv
+Creation-of-classifiers-and-cross-prediction/data-preparation-code/Joint-mapping-of-all-three-schemata.csv
+Creation-of-classifiers-and-cross-prediction/data-preparation-code/Oznake korpusa Functional Text Dimensions.xlsx
+Creation-of-classifiers-and-cross-prediction/data-sheets-with-all-info/CORE-all-information-with-CORE-sub-predictions.csv
+Creation-of-classifiers-and-cross-prediction/data-sheets-with-all-info/CORE-all-information.csv
+Creation-of-classifiers-and-cross-prediction/data-sheets-with-all-info/EN-GINCO-X-GENRE.csv
+Creation-of-classifiers-and-cross-prediction/data-sheets-with-all-info/FTD-dataset-with-all-information.csv
+Creation-of-classifiers-and-cross-prediction/data-sheets-with-all-info/GINCO-MT-GINCO-keeptext-with-all-information.csv
+Creation-of-classifiers-and-cross-prediction/data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
