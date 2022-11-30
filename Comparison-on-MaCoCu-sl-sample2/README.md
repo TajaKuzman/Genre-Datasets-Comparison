@@ -104,7 +104,7 @@ MaCoCu-sl:
 
 MaCoCu-mk:
 
-![](Comparison-on-MaCoCu-mk/Comparison-of-distribution-in-domains-MaCoCu-mk-subplots.png)
+![](Comparison-of-distribution-in-domains-MaCoCu-mk-subplots.png)
 
 MaCoCu-sl:
 

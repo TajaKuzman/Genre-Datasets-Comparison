@@ -58,3 +58,11 @@ Comparison-on-MaCoCu-sl-sample2/MaCoCu-sl_sample2_with_predictions.csv
 Comparison-on-MaCoCu-mk/MaCoCu-mk_with_predictions.csv
 Comparison-on-MaCoCu-mk/MaCoCu-mk-sample-domains-and-urls.csv
 Comparison-on-MaCoCu-mk/MaCoCu-mk-with-predictions-genre-distribution-in-domains.csv
+Comparison-on-MaCoCu-is/MaCoCu-is_with_predictions.csv
+.gitignore
+Comparison-on-MaCoCu-sl-sample2/shuffled/MaCoCu-sl_sample2_with_predictions.csv
+data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
+Comparison-on-MaCoCu-sl-sample2/shuffled/MaCoCu-sample2-with-predictions-genre-distribution-in-domains.csv
+data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
+data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
+data-sheets-with-all-info/Merged-datasets-with-all-predictions.csv
