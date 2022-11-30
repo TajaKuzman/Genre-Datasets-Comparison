@@ -18,6 +18,8 @@ artifacts/FTD-classifier:v1/training_args.bin
 wandb/
 artifacts/
 outputs/
+data-splits/
+results/
 data-splits/CORE-sub-train.csv
 data-splits/CORE-sub-test.csv
 data-splits/CORE-sub-dev.csv
