@@ -20,6 +20,8 @@ artifacts/
 outputs/
 data-splits
 results
+data-splits/
+results/
 data-splits/CORE-sub-train.csv
 data-splits/CORE-sub-test.csv
 data-splits/CORE-sub-dev.csv
@@ -60,7 +62,3 @@ Comparison-on-MaCoCu-sl-sample2/MaCoCu-sl_sample2_with_predictions.csv
 Comparison-on-MaCoCu-mk/MaCoCu-mk_with_predictions.csv
 Comparison-on-MaCoCu-mk/MaCoCu-mk-sample-domains-and-urls.csv
 Comparison-on-MaCoCu-mk/MaCoCu-mk-with-predictions-genre-distribution-in-domains.csv
-data-splits/EN-GINCO-X-GENRE.csv
-data-splits/FinCORE-sample.csv
-data-splits/FTD-test.txt
-data-splits/FTD-X-GENRE-train.txt
