@@ -97,3 +97,11 @@ Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/MaCoCu-mk_with_predictions-dom
 Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/MaCoCu-mk-domain-level.csv
 Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/MaCoCu-is_with_predictions-domain-info-added.csv
 Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/MaCoCu-is-domain-level.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/shuffled/MaCoCu-is_with_predictions-domain-info-added.csv
+.gitignore
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/shuffled/MaCoCu-is-shuffled-domain-level.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/shuffled/MaCoCu-mk-shuffled_with_predictions-domain-info-added.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/shuffled/MaCoCu-mk_with_predictions.csv
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/shuffled/MaCoCu-mk-shuffled-domain-level.csv
+.gitignore
+Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/shuffled/MaCoCu-is-shuffled_with_predictions-domain-info-added.csv

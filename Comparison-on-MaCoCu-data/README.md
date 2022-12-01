@@ -584,31 +584,70 @@ I randomly shuffled predictions of each classifier and calculated the most frequ
 
 The distribution is much different:
 
-**Original**:
-
-![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-histogram-sample2.png)
+**Original MaCoCu-sl**:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-subplots-sample2.png)
 
-**Shuffled**:
-
-![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-shuffled-histogram.png)
+**Shuffled MaCoCu-sl**:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-shuffled-subplots.png)
 
-Comparison of accuracy scores:
 
-| Classifier    | Accuracy - shuffled | Accuracy - original | Original minus shuffled |
-|---------------|--------------------:|--------------------:|------------------:|
-| X-GENRE       |                0.43 |                0.66 |              0.23 |
-| GINCO         |                0.43 |                0.64 |              0.21 |
-| GINCO-X-GENRE |                0.47 |                0.67 |               0.2 |
-| CORE-X-GENRE  |                0.45 |                0.65 |               0.2 |
-| CORE          |                0.65 |                0.78 |              0.13 |
-| FTD           |                0.59 |                0.72 |              0.13 |
-| FTD-X-GENRE   |                0.63 |                0.75 |              0.12 |
+**Original MaCoCu-mk**:
 
-The scores for classifiers assuming that the domains are uni-genre:
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-mk-subplots.png)
+
+**Shuffled MaCoCu-mk**:
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-mk-shuffled-subplots.png)
+
+**Original MaCoCu-is**:
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-is-subplots.png)
+
+**Shuffled MaCoCu-is**:
+
+![](figures/Comparison-of-distribution-in-domains-MaCoCu-is-shuffled-subplots.png)
+
+
+**Difference between shuffled and original corpus - MaCoCu-sl**
+
+|   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference (original   minus shuffled) | Relative improvement |
+|:-------------:|--------------------:|--------------------:|------------------------------------------------:|---------------------:|
+|    X-GENRE    |                0.43 |                0.66 |                                            0.23 |                 1.53 |
+|     GINCO     |                0.43 |                0.64 |                                            0.21 |                 1.49 |
+|  CORE-X-GENRE |                0.45 |                0.65 |                                             0.2 |                 1.44 |
+| GINCO-X-GENRE |                0.47 |                0.67 |                                             0.2 |                 1.43 |
+|      FTD      |                0.59 |                0.72 |                                            0.13 |                 1.22 |
+|      CORE     |                0.65 |                0.78 |                                            0.13 |                  1.2 |
+|  FTD-X-GENRE  |                0.63 |                0.75 |                                            0.12 |                 1.19 |
+
+**Difference between shuffled and original corpus - MaCoCu-mk**
+
+| Classifier    | Accuracy - shuffled | Accuracy - original | Absolute difference | Relative improvement |
+|---------------|--------------------:|--------------------:|--------------------:|---------------------:|
+| GINCO         |                 0.4 |                0.65 |                0.25 |                 1.63 |
+| X-GENRE       |                0.42 |                0.68 |                0.26 |                 1.62 |
+| GINCO-X-GENRE |                0.41 |                0.66 |                0.25 |                 1.61 |
+| FTD           |                0.45 |                0.68 |                0.23 |                 1.51 |
+| CORE-X-GENRE  |                0.45 |                0.67 |                0.22 |                 1.49 |
+| FTD-X-GENRE   |                0.49 |                0.71 |                0.22 |                 1.45 |
+| CORE          |                 0.6 |                0.77 |                0.17 |                 1.28 |
+
+
+**Difference between shuffled and original corpus - MaCoCu-is**
+
+| Classifier    | Accuracy - shuffled | Accuracy - original | Absolute difference | Relative improvement |
+|---------------|--------------------:|--------------------:|--------------------:|---------------------:|
+| X-GENRE       |                0.35 |                0.63 |                0.28 |                 1.80 |
+| GINCO         |                0.36 |                0.62 |                0.26 |                 1.72 |
+| FTD           |                0.38 |                0.65 |                0.27 |                 1.71 |
+| GINCO-X-GENRE |                0.36 |                 0.6 |                0.24 |                 1.67 |
+| FTD-X-GENRE   |                0.44 |                0.67 |                0.23 |                 1.52 |
+| CORE-X-GENRE  |                0.42 |                0.63 |                0.21 |                 1.50 |
+| CORE          |                0.59 |                0.76 |                0.17 |                 1.29 |
+
+**Shuffled corpus (Slovene):**
 
 | Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
 |:--------------|-----------:|---------------------:|-----------:|-----------:|------------------:|---------------:|
@@ -620,7 +659,7 @@ The scores for classifiers assuming that the domains are uni-genre:
 | CORE          |       0.65 |                -0.05 |       0.12 |       0.65 |              0.14 |           0.25 |
 | FTD           |       0.59 |                -0.04 |       0.1  |       0.59 |              0.11 |           0.22 |
 
-Compared to the original scores (for MaCoCu-sl):
+**Compared to the original scores (Slovene):**
 
 | Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
 |:--------------|-----------:|---------------------:|-----------:|-----------:|------------------:|---------------:|
@@ -632,7 +671,55 @@ Compared to the original scores (for MaCoCu-sl):
 | X-GENRE       |       0.66 |                 0.54 |       0.51 |       0.66 |              0.49 |           0.6  |
 | FTD           |       0.72 |                 0.5  |       0.49 |       0.72 |              0.44 |           0.6  |
 
-Label distribution per domain is now much different:
+**Shuffled corpus (MaCoCu-mk)**
+
+| Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:--------------|-----------:|---------------------:|-----------:|-----------:|------------------:|---------------:|
+| CORE-X-GENRE  |       0.45 |                 0.18 |       0.21 |       0.45 |              0.22 |           0.33 |
+| GINCO         |       0.4  |                 0.17 |       0.2  |       0.4  |              0.19 |           0.31 |
+| FTD-X-GENRE   |       0.49 |                 0.17 |       0.2  |       0.49 |              0.2  |           0.24 |
+| GINCO-X-GENRE |       0.41 |                 0.19 |       0.18 |       0.41 |              0.18 |           0.23 |
+| X-GENRE       |       0.42 |                 0.17 |       0.17 |       0.42 |              0.17 |           0.26 |
+| FTD           |       0.45 |                 0.12 |       0.15 |       0.45 |              0.15 |           0.23 |
+| CORE          |       0.6  |                 0.07 |       0.14 |       0.6  |              0.15 |           0.26 |
+
+**Original corpus (MaCoCu-mk)**
+
+| Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:--------------|-----------:|---------------------:|-----------:|-----------:|------------------:|---------------:|
+| FTD-X-GENRE   |       0.71 |                 0.57 |       0.52 |       0.71 |              0.49 |           0.62 |
+| GINCO         |       0.65 |                 0.54 |       0.51 |       0.65 |              0.48 |           0.6  |
+| CORE          |       0.77 |                 0.59 |       0.51 |       0.77 |              0.47 |           0.56 |
+| CORE-X-GENRE  |       0.67 |                 0.54 |       0.51 |       0.67 |              0.47 |           0.59 |
+| X-GENRE       |       0.68 |                 0.57 |       0.5  |       0.68 |              0.47 |           0.59 |
+| GINCO-X-GENRE |       0.66 |                 0.54 |       0.48 |       0.66 |              0.45 |           0.56 |
+| FTD           |       0.68 |                 0.55 |       0.47 |       0.68 |              0.42 |           0.57 |
+
+**Shuffled corpus (MaCoCu-is)**
+
+| Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:--------------|-----------:|---------------------:|-----------:|-----------:|------------------:|---------------:|
+| GINCO         |       0.36 |                 0.19 |       0.23 |       0.36 |              0.22 |           0.32 |
+| GINCO-X-GENRE |       0.36 |                 0.2  |       0.23 |       0.36 |              0.22 |           0.28 |
+| CORE-X-GENRE  |       0.42 |                 0.14 |       0.22 |       0.42 |              0.23 |           0.31 |
+| X-GENRE       |       0.35 |                 0.19 |       0.22 |       0.35 |              0.22 |           0.28 |
+| FTD-X-GENRE   |       0.44 |                 0.17 |       0.21 |       0.44 |              0.22 |           0.32 |
+| FTD           |       0.38 |                 0.17 |       0.17 |       0.38 |              0.18 |           0.25 |
+| CORE          |       0.59 |                 0.04 |       0.14 |       0.59 |              0.15 |           0.22 |
+
+**Original corpus (MaCoCu-is)**
+
+| Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
+|:--------------|-----------:|---------------------:|-----------:|-----------:|------------------:|---------------:|
+| FTD-X-GENRE   |       0.67 |                 0.56 |       0.56 |       0.67 |              0.52 |           0.65 |
+| GINCO-X-GENRE |       0.6  |                 0.52 |       0.54 |       0.6  |              0.53 |           0.58 |
+| CORE-X-GENRE  |       0.63 |                 0.51 |       0.54 |       0.63 |              0.51 |           0.58 |
+| X-GENRE       |       0.63 |                 0.55 |       0.53 |       0.63 |              0.5  |           0.61 |
+| GINCO         |       0.62 |                 0.53 |       0.52 |       0.62 |              0.5  |           0.59 |
+| CORE          |       0.76 |                 0.57 |       0.51 |       0.76 |              0.47 |           0.59 |
+| FTD           |       0.65 |                 0.56 |       0.49 |       0.65 |              0.47 |           0.54 |
+
+**Label distribution per domain is now much different (MaCoCu-sl):**
 
 | label_distribution_FTD       | label_distribution_GINCO             | label_distribution_CORE                         | label_distribution_GINCO-X-GENRE   | label_distribution_FTD-X-GENRE    | label_distribution_CORE-X-GENRE   | label_distribution_X-GENRE        |
 |:-----------------------------|:-------------------------------------|:------------------------------------------------|:-----------------------------------|:----------------------------------|:----------------------------------|:----------------------------------|
