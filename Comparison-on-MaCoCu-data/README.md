@@ -610,6 +610,18 @@ The distribution is much different:
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-is-shuffled-subplots.png)
 
 
+**Difference between shuffled and original corpus - all datasets**
+
+|   Classifier  | Relative improvement - MaCoCu-sl | Relative improvement - MaCoCu-mk | Relative improvement - MaCoCu-is |
+|:-------------:|---------------------------------:|---------------------------------:|---------------------------------:|
+|    X-GENRE    |                             **1.53** |                             1.62 |                              **1.8** |
+|     GINCO     |                             1.49 |                             **1.63** |                             1.72 |
+|      FTD      |                             1.22 |                             1.51 |                             1.71 |
+| GINCO-X-GENRE |                             1.43 |                             1.61 |                             1.67 |
+|  FTD-X-GENRE  |                             1.19 |                             1.45 |                             1.52 |
+|  CORE-X-GENRE |                             1.44 |                             1.49 |                              1.5 |
+|      CORE     |                              1.2 |                             1.28 |                             1.29 |
+
 **Difference between shuffled and original corpus - MaCoCu-sl**
 
 |   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference (original   minus shuffled) | Relative improvement |
