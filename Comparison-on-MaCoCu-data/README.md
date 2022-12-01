@@ -2,6 +2,19 @@
 
 To analyse how appropriate are various schemata for our target data, which is MaCoCu web corpora, we apply all the classifiers to a sample of a corpus. Then we analyse the distribution of labels inside one domain. We base this comparison on a hypothesis that web domains mostly consist of only one genre. Thus, we will analyse to which extent the genre labels from different schemata are able to consistently assign a genre to texts inside one domain.
 
+Contents:
+- [Models used](#models-used)
+- [MaCoCu-sl - sample 1 - Data preparation](#macocu-sl---sample1---data-preparation)
+- [Second sample of MaCoCu-sl, MaCoCu-mk and MaCoCu-is](#second-sample-of-macocu-sl-macocu-mk-and-macocu-is)
+- [Most frequent label on instance level](#most-frequent-label-on-instance-level-per-classifier)
+- [Comparision of classifiers based on label distribution per domain](#comparison-of-frequency-of-prediction-of-the-most-frequent-label-per-domain)
+- [Label distribution on domain level](#label-distribution-on-the-domain-level)
+- [Scores assuming domains are uni-genre](#precision-recall-and-f1-scores-using-domain-information-as-a-signal-of-a-true-label)
+- [Comparison of X-GENRE classifiers based on majority labels](#comparison-of-x-genre-classifiers-performance-based-on-x-genre-majority-label)
+- [Agreement between X-GENRE classifiers](#comparison-of-x-genre-classifier-agreement)
+- [Comparing results with a shuffled corpus](#comparing-with-a-corpus-where-labels-are-randomly-shuffled)
+- [Comparing schemata with the Apriori algorithm](#comparing-schemata-with-apriori-algorithm)
+
 ## Models used
 
 Then I applied the following classifiers, developed in previous experiments and saved to Wandb to the sample:
@@ -184,6 +197,7 @@ I re-did all experiments on a new sample of MaCoCu-sl, where I chosen 500 random
 
 I then extended the experiments to the Macedonian dataset - MaCoCu-mk -, and the Icelandic dataset - MaCoCu-is, as well, following the same steps as with the MaCoCu-sl.
 
+<!--
 
 #### Comparison of confidence of the predictions
 
@@ -227,7 +241,7 @@ MaCoCu-is
 | CORE-X-GENRE  |  0.16 |     0.59 |  0.95 |
 
 The median confidence of GINCO, FTD and CORE-X-GENRE is slightly lower (5-7 points) and quite lower for FTD-X-GENRE (16 points) when applied to MaCoCu-is than when applied to MaCoCu-mk.
-
+-->
 
 #### Most frequent label (on instance level) per classifier
 
@@ -247,7 +261,7 @@ MaCoCu-sl:
 The frequency of the most frequent label is the highest in the case of MaCoCu-sl (most unbalanced data), followed by MaCoCu-mk, and in the case of most classifiers, the supremacy of the most frequent label is the least present in MaCoCu-is. In the case of FTD, CORE, FTD-X-GENRE and CORE-X-GENRE, the most frequent label is the same one in all three datasets, while GINCO, GINCO-X-GENRE and X-GENRE identified different distribution of labels in the corpora.
 
 
-#### Comparison of label distribution (instance level)
+**Comparison of label distribution (instance level)**
 
 MaCoCu-sl:
 - Label distribution between sample1 and sample2 of MaCoCu-sl remains more or less the same (very small differences between the samples).
@@ -323,7 +337,7 @@ MaCoCu-is:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-is-KDE.png)
 
-#### Comparison of label distribution on the domain level
+#### Label distribution on the domain level
 
 When comparing the two samples of MaCoCu-sl, frequency of the most frequent label on domain level is slightly smaller for all classifiers, but only up to 5 points. Otherwise, the distributions are very similar.
 
