@@ -582,6 +582,18 @@ The distribution is much different:
 
 ![](figures/Comparison-of-distribution-in-domains-MaCoCu-sl-shuffled-subplots.png)
 
+Comparison of accuracy scores:
+
+| Classifier    | Accuracy - shuffled | Accuracy - original | Original minus shuffled |
+|---------------|--------------------:|--------------------:|------------------:|
+| X-GENRE       |                0.43 |                0.66 |              0.23 |
+| GINCO         |                0.43 |                0.64 |              0.21 |
+| GINCO-X-GENRE |                0.47 |                0.67 |               0.2 |
+| CORE-X-GENRE  |                0.45 |                0.65 |               0.2 |
+| CORE          |                0.65 |                0.78 |              0.13 |
+| FTD           |                0.59 |                0.72 |              0.13 |
+| FTD-X-GENRE   |                0.63 |                0.75 |              0.12 |
+
 The scores for classifiers assuming that the domains are uni-genre:
 
 | Classifier    |   Accuracy |   Krippendorfs Alpha |   Macro F1 |   Micro F1 |   Macro precision |   Macro recall |
