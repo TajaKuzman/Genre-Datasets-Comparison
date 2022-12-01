@@ -12,6 +12,7 @@ from statistics import multimode
 from apyori import apriori
 from sklearn.metrics import accuracy_score
 import krippendorff
+import itertools
 
 def label_confidence(corpus, classifiers):
 	"""
@@ -592,3 +593,35 @@ def calculate_apriori(extended_corpus, classifiers):
 					if label not in list(df["Left_Hand_Side"].unique()) and label not in list(df["Right_Hand_Side"].unique()):
 						not_matched.append(label)
 				print(f"Labels not matched: {not_matched}")
+
+def calculate_hits(extended_corpus, genre_distribution, classifiers):
+	# Create a list of domains from the df that is domain-level (genre_distribution)
+	domain_list = list(genre_distribution["domain_id"].unique())
+
+	classifier_comparison_dict = {"Classifier":[], "Hits": [], "Hits percentage": []}
+
+	for classifier in classifiers:
+		pair_number = 0
+		hits = 0
+
+		# For each domain, calculate the hits:
+		for domain in domain_list:
+			# Create a list of labels inside a domain - take them from the corpus that is instance-level
+			current_label_list = list(extended_corpus[extended_corpus["domain"] == domain]["{}".format(classifier)])
+
+			for pair in itertools.combinations(current_label_list,2):
+				pair_number += 1
+				if pair[0] == pair[1]:
+					hits += 1
+
+		# Calculate hits percentage
+		hits_percentage = hits/pair_number
+
+		# Add information to the dictionary
+		classifier_comparison_dict["Classifier"].append(classifier)
+		classifier_comparison_dict["Hits"].append(hits)
+		classifier_comparison_dict["Hits percentage"].append(round(hits_percentage,2))
+
+	# Print out a df
+	results_df = pd.DataFrame(classifier_comparison_dict).sort_values("Classifier", ascending=True)
+	print(results_df.to_markdown(index=False))

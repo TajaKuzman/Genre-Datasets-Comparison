@@ -612,6 +612,8 @@ The distribution is much different:
 
 **Difference between shuffled and original corpus - all datasets**
 
+Relative improvement:
+
 |   Classifier  | Relative improvement - MaCoCu-sl | Relative improvement - MaCoCu-mk | Relative improvement - MaCoCu-is |
 |:-------------:|---------------------------------:|---------------------------------:|---------------------------------:|
 |    X-GENRE    |                             **1.53** |                             1.62 |                              **1.8** |
@@ -622,42 +624,96 @@ The distribution is much different:
 |  CORE-X-GENRE |                             1.44 |                             1.49 |                              1.5 |
 |      CORE     |                              1.2 |                             1.28 |                             1.29 |
 
+Relative error reduction:
+
+|   Classifier  | Relative Error Reduction -   MaCoCu-sl | Relative Error Reduction -   MaCoCu-mk | Relative Error Reduction -   MaCoCu-is |
+|:-------------:|----------------------------------------|----------------------------------------|----------------------------------------|
+| X-GENRE       | **0.40**                                   | **0.45**                                   | 0.43                                   |
+| GINCO-X-GENRE | 0.38                                   | 0.42                                   | 0.38                                   |
+| CORE          | 0.37                                   | 0.43                                   | 0.41                                   |
+| GINCO         | 0.37                                   | 0.42                                   | 0.41                                   |
+| CORE-X-GENRE  | 0.36                                   | 0.40                                   | 0.36                                   |
+| FTD-X-GENRE   | 0.32                                   | 0.43                                   | 0.41                                   |
+| FTD           | 0.32                                   | 0.42                                   | **0.44**                                   |
+
+Relative error reduction based on number of hits (label agreement inside domains):
+
+| Classifier    | Relative Error Reduction - SL | Relative Error Reduction - MK | Relative Error Reduction - IS |
+|---------------|------------------------------:|------------------------------:|------------------------------:|
+| CORE          |                          **0.40** |                          **0.41** | **0.40**                          |
+| GINCO-X-GENRE |                          0.35 |                          0.35 | 0.33                          |
+| X-GENRE       |                          0.35 |                          0.39 | 0.35                          |
+| FTD-X-GENRE   |                          0.34 |                          0.39 | 0.37                          |
+| CORE-X-GENRE  |                          0.33 |                          0.35 | 0.31                          |
+| GINCO         |                          0.32 |                          0.34 | 0.34                          |
+| FTD           |                          0.32 |                          0.37 | 0.38                          |
+
 **Difference between shuffled and original corpus - MaCoCu-sl**
 
-|   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference (original   minus shuffled) | Relative improvement |
-|:-------------:|--------------------:|--------------------:|------------------------------------------------:|---------------------:|
-|    X-GENRE    |                0.43 |                0.66 |                                            0.23 |                 1.53 |
-|     GINCO     |                0.43 |                0.64 |                                            0.21 |                 1.49 |
-|  CORE-X-GENRE |                0.45 |                0.65 |                                             0.2 |                 1.44 |
-| GINCO-X-GENRE |                0.47 |                0.67 |                                             0.2 |                 1.43 |
-|      FTD      |                0.59 |                0.72 |                                            0.13 |                 1.22 |
-|      CORE     |                0.65 |                0.78 |                                            0.13 |                  1.2 |
-|  FTD-X-GENRE  |                0.63 |                0.75 |                                            0.12 |                 1.19 |
+|   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference (original   minus shuffled) | Relative improvement | Relative Error Reduction |
+|:-------------:|--------------------:|--------------------:|------------------------------------------------:|---------------------:|------------------------:|
+|    X-GENRE    |                0.43 |                0.66 |                                            0.23 |                 1.53 | 0.40                    |
+| GINCO-X-GENRE |                0.47 |                0.67 |                                             0.2 |                 1.43 | 0.38                    |
+|      CORE     |                0.65 |                0.78 |                                            0.13 |                  1.2 | 0.37                    |
+|     GINCO     |                0.43 |                0.64 |                                            0.21 |                 1.49 | 0.37                    |
+|  CORE-X-GENRE |                0.45 |                0.65 |                                             0.2 |                 1.44 | 0.36                    |
+|  FTD-X-GENRE  |                0.63 |                0.75 |                                            0.12 |                 1.19 | 0.32                    |
+|      FTD      |                0.59 |                0.72 |                                            0.13 |                 1.22 | 0.32                    |
+
+| Classifier    | Hits percentage - shuffled | Hits percentage - original | Relative Error Reduction |
+|---------------|---------------------------:|---------------------------:|-------------------------:|
+| CORE          |                       0.45 |                       0.67 | 0.40                     |
+| GINCO-X-GENRE |                       0.26 |                       0.52 | 0.35                     |
+| X-GENRE       |                       0.23 |                        0.5 | 0.35                     |
+| FTD-X-GENRE   |                       0.44 |                       0.63 | 0.34                     |
+| CORE-X-GENRE  |                       0.25 |                        0.5 | 0.33                     |
+| GINCO         |                       0.23 |                       0.48 | 0.32                     |
+| FTD           |                       0.38 |                       0.58 | 0.32                     |
 
 **Difference between shuffled and original corpus - MaCoCu-mk**
 
-| Classifier    | Accuracy - shuffled | Accuracy - original | Absolute difference | Relative improvement |
-|---------------|--------------------:|--------------------:|--------------------:|---------------------:|
-| GINCO         |                 0.4 |                0.65 |                0.25 |                 1.63 |
-| X-GENRE       |                0.42 |                0.68 |                0.26 |                 1.62 |
-| GINCO-X-GENRE |                0.41 |                0.66 |                0.25 |                 1.61 |
-| FTD           |                0.45 |                0.68 |                0.23 |                 1.51 |
-| CORE-X-GENRE  |                0.45 |                0.67 |                0.22 |                 1.49 |
-| FTD-X-GENRE   |                0.49 |                0.71 |                0.22 |                 1.45 |
-| CORE          |                 0.6 |                0.77 |                0.17 |                 1.28 |
+|   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference | Relative improvement | Relative Error Reduction |
+|:-------------:|--------------------:|--------------------:|--------------------:|---------------------:|-------------------------:|
+| X-GENRE       |                0.42 |                0.68 |                0.26 |                 1.62 | 0.45                     |
+| FTD-X-GENRE   |                0.49 |                0.71 |                0.22 |                 1.45 | 0.43                     |
+| CORE          |                 0.6 |                0.77 |                0.17 |                 1.28 | 0.43                     |
+| GINCO-X-GENRE |                0.41 |                0.66 |                0.25 |                 1.61 | 0.42                     |
+| FTD           |                0.45 |                0.68 |                0.23 |                 1.51 | 0.42                     |
+| GINCO         |                 0.4 |                0.65 |                0.25 |                 1.63 | 0.42                     |
+| CORE-X-GENRE  |                0.45 |                0.67 |                0.22 |                 1.49 | 0.40                     |
 
+
+| Classifier    | Hits percentage - shuffled | Hits percentage - original | Relative Error Reduction |
+|---------------|---------------------------:|---------------------------:|-------------------------:|
+| CORE          |                       0.41 |                       0.65 | 0.41                     |
+| X-GENRE       |                       0.23 |                       0.53 | 0.39                     |
+| FTD-X-GENRE   |                        0.3 |                       0.57 | 0.39                     |
+| FTD           |                       0.25 |                       0.53 | 0.37                     |
+| CORE-X-GENRE  |                       0.26 |                       0.52 | 0.35                     |
+| GINCO-X-GENRE |                       0.22 |                       0.49 | 0.35                     |
+| GINCO         |                       0.21 |                       0.48 | 0.34                     |
 
 **Difference between shuffled and original corpus - MaCoCu-is**
 
-| Classifier    | Accuracy - shuffled | Accuracy - original | Absolute difference | Relative improvement |
-|---------------|--------------------:|--------------------:|--------------------:|---------------------:|
-| X-GENRE       |                0.35 |                0.63 |                0.28 |                 1.80 |
-| GINCO         |                0.36 |                0.62 |                0.26 |                 1.72 |
-| FTD           |                0.38 |                0.65 |                0.27 |                 1.71 |
-| GINCO-X-GENRE |                0.36 |                 0.6 |                0.24 |                 1.67 |
-| FTD-X-GENRE   |                0.44 |                0.67 |                0.23 |                 1.52 |
-| CORE-X-GENRE  |                0.42 |                0.63 |                0.21 |                 1.50 |
-| CORE          |                0.59 |                0.76 |                0.17 |                 1.29 |
+|   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference | Relative improvement | Relative Error Reduction |
+|:-------------:|--------------------:|--------------------:|--------------------:|---------------------:|-------------------------:|
+| X-GENRE       |                0.35 |                0.63 |                0.28 |                  1.8 | 0.43                     |
+| GINCO         |                0.36 |                0.62 |                0.26 |                 1.72 | 0.41                     |
+| FTD           |                0.38 |                0.65 |                0.27 |                 1.71 | 0.44                     |
+| GINCO-X-GENRE |                0.36 |                 0.6 |                0.24 |                 1.67 | 0.38                     |
+| FTD-X-GENRE   |                0.44 |                0.67 |                0.23 |                 1.52 | 0.41                     |
+| CORE-X-GENRE  |                0.42 |                0.63 |                0.21 |                  1.5 | 0.36                     |
+| CORE          |                0.59 |                0.76 |                0.17 |                 1.29 | 0.41                     |
+
+| Classifier    | Hits percentage - shuffled | Hits percentage - original | Relative Error Reduction |
+|---------------|---------------------------:|---------------------------:|-------------------------:|
+| CORE          |                        0.4 |                       0.64 | 0.40                     |
+| FTD           |                       0.19 |                        0.5 | 0.38                     |
+| FTD-X-GENRE   |                       0.25 |                       0.53 | 0.37                     |
+| X-GENRE       |                       0.17 |                       0.46 | 0.35                     |
+| GINCO         |                       0.17 |                       0.45 | 0.34                     |
+| GINCO-X-GENRE |                       0.17 |                       0.44 | 0.33                     |
+| CORE-X-GENRE  |                       0.23 |                       0.47 | 0.31                     |
 
 **Shuffled corpus (Slovene):**
 
@@ -682,6 +738,7 @@ The distribution is much different:
 | GINCO         |       0.64 |                 0.51 |       0.51 |       0.64 |              0.49 |           0.58 |
 | X-GENRE       |       0.66 |                 0.54 |       0.51 |       0.66 |              0.49 |           0.6  |
 | FTD           |       0.72 |                 0.5  |       0.49 |       0.72 |              0.44 |           0.6  |
+
 
 **Shuffled corpus (MaCoCu-mk)**
 
