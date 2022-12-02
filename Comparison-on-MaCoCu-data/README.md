@@ -689,6 +689,13 @@ Relative error reduction based on number of hits (label agreement inside domains
 | CORE-X-GENRE | 3.96 | 4.53 | 3.49 | 4.32 | 2.08 | 3.01 | 2.55 | 2.71 |
 | X-GENRE | **13.06** | **16.18** | 3.46 | 4.47 | **2.78** | 4.14 | 5.77 | 6.92 |
 
+To sum up:
+- The scores show that this metric favours unfrequent labels - when calculated on category level.
+- Macro scores: macro scores heavily depend on the least frequent categories - if there is a category that is very infrequent, the difference between the hits in original versus shuffle will be extremely high (50 or 100 times higher), which has a very large impact on the average macro scores (calculated across macro scores for each category). That is why this is not a good metric. The results across corpora are also very different, the winning classifiers are: CORE, GINCO-X-GENRE, X-GENRE.
+- Macro score for median heavily depends on the distribution of labels (how many of them are very infrequent and how many are frequent) - if there are more infrequent labels, the median will be high. Best classifiers based on this score: FTD, FTD, CORE.
+- Micro score for median also depends on the distribution - if there are more infrequent labels, the median is higher. Best classifiers based on this score: CORE
+- Micro average scores: more useful, because the infrequent labels do not impact it so much. Based on this metric, the best classifiers are X-GENRE, GINCO, X-GENRE/FTD.
+
 **Difference between shuffled and original corpus - MaCoCu-sl**
 
 |   Classifier  | Accuracy - shuffled | Accuracy - original | Absolute difference (original   minus shuffled) | Relative improvement | Relative Error Reduction |
