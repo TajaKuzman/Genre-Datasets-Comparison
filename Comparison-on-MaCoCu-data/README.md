@@ -1,5 +1,7 @@
 # Comparison of predictions based on domain (URL) information from a test corpus
 
+Main idea: to compare genre classifiers on web corpora in multiple languages based on the domain information (using domain information as a weak signal). We applied classifiers to the corpora, then grouped the instances into domains and analysed how many instances inside a domain agree. We discovered that some classifiers are much more prone to assigning just one label to the dataset than the other. In consequence, we cannot just compare the predicted values with the most frequently predicted value in domain, using the traditional metrics, because calculating the most frequently predicted value per domain would further award the classifiers that overwhelmingly predict the most frequent label. So we calculated agreement of labels inside a domain instead. However, the agreement still favours a classifier with more unbalanced predictions. That is why instead of comparing the classifiers directly, we compared the labels agreement with a chance agreement (by )
+
 To analyse how appropriate are various schemata for our target data, which is MaCoCu web corpora, we apply all the classifiers to a sample of a corpus. Then we analyse the distribution of labels inside one domain. We base this comparison on a hypothesis that web domains mostly consist of only one genre. Thus, we will analyse to which extent the genre labels from different schemata are able to consistently assign a genre to texts inside one domain.
 
 Contents:
@@ -647,6 +649,45 @@ Relative error reduction based on number of hits (label agreement inside domains
 | CORE-X-GENRE  |                          0.33 |                          0.35 | 0.31                          |
 | GINCO         |                          0.32 |                          0.34 | 0.34                          |
 | FTD           |                          0.32 |                          0.37 | 0.38                          |
+
+
+**Difference based on categories**
+
+**MaCoCu-sl**
+
+| Classifier | Macro avg. (hits) | Macro avg. (hits per pairs) | Macro median (hits) | Macro median (hits per pairs) | Micro avg. (hits) | Micro avg.  (hits per pairs) | Micro median (hits) | Micro median (hits per pairs) |
+|---|---|---|---|---|---|---|---|---|
+| FTD | 13.04 |**15.51** | **8.01** | **9.73** | 1.55 | 3.60 | 6.41 | 8.14 |
+| GINCO | 9.96 | 11.60 | 3.47 | 4.10 | 2.11 | 3.73 | 3.68 | 5.17 |
+| CORE | **13.73** | 15.43 | 7.30 | 7.71 | 1.48 | 3.48 | **8.46** | **12.59** |
+| GINCO-X-GENRE | 7.55 | 9.51 | 3.55 | 4.33 | 2.00 | 3.81 | 4.57 | 5.36 |
+| FTD-X-GENRE | 12.48 | 14.98 | 5.48 | 6.79 | 1.44 | 3.05 | 5.40 | 7.45 |
+| CORE-X-GENRE | 5.49 | 6.32 | 3.60 | 4.38 | 1.96 | 3.10 | 2.69 | 3.65 |
+| X-GENRE | 5.01 | 6.35 | 3.23 | 3.96 | **2.20** | **3.91** | 4.32 | 5.28 |
+
+**MaCoCu-mk**
+
+| Classifier | Macro avg. (hits) | Macro avg. (hits per pairs) | Macro median (hits) | Macro median (hits per pairs) | Micro avg. (hits) | Micro avg.  (hits per pairs) | Micro median (hits) | Micro median (hits per pairs) |
+|---|---|---|---|---|---|---|---|---|
+| FTD | 12.74 | 14.33 | **7.52**| **8.48** | 2.08 | 3.61 | 7.53 | 8.48 |
+| GINCO | 12.77 | 15.59 | 2.89 | 3.22 | **2.35** | **3.79** | 2.89 | 5.13 |
+| CORE | 7.64 | 9.07 | 5.84 | 6.44 | 1.60 | 3.21 | **7.75** | **10.34** |
+| GINCO-X-GENRE | **17.06** | **22.48** | 2.12 | 2.54 | 2.20 | 3.61 | 5.22 | 6.63 |
+| FTD-X-GENRE | 9.75 | 10.33 | 5.91 | 6.96 | 1.89 | 3.08 | 5.91 | 6.96 |
+| CORE-X-GENRE | 4.69 | 5.40 | 2.90 | 3.36 | 1.98 | 2.87 | 2.18 | 2.78 |
+| X-GENRE | 12.28 | 13.13 | 5.00 | 5.17 | 2.29 | 3.77 | 5.78 | 6.77 |
+
+**MaCoCu-is**
+
+| Classifier | Macro avg. (hits) | Macro avg. (hits per pairs) | Macro median (hits) | Macro median (hits per pairs) | Micro avg. (hits) | Micro avg.  (hits per pairs) | Micro median (hits) | Micro median (hits per pairs) |
+|---|---|---|---|---|---|---|---|---|
+| FTD | 10.54 | 11.34 | 4.38 | 4.96 | 2.60 | **4.21** | 4.93 | 5.47 |
+| GINCO | 6.16 | 7.14 | 3.59 | 4.25 | 2.70 | 3.96 | 6.81 | 8.36 |
+| CORE | 9.20 | 11.20 | **6.55** | **7.68** | 1.62 | 3.42 | **12.05** | **15.06** |
+| GINCO-X-GENRE | 10.55 | 12.39 | 3.19 | 3.82 | 2.54 | 3.93 | 2.04 | 3.62 |
+| FTD-X-GENRE | 5.76 | 6.63 | 5.41 | 7.04 | 2.14 | 3.40 | 5.41 | 4.81 |
+| CORE-X-GENRE | 3.96 | 4.53 | 3.49 | 4.32 | 2.08 | 3.01 | 2.55 | 2.71 |
+| X-GENRE | **13.06** | **16.18** | 3.46 | 4.47 | **2.78** | 4.14 | 5.77 | 6.92 |
 
 **Difference between shuffled and original corpus - MaCoCu-sl**
 
