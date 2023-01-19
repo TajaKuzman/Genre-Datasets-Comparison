@@ -1275,7 +1275,52 @@ model = ClassificationModel(
 
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-CORE-test.png)
 
-##### Results based on "tested on"
+##### X-GENRE-2 classifier
+
+Then we decided that it might be better to train the joint classifier only on on labels that are present in all of the datasets. That is why we discarded Forum and Other from the train, dev and test split for X-GENRE. This classifier is named X-GENRE-2.
+
+The final dataset has 7 labels and 2606 instances. The sizes of splits are Train: 1562, Dev: 522, Test: 522.
+
+Label distribution:
+
+|                         |   labels |
+|:------------------------|---------:|
+| News                    |      573 |
+| Information/Explanation |      511 |
+| Promotion               |      478 |
+| Opinion/Argumentation   |      404 |
+| Instruction             |      351 |
+| Prose/Lyrical           |      182 |
+| Legal                   |      107 |
+
+|                         |    labels |
+|:------------------------|----------:|
+| News                    | 0.219877  |
+| Information/Explanation | 0.196086  |
+| Promotion               | 0.183423  |
+| Opinion/Argumentation   | 0.155027  |
+| Instruction             | 0.134689  |
+| Prose/Lyrical           | 0.0698388 |
+| Legal                   | 0.0410591 |
+
+|                                                          |   substituted_words (word in translation, corrected word) |
+|:---------------------------------------------------------|--------------------:|
+| [('Mir', 'Miro')]                                        |                 157 |
+| [('Joseph', 'Jožef')]                                    |                 112 |
+| [('Goranak', 'Gorenak')]                                 |                  98 |
+| [('Weber', 'Veber')]                                     |                  77 |
+| [('Sarca', 'Šarec')]                                     |                  61 |
+| [('Fisher', 'Fišer')]                                    |                  57 |
+| [('Matthew', 'Matej')]                                   |                  55 |
+| [('Jean', 'Žan')]                                        |                  51 |
+| [('Serva', 'Sluga')]                                     |                  42 |
+| [('Shabeder', 'Šabeder')]                                |                  41 |
+| [('Moon', 'Mesec')]                                      |                  41 |
+| [('Sharec', 'Šarec')]                                    |                  38 |
+| [('Christmas', 'Božič')]                                 |                  34 |
+
+
+#### Results based on "tested on"
 
 Results for tested on SI-GINCO:
 

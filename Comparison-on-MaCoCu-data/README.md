@@ -873,3 +873,25 @@ This means that if left value is very frequent -> confidence is smaller, if the 
 Parameters used: min_support=0.01, min_confidence=0.50, min_lift=1.0
 
 Results of comparison based on the apriori rules: see the Mapping to CORE-table (Določanje žanrov > Mapping to CORE), sheet "X-GENRE-schema-apriori-analysis".
+
+### Comparison based on manual annotation on domain level (manual checkup of the MaCoCu-sl corpus)
+
+When I performed manual checkup of the most common domains in the MaCoCu-sl corpus, I also annotated them with domain genres.
+
+Here are the statistics:
+
+
+| GENRE | domains | tokens |
+|---|---|---|
+| news portal | 110 | 371 530 335 |
+| recipe | 3 | 3 290 406 |
+| forum | 58 | 105 427 853 |
+| research article | 11 | 38 792 434 |
+| legal/regulation | 11 | 148 785 897 |
+| e-shop | 89 | 42 714 273 |
+| promotion of services | 2 | 1 697 590 |
+| literature | 6 | 12 149 913 |
+| small ads | 3 | 2 793 795 |
+| opinion | 8 | 19 107 619 |
+
+I will check whether these domains are present in our sample as well and how they are connected with classifiers predictions.

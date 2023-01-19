@@ -105,3 +105,14 @@ Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/shuffled/MaCoCu-mk_with_predic
 Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-mk/shuffled/MaCoCu-mk-shuffled-domain-level.csv
 .gitignore
 Comparison-on-MaCoCu-data/Comparison-on-MaCoCu-is/shuffled/MaCoCu-is-shuffled_with_predictions-domain-info-added.csv
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/MaCoCu-manual_ann_sample-domains-and-urls.csv
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/MaCoCu-sl_manual_checkup_with_predictions.csv
+.gitignore
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/MaCoCu-sl-sample-prediction-GINCO
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/MaCoCu-sl-sample-prediction-X-GENRE
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/MaCoCu-sl-sample-prediction-CORE
+Creation-of-classifiers-and-cross-prediction/runs/Jan19_09-34-37_kt-gpu-vm-1TB/events.out.tfevents.1674117277.kt-gpu-vm-1TB.23399.0
+Comparison-on-MaCoCu-data/Comparison-based-on-hits.xlsx
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/genres-in-Slovene-domains.csv
+Comparison-on-MaCoCu-data/Comparison-based-on-manual-checkup-MaCoCu-sl/MaCoCu-sl-manual-checkup-sample.csv
+Comparison-on-MaCoCu-data/Comparison-based-on-hits.xlsx
