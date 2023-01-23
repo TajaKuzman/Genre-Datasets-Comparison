@@ -1303,22 +1303,46 @@ Label distribution:
 | Prose/Lyrical           | 0.0698388 |
 | Legal                   | 0.0410591 |
 
-|                                                          |   substituted_words (word in translation, corrected word) |
-|:---------------------------------------------------------|--------------------:|
-| [('Mir', 'Miro')]                                        |                 157 |
-| [('Joseph', 'Jožef')]                                    |                 112 |
-| [('Goranak', 'Gorenak')]                                 |                  98 |
-| [('Weber', 'Veber')]                                     |                  77 |
-| [('Sarca', 'Šarec')]                                     |                  61 |
-| [('Fisher', 'Fišer')]                                    |                  57 |
-| [('Matthew', 'Matej')]                                   |                  55 |
-| [('Jean', 'Žan')]                                        |                  51 |
-| [('Serva', 'Sluga')]                                     |                  42 |
-| [('Shabeder', 'Šabeder')]                                |                  41 |
-| [('Moon', 'Mesec')]                                      |                  41 |
-| [('Sharec', 'Šarec')]                                    |                  38 |
-| [('Christmas', 'Božič')]                                 |                  34 |
+As with other classifiers, I experimented with the numbers of epochs by evaluating the model on the dev split:
+- 2: Macro f1: 0.749, Micro f1: 0.753
+- 5: Macro f1: 0.811, Micro f1: 0.787
+- 8: Macro f1: 0.84, Micro f1: 0.82
+- 10: Macro f1: 0.821, Micro f1: 0.807
+- 15: Macro f1: 0.811, Micro f1: 0.787
 
+The optimum number of epochs was shown to be 8.
+
+Hyperparameters:
+
+```
+        args= {
+            "overwrite_output_dir": True,
+            "num_train_epochs": 8,
+            "train_batch_size":8,
+            "learning_rate": 1e-5,
+            "labels_list": LABELS,
+            "max_seq_length": 512,
+            "save_steps": -1,
+            "save_model_every_epoch":False,
+            "wandb_project": 'X-GENRE classifiers',
+            "silent": True,
+            }
+```
+
+Training took 20 minutes.
+
+To access the model from the Wandb:
+
+```
+import wandb
+run = wandb.init()
+artifact = run.use_artifact('tajak/X-GENRE classifiers/X-GENRE-2-classifier:v0', type='model')
+artifact_dir = artifact.download()
+
+# Loading a local save
+model = ClassificationModel(
+    "xlmroberta", artifact_dir)
+```
 
 #### Results based on "tested on"
 
