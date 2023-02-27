@@ -1452,3 +1452,60 @@ I tested the X-GENRE classifier on a (stratified) sample of FinCORE (200 instanc
 
 ![](figures/X-genre-labels/Confusion-matrix-X-GENRE-classifier-tested-on-FINCORE.png)
 
+#### Experiments with Chat-GPT
+
+I also analysed how well Chat-GPT does on this task, using the X-GENRE labels and the following prompt:
+
+```
+Please classify the following text according to genre (defined by function of the text, author's purpose and form of the text) and explain your decision. You can choose from the following classes: News, Legal, Promotion, Opinion/Argumentation, Instruction, Information/Explanation, Prose/Lyrical, Forum, Other. The text to classify: Shower pods install in no time… <p> 1. Prepare the floor with the waste and the water supply pipes. <p> 2. Attach shower equipment to the shower pod shell running flexible tails (H&C or just C) down back. <p> 3. Move unit into position connecting water supplies on the way and the waste outlet trap. <p> 4. Having secured the shower pod shell to the building structure doors may now be fitted.
+```
+
+I tested the model on 100 instances from the EN-GINCO dataset and compared it to the results of other models. I also asked the Chat-GPT to provide explanations.
+
+Instances of its answer:
+```
+Genre: Opinion/Argumentation
+
+Explanation: The text expresses the author's viewpoint that affordable housing should be a major issue in the upcoming federal election in Canada. The purpose of the text is to persuade readers to consider affordable housing as an important issue and to support the need for a national affordable housing strategy. The text is written in a persuasive tone and argues for a particular course of action. Therefore, this text is classified as Opinion/Argumentation.
+
+Genre: Information/Explanation
+
+The text provides technical information and explanations about power sports and electronic fuel injection. It includes a glossary with definitions and explanations of key terms related to gasoline, octane rating, and electronic control unit (ECU). The text explains the function and operation of OBD, sensors, ECU, and oxidation catalytic converters. The purpose of the text is to provide technical knowledge and understanding to readers who are interested in power sports and electronic fuel injection. The form of the text is informative and explanatory, with a mix of definitions, explanations, and descriptions.
+
+Genre: News
+
+Explanation: The text reports an event that has recently taken place, providing details about the location, date, and time of the event, as well as information about the actions taken by the authorities. The purpose of the text is to inform the reader of what happened, and why it happened. The form of the text is straightforward, factual and objective, without any emotional or subjective language. Therefore, it is a news article.
+```
+
+The model classified most of the texts correctly. Once I fed it two texts together and it was able to classify genres correctly to each part of the merged texts. It even correctly assigned the category "Other" to one text. Most of the time, it used the categories I instructed it to use, except a couple of times when it made up a new category: Review and Condolence Message. A couple of times, it assigned two categories to the text (e.g., Promotion/Review).
+
+I calculated F1 scores and accuracy on this sample, and in case it assigned multiple classes to the instance, if there was a class that corresponded to the y_true label, I took that one. The scores are better than the best scores for all of our models (all using the X-GENRE labels):
+
+|    | model    |   Micro F1 |   Macro F1 |   Accuracy |
+|---:|:---------|-----------:|-----------:|-----------:|
+|  0 | Chat-GPT |       0.74 |       0.65 |       0.72 |
+|  4 | X-GENRE  |       0.67 |       0.61 |       0.67 |
+|  1 | MT-GINCO |       0.62 |       0.57 |       0.62 |
+|  2 | SI-GINCO |       0.62 |       0.58 |       0.62 |
+|  5 | FTD      |       0.62 |       0.45 |       0.62 |
+|  3 | CORE     |       0.51 |       0.42 |       0.51 |
+
+Confusion matrices:
+
+Chat-GPT:
+
+<img style="width:100%" src="figures/Chat-GPT-cm.png">
+
+X-GENRE:
+
+<img style="width:100%" src="figures/X-GENRE-cm.png">
+
+Then in cases, where the Chat-GPT does not agree with the y_true labels, I read its explanations and if I though the text could be also of the genre, proposed by Chat-GPT and supported by its argumentation, I changed the y_true label accordingly to see what is the model's accuracy if we take into account the explanations as well.
+
+Results:
+- Macro f1: 0.85, Micro f1: 0.89
+- Accuracy: 0.87
+
+Confusion matrix:
+
+<img style="width:100%" src="figures/ChatGPT-with-explanations-cm.png">
