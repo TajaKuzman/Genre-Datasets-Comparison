@@ -20,6 +20,7 @@ The joint schema based on the comparison of the labels (based on predictions of 
 <img style="width:100%" src="figures/GINCORE-schema-plus-FTD.png">
 
 
+
 ## Repository structure
 * artifacts: contains saved models
 * data-preparation code: code for preparation of splits for training and testing; some additional data for preparation of splits
